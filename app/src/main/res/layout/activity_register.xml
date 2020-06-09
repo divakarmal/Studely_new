@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2699FB"
+    android:background="@color/myBlue"
     tools:context=".Register">
+    <!-- android:background="#1b5583" can use this color too -->
+
 
     <TextView
         android:id="@+id/textView"
