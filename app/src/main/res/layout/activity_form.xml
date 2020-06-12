@@ -8,13 +8,13 @@
     tools:context=".form">
 
     <EditText
-        android:id="@+id/field1"
+        android:id="@+id/phoneNumber"
         android:layout_width="349dp"
         android:layout_height="41dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="field1"
+        android:hint="phone number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
@@ -23,33 +23,33 @@
         app:layout_constraintVertical_bias="0.386" />
 
     <EditText
-        android:id="@+id/field2"
+        android:id="@+id/PrimaryAddress"
         android:layout_width="349dp"
         android:layout_height="41dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="field2"
+        android:hint="primary address"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/field1"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber"
         app:layout_constraintVertical_bias="0.091" />
 
     <EditText
-        android:id="@+id/field3"
+        android:id="@+id/PinCode"
         android:layout_width="349dp"
         android:layout_height="41dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="field3"
+        android:hint="pin code"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/field2"
+        app:layout_constraintTop_toBottomOf="@+id/PrimaryAddress"
         app:layout_constraintVertical_bias="0.086" />
 
 
@@ -65,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/field3"
+        app:layout_constraintTop_toBottomOf="@+id/PinCode"
         app:layout_constraintVertical_bias="0.223" />
 
 
