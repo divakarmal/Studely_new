@@ -1,13 +1,5 @@
 <resources>
-    <string name="app_name">Studely</string>
 
-    <string-array name="CanteenList">
-        <item>Please select a value</item>
-        <item>Science Canteen</item>
-        <item>Deck</item>
-        <item>Falvours@Utown</item>
-        <item>FineFoods@Utown</item>
-        <item>YIH Canteen</item>
-    </string-array>
+    <string name="app_name">Studely</string>
 
 </resources>

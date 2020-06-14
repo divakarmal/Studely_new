@@ -3,47 +3,50 @@ package com.example.studely;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderCanteenSelect extends AppCompatActivity {
 
-    private DatabaseReference mDatabase;
+    Spinner canteenSpinner;
+    ArrayAdapter<String> canteenAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_order_canteen_select);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("canteens");
+        canteenSpinner = (Spinner) findViewById(R.id.canteenSpinner);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference fDatabaseRoot = database.getReference();
 
-        DataSnapshot fDatabaseRoot;
-        mDatabase.child("canteens").addValueEventListener(new ValueEventListener() {
+
+
+        fDatabaseRoot.child("canteens").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Is better to use a List, because you don't know the size
-                // of the iterator returned by dataSnapshot.getChildren() to
-                // initialize the array
-                final List<String> canteens = new ArrayList<String>();
 
-                for (DataSnapshot canteenSnapshot: dataSnapshot.getChildren()) {
-                    String canteenName = canteenSnapshot.child("Value").getValue(String.class);
-                    canteens.add(canteenName);
+                final List<String> canteenList = new ArrayList<String>();
+
+                for (DataSnapshot addressSnapshot: dataSnapshot.getChildren()) {
+                    String canteenName = addressSnapshot.child("CanteenName").getValue(String.class);
+                    if (canteenName!=null){
+                        System.out.println(canteenName);
+                        canteenList.add(canteenName);
+                    }
                 }
 
-                Spinner areaSpinner = (Spinner) findViewById(R.id.canteenSpinner);
-                ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(OrderCanteenSelect.this,
-                        android.R.layout.simple_spinner_item, canteens);
-                areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                areaSpinner.setAdapter(areasAdapter);
+
+                canteenAdapter = new ArrayAdapter<String>(OrderCanteenSelect.this,
+                        android.R.layout.simple_list_item_1, canteenList);
+                canteenAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                canteenSpinner.setAdapter(canteenAdapter);
             }
 
             @Override
@@ -51,17 +54,5 @@ public class OrderCanteenSelect extends AppCompatActivity {
 
             }
         });
-
-
-/*
-        setContentView(R.layout.activity_order_canteen_select);
-        Spinner canteenSelect = findViewById(R.id.canteenSpinner);
-        ArrayAdapter<String> canteenAdaptor = new ArrayAdapter<>(OrderCanteenSelect.this,
-                android.R.layout.simple_list_item_1,
-                getResources().getStringArray(R.array.CanteenList));
-        canteenAdaptor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        canteenSelect.setAdapter(canteenAdaptor);
-
- */
     }
 }
