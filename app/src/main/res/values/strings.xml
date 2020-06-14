@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Studely</string>
 
-    <string-array name ="CanteenList">
+    <string-array name="CanteenList">
         <item>Please select a value</item>
         <item>Science Canteen</item>
         <item>Deck</item>

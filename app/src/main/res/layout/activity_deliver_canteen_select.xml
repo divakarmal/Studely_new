@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/myBlue"
-    tools:context=".OrderCanteenSelect">
+    tools:context=".DeliverCanteenSelect">
 
     <Spinner
         android:id="@+id/canteenSpinner"
@@ -43,4 +43,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.115" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
