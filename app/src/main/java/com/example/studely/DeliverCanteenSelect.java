@@ -40,7 +40,6 @@ public class DeliverCanteenSelect extends AppCompatActivity {
                 for (DataSnapshot addressSnapshot: dataSnapshot.getChildren()) {
                     String canteenName = addressSnapshot.child("CanteenName").getValue(String.class);
                     if (canteenName!=null){
-                        System.out.println(canteenName);
                         canteenList.add(canteenName);
                     }
                 }
