@@ -17,12 +17,12 @@ public class WelcomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
-        mNextBtn = findViewById(R.id.button);
+        mNextBtn = findViewById(R.id.detailsBtn);
 
         mNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),form.class));
+                startActivity(new Intent(getApplicationContext(), UserDetailsForm.class));
             }
         });
 

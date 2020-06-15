@@ -15,7 +15,7 @@
         <activity android:name=".OrderEnterAddress" />
         <activity android:name=".OrderCanteenSelect" />
         <activity android:name=".HomeLanding" />
-        <activity android:name=".form" />
+        <activity android:name=".UserDetailsForm" />
         <activity android:name=".WelcomePage" />
         <activity android:name=".Login" />
         <activity android:name=".Register" />

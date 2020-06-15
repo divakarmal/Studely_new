@@ -10,8 +10,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 public class OrderEnterAddress extends AppCompatActivity {
-    EditText Address;
-    CheckBox PrimaryAddressBool;
+    EditText address;
+    CheckBox priAddBool;
     Button mNextBtn;
 
     @Override
@@ -19,9 +19,9 @@ public class OrderEnterAddress extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_enter_address);
 
-        Address   = findViewById(R.id.EnterAddress);
+        address = findViewById(R.id.addressField);
         mNextBtn = findViewById(R.id.NextBtn);
-        PrimaryAddressBool = findViewById(R.id.PrimaryAddressCheck);
+        priAddBool = findViewById(R.id.priAddCheck);
 
 
 

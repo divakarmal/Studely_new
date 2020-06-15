@@ -15,7 +15,7 @@ public class HomeLanding extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_landing);
         mOrderButton = findViewById(R.id.orderBtn);
-        mDeliverButton = findViewById(R.id.DeliverBtn);
+        mDeliverButton = findViewById(R.id.deliverBtn);
 
         mOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
