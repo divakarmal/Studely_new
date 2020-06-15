@@ -1,10 +1,10 @@
 package com.example.studely;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -34,11 +34,11 @@ public class OrderStallSelect extends AppCompatActivity {
 
         fStallRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> stallList = new ArrayList<String>();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String stallName = snapshot.child("StallName").getValue(String.class);
+                    String stallName = snapshot.getKey();
                     if (stallName != null) {
                         stallList.add(stallName);
                     }
@@ -51,7 +51,7 @@ public class OrderStallSelect extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });

@@ -2,6 +2,7 @@ package com.example.studely;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -29,15 +30,15 @@ public class OrderCanteenSelect extends AppCompatActivity {
         mNextBtn = findViewById(R.id.nextBtn);
         canteenSpinner = (Spinner) findViewById(R.id.canteenSpinner);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference fDatabaseRoot = database.getReference();
+        DatabaseReference fCanteenRef = database.getReference().child("canteens");
 
-        fDatabaseRoot.child("canteens").addListenerForSingleValueEvent(new ValueEventListener() {
+        fCanteenRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> canteenList = new ArrayList<String>();
 
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    String canteenName = snapshot.child("CanteenName").getValue(String.class);
+                    String canteenName = snapshot.getKey();
                     if (canteenName!=null){
                         canteenList.add(canteenName);
                     }
@@ -57,7 +58,8 @@ public class OrderCanteenSelect extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent newIntent = new Intent(getApplicationContext(), OrderStallSelect.class);
-                newIntent.putExtra("canteenID", "abc");
+                String choice = canteenSpinner.getSelectedItem().toString();
+                newIntent.putExtra("canteenID", choice);
                 startActivity(newIntent);
             }
         });
