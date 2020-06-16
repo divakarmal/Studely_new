@@ -2,12 +2,10 @@ package com.example.studely;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +31,7 @@ public class OrderStallSelect extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_stall_select);
 
-        StallList = (ListView) findViewById(R.id.LV);
+        StallList = (ListView) findViewById(R.id.stallListView);
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference fStallRef = database.getReference().child("canteens")
@@ -55,7 +53,6 @@ public class OrderStallSelect extends AppCompatActivity {
                         android.R.layout.simple_list_item_1, stallList);
                 stallAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 StallList.setAdapter(stallAdapter);
-
             }
 
             @Override
@@ -69,8 +66,8 @@ public class OrderStallSelect extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent newIntent = new Intent(getApplicationContext(), OrderFoodSelect.class);
                 String choice = stallList.get(position);
-                newIntent.putExtra("CanteenID", canteenID);
-                newIntent.putExtra("StallID", choice);
+                newIntent.putExtra("canteenID", canteenID);
+                newIntent.putExtra("stallID", choice);
                 startActivity(newIntent);
                 Toast.makeText(OrderStallSelect.this,stallList.get(position), Toast.LENGTH_SHORT).show();
             }

@@ -25,7 +25,7 @@
         app:layout_constraintVertical_bias="0.102" />
 
     <ListView
-        android:id="@+id/LV"
+        android:id="@+id/stallListView"
         android:layout_width="355dp"
         android:layout_height="379dp"
         android:layout_alignParentEnd="true"
