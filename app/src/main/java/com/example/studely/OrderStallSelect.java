@@ -24,7 +24,6 @@ import java.util.List;
 public class OrderStallSelect extends AppCompatActivity {
 
 
-    Spinner stallSpinner;
     ArrayAdapter<String> stallAdapter;
     ListView StallList;
     List<String> stallList;
@@ -34,7 +33,6 @@ public class OrderStallSelect extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_stall_select);
 
-        stallSpinner = (Spinner) findViewById(R.id.stallSpinner);
         StallList = (ListView) findViewById(R.id.LV);
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -56,7 +54,6 @@ public class OrderStallSelect extends AppCompatActivity {
                 stallAdapter = new ArrayAdapter<>(OrderStallSelect.this,
                         android.R.layout.simple_list_item_1, stallList);
                 stallAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                stallSpinner.setAdapter(stallAdapter);
                 StallList.setAdapter(stallAdapter);
 
             }
