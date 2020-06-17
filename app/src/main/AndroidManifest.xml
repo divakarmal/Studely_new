@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".OrderFoodSelect"></activity>
+        <activity android:name=".DeliverPostConfirm"></activity>
+        <activity android:name=".DeliverSelectTime" />
+        <activity android:name=".DeliverOrderSelect" />
+        <activity android:name=".OrderFoodSelect" />
         <activity android:name=".DeliverCanteenSelect" />
         <activity android:name=".OrderEnterAddress" />
         <activity android:name=".OrderCanteenSelect" />
