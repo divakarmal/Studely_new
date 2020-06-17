@@ -1,7 +1,9 @@
 package com.example.studely.classes;
 
-import android.animation.LayoutTransition;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +18,15 @@ import com.example.studely.R;
 public class FoodRecAdapter extends RecyclerView.Adapter<FoodRecAdapter.FoodViewHolder> {
 
     String[] foodItems;
-    int[] qty;
+    public int[] qty;
     Context context;
+    private QtyTextChanged qtyTextChanged;
 
-    public FoodRecAdapter(Context context, String[] foodItems) {
+    public FoodRecAdapter(Context context, String[] foodItems, QtyTextChanged qtyTextChanged) {
         this.context = context;
         this.foodItems = foodItems;
         this.qty = new int[foodItems.length];
+        this.qtyTextChanged = qtyTextChanged;
     }
 
     @NonNull
@@ -34,9 +38,23 @@ public class FoodRecAdapter extends RecyclerView.Adapter<FoodRecAdapter.FoodView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FoodViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FoodViewHolder holder, final int position) {
         holder.foodItemText.setText(foodItems[position]);
-        holder.qtyNum.setText(String.valueOf(qty[position]));
+        EditText qtyNum = holder.qtyNum;
+        qtyNum.setText(String.valueOf(qty[position]));
+
+        qtyNum.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                qtyTextChanged.OnTextChanged(position, s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
 
     @Override

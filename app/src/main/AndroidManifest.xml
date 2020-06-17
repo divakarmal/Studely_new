@@ -11,12 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".DeliverPostConfirm"></activity>
+
+        <activity android:name=".DeliverPostConfirm" />
         <activity android:name=".DeliverSelectTime" />
         <activity android:name=".DeliverOrderSelect" />
         <activity android:name=".OrderFoodSelect" />
         <activity android:name=".DeliverCanteenSelect" />
         <activity android:name=".OrderEnterAddress" />
+        <activity android:name=".OrderSummary" />
         <activity android:name=".OrderCanteenSelect" />
         <activity android:name=".OrderStallSelect" />
         <activity android:name=".HomeLanding" />

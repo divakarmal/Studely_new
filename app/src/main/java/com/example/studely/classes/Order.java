@@ -1,10 +1,11 @@
 package com.example.studely.classes;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public class Order implements Serializable {
     private LocalDateTime timestamp;
     private User deliverer;
     private User receiver;
@@ -27,6 +28,8 @@ public class Order {
     public void setCanteen(String canteen) { this.canteen = canteen; }
 
     public void addFood(Food food) { foodList.add(food); }
+
+    public List<Food> getList() { return this.foodList; }
 
     public void calcOrderCost() {
         for (Food food : foodList) {

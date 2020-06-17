@@ -23,15 +23,15 @@ public class OrderStallSelect extends AppCompatActivity {
 
 
     ArrayAdapter<String> stallAdapter;
-    ListView StallList;
-    List<String> stallList;
+    ListView stallList;
+    List<String> stalls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_stall_select);
 
-        StallList = (ListView) findViewById(R.id.stallListView);
+        stallList = (ListView) findViewById(R.id.stallListView);
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference fStallRef = database.getReference().child("canteens")
@@ -40,19 +40,19 @@ public class OrderStallSelect extends AppCompatActivity {
         fStallRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                stallList = new ArrayList<String>();
+                stalls = new ArrayList<String>();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String stallName = snapshot.getKey();
                     if (stallName != null) {
-                        stallList.add(stallName);
+                        stalls.add(stallName);
                     }
                 }
 
                 stallAdapter = new ArrayAdapter<>(OrderStallSelect.this,
-                        android.R.layout.simple_list_item_1, stallList);
+                        android.R.layout.simple_list_item_1, stalls);
                 stallAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                StallList.setAdapter(stallAdapter);
+                stallList.setAdapter(stallAdapter);
             }
 
             @Override
@@ -61,15 +61,15 @@ public class OrderStallSelect extends AppCompatActivity {
             }
         });
 
-        StallList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        stallList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent newIntent = new Intent(getApplicationContext(), OrderFoodSelect.class);
-                String choice = stallList.get(position);
+                String choice = stalls.get(position);
                 newIntent.putExtra("canteenID", canteenID);
                 newIntent.putExtra("stallID", choice);
                 startActivity(newIntent);
-                Toast.makeText(OrderStallSelect.this,stallList.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderStallSelect.this, stalls.get(position), Toast.LENGTH_SHORT).show();
             }
         });
 

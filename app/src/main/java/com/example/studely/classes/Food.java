@@ -1,6 +1,8 @@
 package com.example.studely.classes;
 
-public class Food {
+import java.io.Serializable;
+
+public class Food implements Serializable  {
     private String name;
     private int price;
     private int quantity;
@@ -13,5 +15,10 @@ public class Food {
 
     public int calcCost() {
         return price * quantity;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s x %d\t\t%d", name, quantity, price);
     }
 }
