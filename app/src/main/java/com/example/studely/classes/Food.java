@@ -3,9 +3,9 @@ package com.example.studely.classes;
 import java.io.Serializable;
 
 public class Food implements Serializable  {
-    private String name;
-    private int price;
-    private int quantity;
+    public String name;
+    public int price;
+    public int quantity;
 
     public Food(String name, int price, int quantity) {
         this.name = name;

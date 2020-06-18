@@ -7,12 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.studely.classes.Food;
-import com.example.studely.classes.FoodRecAdapter;
+import com.example.studely.adapters.FoodRecAdapter;
 import com.example.studely.classes.Order;
 import com.example.studely.classes.QtyTextChanged;
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class OrderFoodSelect extends AppCompatActivity {
