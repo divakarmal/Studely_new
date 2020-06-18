@@ -84,7 +84,7 @@ public class OrderFoodSelect extends AppCompatActivity {
                 for (int i = 0; i < foodQty.size(); i++) {
                     int qty = foodQty.get(i);
                     if (qty != 0) {
-                        order.addFood(new Food(foodItems.get(i), qty, foodPrice.get(i)));
+                        order.addFood(new Food(foodItems.get(i), foodPrice.get(i), qty));
                     }
                 }
                 Intent newIntent = new Intent(getApplicationContext(), OrderSummary.class);
