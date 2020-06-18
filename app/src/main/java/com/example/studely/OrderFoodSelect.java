@@ -53,7 +53,8 @@ public class OrderFoodSelect extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     foodItems.add(snapshot.getKey());
                     foodQty.add(0);
-                    foodPrice.add(0);
+                    Integer p = Integer.parseInt((String) snapshot.getValue());
+                    foodPrice.add(p);
                 }
 
                 final FoodRecAdapter foodAdapter = new FoodRecAdapter(OrderFoodSelect.this,

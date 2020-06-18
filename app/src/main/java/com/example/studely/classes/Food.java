@@ -19,6 +19,9 @@ public class Food implements Serializable  {
 
     @Override
     public String toString() {
-        return String.format("%s x %d\t\t%d", name, quantity, price);
+        int p = this.price;
+        int q = this.quantity;
+        int c = this.calcCost();
+        return String.format("%s " +"  $" + q +"    x"+ p +"      $" + c, name);
     }
 }

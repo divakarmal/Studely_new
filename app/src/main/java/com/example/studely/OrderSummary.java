@@ -17,6 +17,7 @@ public class OrderSummary extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_order_summary);
 
         itemList = findViewById(R.id.itemListView);
         Bundle bundle = this.getIntent().getExtras();
