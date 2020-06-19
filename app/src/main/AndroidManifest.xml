@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
 
+        <activity android:name=".OrderDelivererSelect" />
         <activity android:name=".OrderPostConfirm" />
         <activity android:name=".DeliverPostConfirm" />
         <activity android:name=".DeliverSelectTime" />
