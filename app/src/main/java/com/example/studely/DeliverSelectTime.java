@@ -22,26 +22,26 @@ public class DeliverSelectTime extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deliver_select_time);
-        mConfirmBtn = findViewById(R.id.confirm);
+        mConfirmBtn = findViewById(R.id.confirmBtn);
         mTimePicker = findViewById(R.id.timePicker1);
         mNoOfOrders = findViewById(R.id.numOfOrders);
         mTimePicker.setIs24HourView(true);
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-        final String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         mConfirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent newIntent = new Intent(getApplicationContext(), DeliverPostConfirm.class);
-                String mPushId = dbRef.push().getKey();
+                String pushID = dbRef.push().getKey();
                 int clockTime = mTimePicker.getHour() * 100 + mTimePicker.getMinute();
                 String numOfOrders;
                 numOfOrders = mNoOfOrders.getText().toString();
                 String deliveryTime = Integer.toString(clockTime);
-                dbRef.child("DeliveryPostings").child(canteenID).child(mPushId).child("Deliverer").setValue(currentuser);
-                dbRef.child("DeliveryPostings").child(canteenID).child(mPushId).child("DeliveryTime").setValue(deliveryTime);
-                dbRef.child("DeliveryPostings").child(canteenID).child(mPushId).child("NoOfOrders").setValue(numOfOrders);
+                dbRef.child("DeliveryPostings").child(canteenID).child(pushID).child("Deliverer").setValue(currentUser);
+                dbRef.child("DeliveryPostings").child(canteenID).child(pushID).child("DeliveryTime").setValue(deliveryTime);
+                dbRef.child("DeliveryPostings").child(canteenID).child(pushID).child("NoOfOrders").setValue(numOfOrders);
 
                 startActivity(newIntent);
             }

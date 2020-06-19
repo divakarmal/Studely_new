@@ -27,17 +27,31 @@ public class Order implements Serializable {
 
     public void setCanteen(String canteen) { this.canteen = canteen; }
 
+    public void setDeliveryTime(LocalDateTime deliTime) { this.deliveryTime = deliTime; }
+
+    public void setDestination(String dest) { this.destination = dest; }
+
     public void addFood(Food food) { foodList.add(food); }
 
     public List<Food> getList() { return this.foodList; }
 
-    public void calcOrderCost() {
+    public int calcOrderCost() {
+        this.orderCost = 0;
         for (Food food : foodList) {
             this.orderCost += food.calcCost();
         }
+        return this.orderCost;
     }
 
-    public void setDeliveryTime(LocalDateTime deliTime) { this.deliveryTime = deliTime; }
+    public LocalDateTime getDeliveryTime() {
+        return deliveryTime;
+    }
 
-    public void setDestination(String dest) { this.destination = dest; }
+    public String getCanteen() {
+        return canteen;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
 }
