@@ -39,6 +39,7 @@ public class OrderFoodSelect extends AppCompatActivity {
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final String stallID = getIntent().getExtras().getString("stallID");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final String destination = getIntent().getExtras().getString("orderDestination");
         DatabaseReference fFoodRef = database.getReference().child("canteens")
                 .child(canteenID).child("StallList").child(stallID);
 
@@ -80,7 +81,7 @@ public class OrderFoodSelect extends AppCompatActivity {
             public void onClick(View v) {
                 Order order = new Order();
                 order.setCanteen(canteenID);
-                order.setDestination(""); // <----------------------- Figure this out
+                order.setDestination(destination); // <----------------------- Figure this out
                 for (int i = 0; i < foodQty.size(); i++) {
                     int qty = foodQty.get(i);
                     if (qty != 0) {

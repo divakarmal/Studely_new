@@ -33,6 +33,7 @@ public class OrderStallSelect extends AppCompatActivity {
 
         stallList = (ListView) findViewById(R.id.stallListView);
         final String canteenID = getIntent().getExtras().getString("canteenID");
+        final String destination = getIntent().getExtras().getString("orderDestination");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference fStallRef = database.getReference().child("canteens")
                                         .child(canteenID).child("StallList");
@@ -68,6 +69,7 @@ public class OrderStallSelect extends AppCompatActivity {
                 String choice = stalls.get(position);
                 newIntent.putExtra("canteenID", canteenID);
                 newIntent.putExtra("stallID", choice);
+                newIntent.putExtra("orderDestination", destination);
                 startActivity(newIntent);
                 Toast.makeText(OrderStallSelect.this, stalls.get(position), Toast.LENGTH_SHORT).show();
             }

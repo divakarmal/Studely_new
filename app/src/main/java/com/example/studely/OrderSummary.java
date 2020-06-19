@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,15 +22,18 @@ public class OrderSummary extends AppCompatActivity {
 
     RecyclerView summaryList;
     Button mConfirmButton;
+    TextView orderTotal;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_summary);
-
+        orderTotal = findViewById(R.id.totalOrderCost);
         summaryList = findViewById(R.id.summaryRecView);
         Bundle bundle = this.getIntent().getExtras();
         final Order order = (Order) bundle.getSerializable("orderObj");
+        String cost = Integer.toString(order.calcOrderCost());
+        orderTotal.setText(cost);
 
         SummaryRecAdapter summaryRecAdapter = new SummaryRecAdapter(this, order.getList());
         summaryList.setAdapter(summaryRecAdapter);
@@ -38,15 +42,16 @@ public class OrderSummary extends AppCompatActivity {
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference orderPostingsRef = dbRef.child("OrderPostings");
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String canteenID = order.getCanteen();
 
         mConfirmButton = findViewById(R.id.confirmBtn);
         mConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pushID = orderPostingsRef.push().getKey();
 
-                DatabaseReference pushRef = orderPostingsRef.child(pushID);
-                pushRef.child("Canteen").setValue(order.getCanteen());
+                String pushID = orderPostingsRef.child(canteenID).push().getKey();
+
+                DatabaseReference pushRef = orderPostingsRef.child(canteenID).child(pushID);
                 pushRef.child("DeliveryTime").setValue("0000"); // <-------------------------- Lmao we never did this
                 pushRef.child("Destination").setValue(order.getDestination());
                 pushRef.child("OrderCost").setValue(order.calcOrderCost());

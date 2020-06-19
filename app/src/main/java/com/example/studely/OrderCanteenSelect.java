@@ -29,7 +29,9 @@ public class OrderCanteenSelect extends AppCompatActivity {
 
         mNextBtn = findViewById(R.id.nextBtn);
         canteenSpinner = (Spinner) findViewById(R.id.canteenSpinner);
+        final String destination = getIntent().getExtras().getString("orderDestination");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
         DatabaseReference fCanteenRef = database.getReference().child("canteens");
 
         fCanteenRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -60,6 +62,7 @@ public class OrderCanteenSelect extends AppCompatActivity {
                 Intent newIntent = new Intent(getApplicationContext(), OrderStallSelect.class);
                 String choice = canteenSpinner.getSelectedItem().toString();
                 newIntent.putExtra("canteenID", choice);
+                newIntent.putExtra("orderDestination", destination);
                 startActivity(newIntent);
             }
         });

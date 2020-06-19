@@ -1,13 +1,13 @@
 package com.example.studely;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+
 
 public class OrderEnterAddress extends AppCompatActivity {
     EditText address;
@@ -28,7 +28,14 @@ public class OrderEnterAddress extends AppCompatActivity {
         mNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),OrderCanteenSelect.class));
+                Intent newIntent = new Intent(getApplicationContext(), OrderCanteenSelect.class);
+                if(priAddBool.isChecked()){
+                    //TODO
+                } else {
+                    String add = address.getText().toString();
+                    newIntent.putExtra("orderDestination", add);
+                }
+                startActivity(newIntent);
             }
         });
 
