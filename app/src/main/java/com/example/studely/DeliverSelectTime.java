@@ -36,7 +36,8 @@ public class DeliverSelectTime extends AppCompatActivity {
                 Intent newIntent = new Intent(getApplicationContext(), DeliverPostConfirm.class);
                 String mPushId = dbRef.push().getKey();
                 int clockTime = mTimePicker.getHour() * 100 + mTimePicker.getMinute();
-                String numOfOrders = mNoOfOrders.getText().toString();
+                String numOfOrders;
+                numOfOrders = mNoOfOrders.getText().toString();
                 String deliveryTime = Integer.toString(clockTime);
                 dbRef.child("DeliveryPostings").child(canteenID).child(mPushId).child("Deliverer").setValue(currentuser);
                 dbRef.child("DeliveryPostings").child(canteenID).child(mPushId).child("DeliveryTime").setValue(deliveryTime);
