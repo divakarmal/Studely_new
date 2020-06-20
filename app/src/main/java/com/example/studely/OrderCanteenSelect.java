@@ -3,11 +3,16 @@ package com.example.studely;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +34,24 @@ public class OrderCanteenSelect extends AppCompatActivity {
 
         mNextBtn = findViewById(R.id.nextBtn);
         canteenSpinner = (Spinner) findViewById(R.id.canteenSpinner);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ic_home:
+                        Intent home = new Intent(OrderCanteenSelect.this,HomeLanding.class);
+                        startActivity(home);
+                        break;
+                    case R.id.ic_myOrderList:
+                        Intent orderList = new Intent(OrderCanteenSelect.this,MyOrderList.class);
+                        startActivity(orderList);
+                        break;
+                }
+                return false;
+            }
+        });
+
         final String destination = getIntent().getExtras().getString("orderDestination");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
 

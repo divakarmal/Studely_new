@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,6 +15,7 @@ import com.example.studely.classes.Food;
 import com.example.studely.adapters.FoodRecAdapter;
 import com.example.studely.classes.Order;
 import com.example.studely.classes.QtyTextChanged;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +37,23 @@ public class OrderFoodSelect extends AppCompatActivity {
 
         foodList = findViewById(R.id.foodRecView);
         mNextBtn = findViewById(R.id.nextBtn);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ic_home:
+                        Intent home = new Intent(OrderFoodSelect.this,HomeLanding.class);
+                        startActivity(home);
+                        break;
+                    case R.id.ic_myOrderList:
+                        Intent orderList = new Intent(OrderFoodSelect.this,MyOrderList.class);
+                        startActivity(orderList);
+                        break;
+                }
+                return false;
+            }
+        });
 
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final String stallID = getIntent().getExtras().getString("stallID");

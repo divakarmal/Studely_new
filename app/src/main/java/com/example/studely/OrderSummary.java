@@ -2,10 +2,12 @@ package com.example.studely;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.studely.adapters.SummaryRecAdapter;
 import com.example.studely.classes.Food;
 import com.example.studely.classes.Order;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -43,6 +46,23 @@ public class OrderSummary extends AppCompatActivity {
         final DatabaseReference orderPostingsRef = dbRef.child("OrderPostings");
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final String canteenID = order.getCanteen();
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.ic_home:
+                        Intent home = new Intent(OrderSummary.this,HomeLanding.class);
+                        startActivity(home);
+                        break;
+                    case R.id.ic_myOrderList:
+                        Intent orderList = new Intent(OrderSummary.this,MyOrderList.class);
+                        startActivity(orderList);
+                        break;
+                }
+                return false;
+            }
+        });
 
         mConfirmButton = findViewById(R.id.confirmBtn);
         mConfirmButton.setOnClickListener(new View.OnClickListener() {
