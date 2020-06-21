@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class DeliverOrderSelect extends AppCompatActivity {
+public class DeliverOrderSelect extends BottomNavBar {
     Button mNewPostingBtn;
 
     @Override
@@ -31,23 +31,7 @@ public class DeliverOrderSelect extends AppCompatActivity {
             }
         });
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_home:
-                        Intent home = new Intent(DeliverOrderSelect.this,HomeLanding.class);
-                        startActivity(home);
-                        break;
-                    case R.id.ic_myOrderList:
-                        Intent orderList = new Intent(DeliverOrderSelect.this,MyOrderList.class);
-                        startActivity(orderList);
-                        break;
-                }
-                return false;
-            }
-        });
+        navBar(this.getApplicationContext());
 
     }
 

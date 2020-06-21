@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class DeliverSelectTime extends AppCompatActivity {
+public class DeliverSelectTime extends BottomNavBar {
     Button mConfirmBtn;
     TimePicker mTimePicker;
     EditText mNoOfOrders;
@@ -32,23 +32,7 @@ public class DeliverSelectTime extends AppCompatActivity {
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_home:
-                        Intent home = new Intent(DeliverSelectTime.this,HomeLanding.class);
-                        startActivity(home);
-                        break;
-                    case R.id.ic_myOrderList:
-                        Intent orderList = new Intent(DeliverSelectTime.this,MyOrderList.class);
-                        startActivity(orderList);
-                        break;
-                }
-                return false;
-            }
-        });
+        navBar(this.getApplicationContext());
 
         mConfirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override

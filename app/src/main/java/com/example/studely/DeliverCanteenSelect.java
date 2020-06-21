@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeliverCanteenSelect extends AppCompatActivity {
+public class DeliverCanteenSelect extends BottomNavBar {
 
     Spinner canteenSpinner;
     ArrayAdapter<String> canteenAdapter;
@@ -31,6 +31,7 @@ public class DeliverCanteenSelect extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deliver_canteen_select);
+        setContentView(R.layout.activity_order_canteen_select);
         canteenSpinner = (Spinner) findViewById(R.id.canteenSpinner);
         mNextBtn = findViewById(R.id.nextBtn);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -58,23 +59,8 @@ public class DeliverCanteenSelect extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) { }
         });
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_home:
-                        Intent home = new Intent(DeliverCanteenSelect.this,HomeLanding.class);
-                        startActivity(home);
-                        break;
-                    case R.id.ic_myOrderList:
-                        Intent orderList = new Intent(DeliverCanteenSelect.this,MyOrderList.class);
-                        startActivity(orderList);
-                        break;
-                }
-                return false;
-            }
-        });
+        navBar(this.getApplicationContext());
+
         mNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

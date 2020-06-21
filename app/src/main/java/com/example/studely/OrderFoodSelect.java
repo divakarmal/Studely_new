@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderFoodSelect extends AppCompatActivity {
+public class OrderFoodSelect extends BottomNavBar {
 
     RecyclerView foodList;
     Button mNextBtn;
@@ -37,23 +37,7 @@ public class OrderFoodSelect extends AppCompatActivity {
 
         foodList = findViewById(R.id.foodRecView);
         mNextBtn = findViewById(R.id.nextBtn);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_home:
-                        Intent home = new Intent(OrderFoodSelect.this,HomeLanding.class);
-                        startActivity(home);
-                        break;
-                    case R.id.ic_myOrderList:
-                        Intent orderList = new Intent(OrderFoodSelect.this,MyOrderList.class);
-                        startActivity(orderList);
-                        break;
-                }
-                return false;
-            }
-        });
+        navBar(this.getApplicationContext());
 
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final String stallID = getIntent().getExtras().getString("stallID");
@@ -84,7 +68,8 @@ public class OrderFoodSelect extends AppCompatActivity {
                             foodQty.set(position, Integer.parseInt(charSeq));
                         }
                     }
-                });
+                }, foodPrice.toArray(new Integer[0]));
+
                 foodList.setAdapter(foodAdapter);
                 foodList.setLayoutManager(new LinearLayoutManager(OrderFoodSelect.this));
             }

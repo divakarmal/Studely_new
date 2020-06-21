@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class OrderSummary extends AppCompatActivity {
+public class OrderSummary extends BottomNavBar {
 
     RecyclerView summaryList;
     Button mConfirmButton;
@@ -46,23 +46,7 @@ public class OrderSummary extends AppCompatActivity {
         final DatabaseReference orderPostingsRef = dbRef.child("OrderPostings");
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final String canteenID = order.getCanteen();
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_home:
-                        Intent home = new Intent(OrderSummary.this,HomeLanding.class);
-                        startActivity(home);
-                        break;
-                    case R.id.ic_myOrderList:
-                        Intent orderList = new Intent(OrderSummary.this,MyOrderList.class);
-                        startActivity(orderList);
-                        break;
-                }
-                return false;
-            }
-        });
+        navBar(this.getApplicationContext());
 
         mConfirmButton = findViewById(R.id.confirmBtn);
         mConfirmButton.setOnClickListener(new View.OnClickListener() {

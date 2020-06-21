@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderStallSelect extends AppCompatActivity {
+public class OrderStallSelect extends BottomNavBar {
 
 
     ArrayAdapter<String> stallAdapter;
@@ -38,23 +38,7 @@ public class OrderStallSelect extends AppCompatActivity {
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final String destination = getIntent().getExtras().getString("orderDestination");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_home:
-                        Intent home = new Intent(OrderStallSelect.this,HomeLanding.class);
-                        startActivity(home);
-                        break;
-                    case R.id.ic_myOrderList:
-                        Intent orderList = new Intent(OrderStallSelect.this,MyOrderList.class);
-                        startActivity(orderList);
-                        break;
-                }
-                return false;
-            }
-        });
+        navBar(this.getApplicationContext());
         DatabaseReference fStallRef = database.getReference().child("canteens")
                                         .child(canteenID).child("StallList");
 

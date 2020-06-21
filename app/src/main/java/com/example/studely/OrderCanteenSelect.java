@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderCanteenSelect extends AppCompatActivity {
+public class OrderCanteenSelect extends BottomNavBar {
 
     Spinner canteenSpinner;
     ArrayAdapter<String> canteenAdapter;
@@ -34,23 +34,7 @@ public class OrderCanteenSelect extends AppCompatActivity {
 
         mNextBtn = findViewById(R.id.nextBtn);
         canteenSpinner = (Spinner) findViewById(R.id.canteenSpinner);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_home:
-                        Intent home = new Intent(OrderCanteenSelect.this,HomeLanding.class);
-                        startActivity(home);
-                        break;
-                    case R.id.ic_myOrderList:
-                        Intent orderList = new Intent(OrderCanteenSelect.this,MyOrderList.class);
-                        startActivity(orderList);
-                        break;
-                }
-                return false;
-            }
-        });
+        navBar(this.getApplicationContext());
 
         final String destination = getIntent().getExtras().getString("orderDestination");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();

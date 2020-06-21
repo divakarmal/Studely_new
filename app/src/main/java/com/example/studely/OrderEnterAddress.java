@@ -13,7 +13,7 @@ import android.widget.EditText;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-public class OrderEnterAddress extends AppCompatActivity {
+public class OrderEnterAddress extends BottomNavBar {
     EditText address;
     CheckBox priAddBool;
     Button mNextBtn;
@@ -27,23 +27,7 @@ public class OrderEnterAddress extends AppCompatActivity {
         mNextBtn = findViewById(R.id.NextBtn);
         priAddBool = findViewById(R.id.priAddCheck);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_home:
-                        Intent home = new Intent(OrderEnterAddress.this,HomeLanding.class);
-                        startActivity(home);
-                        break;
-                    case R.id.ic_myOrderList:
-                        Intent orderList = new Intent(OrderEnterAddress.this,MyOrderList.class);
-                        startActivity(orderList);
-                        break;
-                }
-                return false;
-            }
-        });
+        navBar(this.getApplicationContext());
 
 
         mNextBtn.setOnClickListener(new View.OnClickListener() {

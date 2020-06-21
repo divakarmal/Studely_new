@@ -18,13 +18,15 @@ import com.example.studely.classes.QtyTextChanged;
 public class FoodRecAdapter extends RecyclerView.Adapter<FoodRecAdapter.FoodViewHolder> {
 
     String[] foodItems;
+    Integer[] prices;
     public int[] qty;
     Context context;
     private QtyTextChanged qtyTextChanged;
 
-    public FoodRecAdapter(Context context, String[] foodItems, QtyTextChanged qtyTextChanged) {
+    public FoodRecAdapter(Context context, String[] foodItems, QtyTextChanged qtyTextChanged, Integer[] prices) {
         this.context = context;
         this.foodItems = foodItems;
+        this.prices = prices;
         this.qty = new int[foodItems.length];
         this.qtyTextChanged = qtyTextChanged;
     }
@@ -40,6 +42,7 @@ public class FoodRecAdapter extends RecyclerView.Adapter<FoodRecAdapter.FoodView
     @Override
     public void onBindViewHolder(@NonNull FoodViewHolder holder, final int position) {
         holder.foodItemText.setText(foodItems[position]);
+        holder.price.setText(String.valueOf(prices[position]));
         EditText qtyNum = holder.qtyNum;
         qtyNum.setText(String.valueOf(qty[position]));
 
@@ -65,12 +68,14 @@ public class FoodRecAdapter extends RecyclerView.Adapter<FoodRecAdapter.FoodView
     public class FoodViewHolder extends RecyclerView.ViewHolder {
 
         TextView foodItemText;
+        TextView price;
         EditText qtyNum;
 
         public FoodViewHolder(@NonNull View itemView) {
             super(itemView);
             foodItemText = itemView.findViewById(R.id.foodItemText);
             qtyNum = itemView.findViewById(R.id.qtyNum);
+            price = itemView.findViewById(R.id.price);
         }
     }
 }

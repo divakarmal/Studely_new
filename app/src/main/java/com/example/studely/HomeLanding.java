@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class HomeLanding extends AppCompatActivity {
+public class HomeLanding extends BottomNavBar {
     Button mOrderButton, mDeliverButton;
 
     @Override
@@ -22,21 +22,7 @@ public class HomeLanding extends AppCompatActivity {
         mDeliverButton = findViewById(R.id.deliverBtn);
 
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.ic_home:
-                        break;
-                    case R.id.ic_myOrderList:
-                        Intent a = new Intent(HomeLanding.this,MyOrderList.class);
-                        startActivity(a);
-                        break;
-                }
-                return false;
-            }
-        });
+        navBar(this.getApplicationContext());
 
         mOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
