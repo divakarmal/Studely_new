@@ -37,8 +37,8 @@ public class OrderStallSelect extends BottomNavBar {
         stallList = (ListView) findViewById(R.id.stallListView);
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final String destination = getIntent().getExtras().getString("orderDestination");
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         navBar(this.getApplicationContext());
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference fStallRef = database.getReference().child("canteens")
                                         .child(canteenID).child("StallList");
 
