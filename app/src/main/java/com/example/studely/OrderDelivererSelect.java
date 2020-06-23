@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.adapters.DelivererRecAdapter;
-import com.example.studely.adapters.OrderRecAdapter;
 import com.example.studely.classes.Order;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,23 +37,25 @@ public class OrderDelivererSelect extends AppCompatActivity {
         Bundle bundle = this.getIntent().getExtras();
         final Order order = (Order) bundle.getSerializable("orderObj");
 
-        final String canteenID = getIntent().getExtras().getString("canteenID");
+        final String canteenID = order.getCanteen();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference orderPostingsRef = database.getReference().child("DeliveryPostings")
                 .child(canteenID);
 
         final List<String> nameList = new ArrayList<>();
         final List<String> timeList = new ArrayList<>();
+        final List<String> delivererIDList = new ArrayList<>();
         orderPostingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     nameList.add(snapshot.child("Name").getValue(String.class));
                     timeList.add(snapshot.child("DeliveryTime").getValue(String.class));
+                    delivererIDList.add(snapshot.child("Deliverer").getValue(String.class));
                 }
 
                 final DelivererRecAdapter delivererRecAdapter = new DelivererRecAdapter(OrderDelivererSelect.this,
-                        nameList, timeList);
+                        nameList, timeList, delivererIDList, order);
                 delivererRecView.setAdapter(delivererRecAdapter);
                 delivererRecView.setLayoutManager(new LinearLayoutManager(OrderDelivererSelect.this));
             }

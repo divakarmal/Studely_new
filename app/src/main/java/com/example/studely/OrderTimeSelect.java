@@ -22,6 +22,8 @@ public class OrderTimeSelect extends BottomNavBar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_time_select);
+        navBar(this.getApplicationContext());
+
         mPostBtn = findViewById(R.id.postOrder);
         mTimePicker = findViewById(R.id.timePicker1);
 
@@ -31,10 +33,6 @@ public class OrderTimeSelect extends BottomNavBar {
         Bundle bundle = this.getIntent().getExtras();
         final Order order = (Order) bundle.getSerializable("orderObj");
         final String canteenID = order.getCanteen();
-        navBar(this.getApplicationContext());
-
-
-
 
         mPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override

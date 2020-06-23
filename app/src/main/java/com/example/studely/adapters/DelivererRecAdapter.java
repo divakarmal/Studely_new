@@ -1,15 +1,20 @@
 package com.example.studely.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.studely.OrderTimeSelect;
 import com.example.studely.R;
+import com.example.studely.classes.Order;
 
 import java.util.List;
 
@@ -18,12 +23,16 @@ public class DelivererRecAdapter extends RecyclerView.Adapter<DelivererRecAdapte
     Context context;
     List<String> nameList;
     List<String> timeList;
+    List<String> delivererIDList;
+    Order order;
 
-    public DelivererRecAdapter(Context context, List<String> nameList, List<String> timeList) {
+    public DelivererRecAdapter(Context context, List<String> nameList, List<String> timeList,
+                                List<String> delivererIDList, Order order) {
         this.context = context;
         this.nameList = nameList;
         this.timeList = timeList;
-
+        this.delivererIDList = delivererIDList;
+        this.order = order;
     }
 
     @NonNull
@@ -35,10 +44,23 @@ public class DelivererRecAdapter extends RecyclerView.Adapter<DelivererRecAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DelivererViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DelivererViewHolder holder, final int position) {
         holder.nameText.setText(nameList.get(position));
         holder.deliTimeText.setText(timeList.get(position));
 
+        holder.mainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order.setDeliverer(delivererIDList.get(position));
+                order.setDeliveryTime(timeList.get(position));
+
+                Intent newIntent = new Intent(context, OrderTimeSelect.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("orderObj", order);
+                newIntent.putExtras(bundle);
+                context.startActivity(newIntent);
+            }
+        });
     }
 
     @Override
@@ -50,11 +72,13 @@ public class DelivererRecAdapter extends RecyclerView.Adapter<DelivererRecAdapte
 
         TextView nameText;
         TextView deliTimeText;
+        ConstraintLayout mainLayout;
 
         public DelivererViewHolder(@NonNull View itemView) {
             super(itemView);
             nameText = itemView.findViewById(R.id.nameText);
             deliTimeText = itemView.findViewById(R.id.deliTimeText);
+            mainLayout = itemView.findViewById(R.id.mainLayout);
         }
     }
 }

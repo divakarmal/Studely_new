@@ -16,6 +16,7 @@ import com.example.studely.adapters.FoodRecAdapter;
 import com.example.studely.classes.Order;
 import com.example.studely.classes.QtyTextChanged;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -86,6 +87,7 @@ public class OrderFoodSelect extends BottomNavBar {
                 Order order = new Order();
                 order.setCanteen(canteenID);
                 order.setDestination(destination);
+                order.setReceiver(FirebaseAuth.getInstance().getCurrentUser().getUid());
                 for (int i = 0; i < foodQty.size(); i++) {
                     int qty = foodQty.get(i);
                     if (qty != 0) {

@@ -7,12 +7,12 @@ import java.util.List;
 
 public class Order implements Serializable {
     private LocalDateTime timestamp;
-    private User deliverer;
-    private User receiver;
+    private String deliverer;
+    private String receiver;
     private String canteen;
     private List<Food> foodList;
     private int orderCost;
-    private LocalDateTime deliveryTime;
+    private String deliveryTime;
     private String destination;
 
     public Order() {
@@ -21,17 +21,28 @@ public class Order implements Serializable {
         orderCost = 0;
     }
 
-    public void setDeliverer(User deliv) { this.deliverer = deliv; }
+    public void setDeliverer(String deliv) { this.deliverer = deliv; }
 
-    public void setReceiver(User receive) { this.receiver = receive; }
+    public void setReceiver(String receive) { this.receiver = receive; }
 
     public void setCanteen(String canteen) { this.canteen = canteen; }
 
-    public void setDeliveryTime(LocalDateTime deliTime) { this.deliveryTime = deliTime; }
+    public void setDeliveryTime(String deliTime) {
+        // Conversion
+        this.deliveryTime = deliTime;
+    }
 
     public void setDestination(String dest) { this.destination = dest; }
 
     public void addFood(Food food) { foodList.add(food); }
+
+    public String getDeliverer() {
+        return deliverer;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
 
     public List<Food> getList() { return this.foodList; }
 
@@ -43,7 +54,7 @@ public class Order implements Serializable {
         return this.orderCost;
     }
 
-    public LocalDateTime getDeliveryTime() {
+    public String getDeliveryTime() {
         return deliveryTime;
     }
 
