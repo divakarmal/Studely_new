@@ -43,9 +43,6 @@ public class OrderSummary extends BottomNavBar {
         summaryList.setAdapter(summaryRecAdapter);
         summaryList.setLayoutManager(new LinearLayoutManager(this));
 
-        final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-        final DatabaseReference orderPostingsRef = dbRef.child("OrderPostings");
-        final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final String canteenID = order.getCanteen();
         navBar(this.getApplicationContext());
 
@@ -53,24 +50,10 @@ public class OrderSummary extends BottomNavBar {
         mConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String pushID = orderPostingsRef.child(canteenID).push().getKey();
-
-                DatabaseReference pushRef = orderPostingsRef.child(canteenID).child(pushID);
-                pushRef.child("DeliveryTime").setValue("0000"); // <-------------------------- Lmao we never did this
-                pushRef.child("Destination").setValue(order.getDestination());
-                pushRef.child("OrderCost").setValue(order.calcOrderCost());
-                pushRef.child("Receiver").setValue(currentUser);
-
-                DatabaseReference itemListRef = pushRef.child("ItemList");
-                for (Food food : order.getList()) {
-                    itemListRef.child(food.name).child("Price")
-                                .setValue(String.valueOf(food.price));
-                    itemListRef.child(food.name).child("Quantity")
-                                .setValue(String.valueOf(food.quantity));
-                }
-
                 Intent newIntent = new Intent(getApplicationContext(), OrderDelivererSelect.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("orderObj", order);
+                newIntent.putExtras(bundle);
                 newIntent.putExtra("canteenID", canteenID);
                 startActivity(newIntent);
             }

@@ -1,6 +1,9 @@
 package com.example.studely;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.adapters.DelivererRecAdapter;
 import com.example.studely.adapters.OrderRecAdapter;
+import com.example.studely.classes.Order;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +26,7 @@ import java.util.List;
 public class OrderDelivererSelect extends AppCompatActivity {
 
     RecyclerView delivererRecView;
+    Button mPostBtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,6 +34,9 @@ public class OrderDelivererSelect extends AppCompatActivity {
         setContentView(R.layout.activity_order_deliverer_select);
 
         delivererRecView = findViewById(R.id.delivererRecView);
+        mPostBtn = findViewById(R.id.postOrderBtn);
+        Bundle bundle = this.getIntent().getExtras();
+        final Order order = (Order) bundle.getSerializable("orderObj");
 
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -54,6 +62,17 @@ public class OrderDelivererSelect extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        mPostBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntent = new Intent(getApplicationContext(), OrderTimeSelect.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("orderObj", order);
+                newIntent.putExtras(bundle);
+                startActivity(newIntent);
             }
         });
     }

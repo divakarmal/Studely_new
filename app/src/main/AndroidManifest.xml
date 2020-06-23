@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".OrderPage"></activity>
+        <activity android:name=".OrderTimeSelect"></activity>
+        <activity android:name=".OrderPage" />
         <activity android:name=".BottomNavBar" />
         <activity android:name=".MyOrderList" />
         <activity android:name=".OrderDelivererSelect" />

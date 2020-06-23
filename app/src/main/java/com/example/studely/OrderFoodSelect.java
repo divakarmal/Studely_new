@@ -85,7 +85,7 @@ public class OrderFoodSelect extends BottomNavBar {
             public void onClick(View v) {
                 Order order = new Order();
                 order.setCanteen(canteenID);
-                order.setDestination(destination); // <----------------------- Figure this out
+                order.setDestination(destination);
                 for (int i = 0; i < foodQty.size(); i++) {
                     int qty = foodQty.get(i);
                     if (qty != 0) {
