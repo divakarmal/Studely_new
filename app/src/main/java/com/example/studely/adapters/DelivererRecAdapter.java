@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.studely.OrderPostConfirm;
 import com.example.studely.OrderTimeSelect;
 import com.example.studely.R;
 import com.example.studely.classes.Order;
@@ -54,7 +55,7 @@ public class DelivererRecAdapter extends RecyclerView.Adapter<DelivererRecAdapte
                 order.setDeliverer(delivererIDList.get(position));
                 order.setDeliveryTime(timeList.get(position));
 
-                Intent newIntent = new Intent(context, OrderTimeSelect.class);
+                Intent newIntent = new Intent(context, OrderPostConfirm.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("orderObj", order);
                 newIntent.putExtras(bundle);

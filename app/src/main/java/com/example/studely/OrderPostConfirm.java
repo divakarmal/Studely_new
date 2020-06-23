@@ -1,17 +1,10 @@
 package com.example.studely;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.studely.classes.Food;
 import com.example.studely.classes.Order;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +33,7 @@ public class OrderPostConfirm extends BottomNavBar {
                 DatabaseReference pushRef = confirmedOrdersRef.child(pushID);
                 pushRef.child("DeliveryTime").setValue(order.getDeliveryTime());
                 pushRef.child("Destination").setValue(order.getDestination());
-                pushRef.child("OrderCost").setValue(order.calcOrderCost());
+                pushRef.child("OrderCost").setValue(Integer.toString(order.calcOrderCost()));
                 pushRef.child("Receiver").setValue(currentUser);
                 pushRef.child("Deliverer").setValue(order.getDeliverer());
                 pushRef.child("Canteen").setValue(order.getCanteen());
@@ -53,7 +46,8 @@ public class OrderPostConfirm extends BottomNavBar {
                 }
                 pushRef.child("Time").setValue("0000"); // <------------------------ How this again
 
-                userRef.child("ConfirmedOrders").child(pushID).setValue("bleh");
+                userRef.child("ConfirmedOrders").child(pushID).setValue(order.getDestination());
+                dbRef.child("users").child(order.getDeliverer()).setValue(order.getDestination());
             }
 
             @Override

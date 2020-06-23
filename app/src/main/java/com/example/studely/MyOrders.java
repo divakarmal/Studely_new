@@ -35,14 +35,17 @@ public class MyOrders extends BottomNavBar {
                             .child(currentUser).child("ConfirmedOrders");
 
         final List<String> orderIDs = new ArrayList<>();
+        final List<String> destinations = new ArrayList<>();
+
         userOrdersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     orderIDs.add(snapshot.getKey());
+                    destinations.add((String) snapshot.getValue());
                 }
 
-                final MyOrderAdapter myOrderAdapter = new MyOrderAdapter(MyOrders.this, orderIDs);
+                final MyOrderAdapter myOrderAdapter = new MyOrderAdapter(MyOrders.this, orderIDs, destinations);
                 myOrderRecView.setAdapter(myOrderAdapter);
                 myOrderRecView.setLayoutManager(new LinearLayoutManager(MyOrders.this));
             }

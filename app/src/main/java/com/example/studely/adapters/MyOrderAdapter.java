@@ -20,10 +20,12 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderV
 
     Context context;
     List<String> orderIDs;
+    List<String> destinations;
 
-    public MyOrderAdapter(Context context, List<String> orderIDs) {
+    public MyOrderAdapter(Context context, List<String> orderIDs, List<String> destinations) {
         this.context = context;
         this.orderIDs = orderIDs;
+        this.destinations = destinations;
     }
 
     @NonNull
@@ -36,7 +38,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderV
 
     @Override
     public void onBindViewHolder(@NonNull MyOrderViewHolder holder, final int position) {
-        holder.orderIDText.setText(orderIDs.get(position));
+        holder.orderIDText.setText(destinations.get(position));
 
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,14 +1,20 @@
 package com.example.studely.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.studely.DeliverOrderSelect;
+import com.example.studely.DeliveryOrderConfirm;
+import com.example.studely.OrderPostConfirm;
 import com.example.studely.R;
 
 import java.util.List;
@@ -35,9 +41,20 @@ public class OrderRecAdapter extends RecyclerView.Adapter<OrderRecAdapter.OrderV
 
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
-        String[] data = orderPostingsData.get(position);
+        final String[] data = orderPostingsData.get(position);
         holder.destText.setText(data[0]);
         holder.deliTimeText.setText(data[1]);
+
+        holder.mainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent newIntent = new Intent(context, DeliveryOrderConfirm.class);
+                newIntent.putExtra("orderPostingID", data[2]);
+                newIntent.putExtra("canteenID", data[3]);
+                context.startActivity(newIntent);
+            }
+        });
     }
 
     @Override
@@ -49,11 +66,13 @@ public class OrderRecAdapter extends RecyclerView.Adapter<OrderRecAdapter.OrderV
 
         TextView destText;
         TextView deliTimeText;
+        ConstraintLayout mainLayout;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             destText = itemView.findViewById(R.id.destText);
             deliTimeText = itemView.findViewById(R.id.deliTimeText);
+            mainLayout = itemView.findViewById(R.id.mainLayout);
         }
     }
 }

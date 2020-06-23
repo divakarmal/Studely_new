@@ -37,7 +37,7 @@ public class OrderTimeSelect extends BottomNavBar {
         mPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntent = new Intent(getApplicationContext(), OrderPostConfirm.class);
+                Intent newIntent = new Intent(getApplicationContext(), OrderPostingConfirmed.class);
 
                 startActivity(newIntent);
                 int clockTime = mTimePicker.getHour() * 100 + mTimePicker.getMinute();
@@ -46,7 +46,7 @@ public class OrderTimeSelect extends BottomNavBar {
                 DatabaseReference pushRef = orderPostingsRef.child(canteenID).child(pushID);
                 pushRef.child("DeliveryTime").setValue(deliveryTime);
                 pushRef.child("Destination").setValue(order.getDestination());
-                pushRef.child("OrderCost").setValue(order.calcOrderCost());
+                pushRef.child("OrderCost").setValue(Integer.toString(order.calcOrderCost()));
                 pushRef.child("Receiver").setValue(currentUser);
                 DatabaseReference itemListRef = pushRef.child("ItemList");
                 for (Food food : order.getList()) {
