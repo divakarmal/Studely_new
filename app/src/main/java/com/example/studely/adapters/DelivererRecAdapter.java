@@ -30,7 +30,7 @@ public class DelivererRecAdapter extends RecyclerView.Adapter<DelivererRecAdapte
     @Override
     public DelivererViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.deliverer_row, parent, false);
+        View view = inflater.inflate(R.layout.deliverer_posting_row, parent, false);
         return new DelivererRecAdapter.DelivererViewHolder(view);
     }
 

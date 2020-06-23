@@ -27,7 +27,7 @@ public class UserDetailsForm extends AppCompatActivity {
         mSubmitBtn = findViewById(R.id.submitBtn);
 
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-        final String currentuser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         mSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,9 +35,9 @@ public class UserDetailsForm extends AppCompatActivity {
                 String phoneNumber = phoneNum.getText().toString();
                 String primaryAddress = priAdd.getText().toString();
                 String pinCode = UserDetailsForm.this.pinCode.getText().toString();
-                dbRef.child("users").child(currentuser).child("phone_number").setValue(phoneNumber);
-                dbRef.child("users").child(currentuser).child("primary_address").setValue(primaryAddress);
-                dbRef.child("users").child(currentuser).child("pin_code").setValue(pinCode);
+                dbRef.child("users").child(currentUser).child("phone_number").setValue(phoneNumber);
+                dbRef.child("users").child(currentUser).child("primary_address").setValue(primaryAddress);
+                dbRef.child("users").child(currentUser).child("pin_code").setValue(pinCode);
                 startActivity(new Intent(getApplicationContext(),HomeLanding.class));
             }
         });

@@ -26,7 +26,7 @@ public class BottomNavBar extends AppCompatActivity {
                         startActivity(home);
                         break;
                     case R.id.ic_myOrderList:
-                        Intent orderList = new Intent(BottomNavBar.this,MyOrderList.class);
+                        Intent orderList = new Intent(BottomNavBar.this, MyOrders.class);
                         startActivity(orderList);
                         break;
                 }
@@ -46,7 +46,7 @@ public class BottomNavBar extends AppCompatActivity {
                         startActivity(home);
                         break;
                     case R.id.ic_myOrderList:
-                        Intent orderList = new Intent(context,MyOrderList.class);
+                        Intent orderList = new Intent(context, MyOrders.class);
                         startActivity(orderList);
                         break;
                 }

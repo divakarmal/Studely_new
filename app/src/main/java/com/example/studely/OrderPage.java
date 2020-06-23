@@ -33,7 +33,9 @@ public class OrderPage extends BottomNavBar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_page);
-        String orderID = "order1";
+        navBar(this.getApplicationContext());
+
+        String orderID = getIntent().getExtras().getString("orderID");
         summaryList = findViewById(R.id.recyclerView);
         mOrderID = findViewById(R.id.OrderID);
         mTimeStamp = findViewById(R.id.TimeStamp);
@@ -41,13 +43,14 @@ public class OrderPage extends BottomNavBar {
         mOrderTotal = findViewById(R.id.orderCost);
         mReachedBtn = findViewById(R.id.reachedBtn);
         mReceievedBtn = findViewById(R.id.receivedBtn);
-        navBar(this.getApplicationContext());
+
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         System.out.println("current user" + currentUser);
         final List<Food> orderList = new ArrayList<>();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         mOrderID.setText(orderID);
         DatabaseReference dbRef = database.getReference().child("ConfirmedOrders").child(orderID);
+
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -67,8 +70,6 @@ public class OrderPage extends BottomNavBar {
 
             }
         });
-
-
 
         DatabaseReference fOrderRef = database.getReference().child("ConfirmedOrders")
                 .child(orderID).child("ItemList");
@@ -91,10 +92,5 @@ public class OrderPage extends BottomNavBar {
 
             }
         });
-
-
-
-
-
     }
 }

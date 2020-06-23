@@ -29,7 +29,7 @@ public class OrderRecAdapter extends RecyclerView.Adapter<OrderRecAdapter.OrderV
     @Override
     public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.order_row, parent, false);
+        View view = inflater.inflate(R.layout.order_posting_row, parent, false);
         return new OrderViewHolder(view);
     }
 

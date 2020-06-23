@@ -14,7 +14,7 @@
         <activity android:name=".OrderTimeSelect"></activity>
         <activity android:name=".OrderPage" />
         <activity android:name=".BottomNavBar" />
-        <activity android:name=".MyOrderList" />
+        <activity android:name=".MyOrders" />
         <activity android:name=".OrderDelivererSelect" />
         <activity android:name=".OrderPostConfirm" />
         <activity android:name=".DeliverPostConfirm" />
