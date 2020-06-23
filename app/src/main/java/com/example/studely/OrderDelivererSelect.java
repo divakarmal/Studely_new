@@ -32,7 +32,7 @@ public class OrderDelivererSelect extends AppCompatActivity {
 
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference orderPostingsRef = database.getReference().child("DeliverPostings")
+        DatabaseReference orderPostingsRef = database.getReference().child("DeliveryPostings")
                 .child(canteenID);
 
         final List<String> nameList = new ArrayList<>();

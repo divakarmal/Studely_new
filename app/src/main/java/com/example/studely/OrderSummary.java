@@ -70,7 +70,8 @@ public class OrderSummary extends BottomNavBar {
                                 .setValue(String.valueOf(food.quantity));
                 }
 
-                Intent newIntent = new Intent(getApplicationContext(), Order.class);
+                Intent newIntent = new Intent(getApplicationContext(), OrderDelivererSelect.class);
+                newIntent.putExtra("canteenID", canteenID);
                 startActivity(newIntent);
             }
         });
