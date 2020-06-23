@@ -75,7 +75,7 @@ public class FoodRecAdapter extends RecyclerView.Adapter<FoodRecAdapter.FoodView
             super(itemView);
             foodItemText = itemView.findViewById(R.id.foodItemText);
             qtyNum = itemView.findViewById(R.id.qtyNum);
-            price = itemView.findViewById(R.id.price);
+            price = itemView.findViewById(R.id.priceText);
         }
     }
 }

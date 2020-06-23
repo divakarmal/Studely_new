@@ -31,6 +31,7 @@ public class OrderSummary extends BottomNavBar {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_summary);
+
         orderTotal = findViewById(R.id.totalOrderCost);
         summaryList = findViewById(R.id.summaryRecView);
         Bundle bundle = this.getIntent().getExtras();
@@ -69,7 +70,7 @@ public class OrderSummary extends BottomNavBar {
                                 .setValue(String.valueOf(food.quantity));
                 }
 
-                Intent newIntent = new Intent(getApplicationContext(), OrderPostConfirm.class);
+                Intent newIntent = new Intent(getApplicationContext(), Order.class);
                 startActivity(newIntent);
             }
         });

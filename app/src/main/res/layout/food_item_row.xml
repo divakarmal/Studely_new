@@ -42,11 +42,11 @@
                 android:inputType="number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/price"
+                app:layout_constraintStart_toEndOf="@+id/priceText"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/price"
+                android:id="@+id/priceText"
                 android:layout_width="88dp"
                 android:layout_height="41dp"
                 android:text="TextView"
