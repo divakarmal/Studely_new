@@ -46,6 +46,8 @@ public class DeliveryOrderConfirm extends BottomNavBar {
                 pushRef.child("Receiver").setValue(dataSnapshot.child("Receiver").getValue());
                 pushRef.child("Deliverer").setValue(currentUser);
                 pushRef.child("Canteen").setValue(canteenID);
+                pushRef.child("Reached").setValue(false);
+                pushRef.child("Completed").setValue(false);
                 DatabaseReference itemListRef = pushRef.child("ItemList");
                 for (DataSnapshot snapshot: dataSnapshot.child("ItemList").getChildren()) {
                     String price = snapshot.child("Price").getValue(String.class);

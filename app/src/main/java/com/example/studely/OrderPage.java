@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -25,8 +26,8 @@ import java.util.List;
 
 public class OrderPage extends BottomNavBar {
     RecyclerView summaryList;
-    TextView mOrderID, mTimeStamp, mDeliveryTime, mOrderTotal;
-    Button mReachedBtn, mReceievedBtn;
+    TextView mOrderID, mTimeStamp, mDeliveryTime, mOrderTotal, mOrderReached, mNothereYet, mComplete;
+    Button mReachedBtn, mReceivedBtn;
 
 
     @Override
@@ -35,21 +36,24 @@ public class OrderPage extends BottomNavBar {
         setContentView(R.layout.activity_order_page);
         navBar(this.getApplicationContext());
 
-        String orderID = getIntent().getExtras().getString("orderID");
+        final String orderID = getIntent().getExtras().getString("orderID");
         summaryList = findViewById(R.id.recyclerView);
         mOrderID = findViewById(R.id.OrderID);
         mTimeStamp = findViewById(R.id.TimeStamp);
         mDeliveryTime = findViewById(R.id.DeliveryTime);
         mOrderTotal = findViewById(R.id.orderCost);
         mReachedBtn = findViewById(R.id.reachedBtn);
-        mReceievedBtn = findViewById(R.id.receivedBtn);
+        mReceivedBtn = findViewById(R.id.receivedBtn);
+        mOrderReached = findViewById(R.id.orderReached);
+        mNothereYet = findViewById(R.id.notReachedText);
+        mComplete = findViewById(R.id.CompletedOrder);
+
 
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        System.out.println("current user" + currentUser);
         final List<Food> orderList = new ArrayList<>();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         mOrderID.setText(orderID);
-        DatabaseReference dbRef = database.getReference().child("ConfirmedOrders").child(orderID);
+        final DatabaseReference dbRef = database.getReference().child("ConfirmedOrders").child(orderID);
 
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -58,12 +62,23 @@ public class OrderPage extends BottomNavBar {
                 mDeliveryTime.setText((String) dataSnapshot.child("DeliveryTime").getValue());
                 mOrderTotal.setText((String) dataSnapshot.child("OrderCost").getValue());
                 String delivererID = (String) dataSnapshot.child("Deliverer").getValue();
-                System.out.println("delivererID: " + delivererID);
-                if(delivererID.equals(currentUser)){
+                String receiverID = (String) dataSnapshot.child("Receiver").getValue();
+                boolean reached = dataSnapshot.child("Reached").getValue(boolean.class);
+                boolean completed = dataSnapshot.child("Completed").getValue(boolean.class);
+
+
+                if(completed){
+                    mComplete.setVisibility(View.VISIBLE);
+                } else if(delivererID.equals(currentUser)){
                     mReachedBtn.setVisibility(View.VISIBLE);
-                } else {
-                    mReceievedBtn.setVisibility(View.VISIBLE);
+                } else if (receiverID.equals(currentUser)){
+                    if(reached) {
+                        mReceivedBtn.setVisibility(View.VISIBLE);
+                    } else {
+                        mNothereYet.setVisibility(View.VISIBLE);
+                    }
                 }
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -92,5 +107,24 @@ public class OrderPage extends BottomNavBar {
 
             }
         });
+
+        mReachedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ConfirmedOrders").child(orderID);
+                dbRef.child("Reached").setValue(true);
+            }
+        });
+
+        mReceivedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ConfirmedOrders").child(orderID);
+                dbRef.child("Completed").setValue(true);
+                mReceivedBtn.setVisibility(View.INVISIBLE);
+            }
+        });
+
+
     }
 }

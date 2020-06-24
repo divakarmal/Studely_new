@@ -37,6 +37,8 @@ public class OrderPostConfirm extends BottomNavBar {
                 pushRef.child("Receiver").setValue(currentUser);
                 pushRef.child("Deliverer").setValue(order.getDeliverer());
                 pushRef.child("Canteen").setValue(order.getCanteen());
+                pushRef.child("Reached").setValue(false);
+                pushRef.child("Completed").setValue(false);
                 DatabaseReference itemListRef = pushRef.child("ItemList");
                 for (Food food : order.getList()) {
                     itemListRef.child(food.name).child("Price")
