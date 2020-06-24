@@ -12,7 +12,7 @@ import android.widget.Button;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeLanding extends BottomNavBar {
-    Button mOrderButton, mDeliverButton, mStupidBtn;
+    Button mOrderButton, mDeliverButton, myAccuntBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class HomeLanding extends BottomNavBar {
         setContentView(R.layout.activity_home_landing);
         mOrderButton = findViewById(R.id.orderBtn);
         mDeliverButton = findViewById(R.id.deliverBtn);
-        mStupidBtn = findViewById(R.id.forTestDeleteLater);
+        myAccuntBtn = findViewById(R.id.myProfileBtn);
 
 
         navBar(this.getApplicationContext());
@@ -37,10 +37,10 @@ public class HomeLanding extends BottomNavBar {
                 startActivity(new Intent(getApplicationContext(),DeliverCanteenSelect.class));
             }
         });
-        mStupidBtn.setOnClickListener(new View.OnClickListener() {
+        myAccuntBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),OrderPage.class));
+                startActivity(new Intent(getApplicationContext(),UserDetailsForm.class));
             }
         });
 
