@@ -26,7 +26,7 @@ import java.util.List;
 
 public class OrderPage extends BottomNavBar {
     RecyclerView summaryList;
-    TextView mOrderID, mTimeStamp, mDeliveryTime, mOrderTotal, mOrderReached, mNothereYet, mComplete;
+    TextView mOrderID, mTimeStamp, mDeliveryTime, mOrderTotal, mOrderReached, mNothereYet, mComplete, mAwait;
     Button mReachedBtn, mReceivedBtn;
 
 
@@ -47,6 +47,7 @@ public class OrderPage extends BottomNavBar {
         mOrderReached = findViewById(R.id.orderReached);
         mNothereYet = findViewById(R.id.notReachedText);
         mComplete = findViewById(R.id.CompletedOrder);
+        mAwait = findViewById(R.id.AwaitingConfirm);
 
 
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -70,7 +71,11 @@ public class OrderPage extends BottomNavBar {
                 if(completed){
                     mComplete.setVisibility(View.VISIBLE);
                 } else if(delivererID.equals(currentUser)){
-                    mReachedBtn.setVisibility(View.VISIBLE);
+                    if(reached) {
+                        mAwait.setVisibility(View.VISIBLE);
+                    } else{
+                        mReachedBtn.setVisibility(View.VISIBLE);
+                    }
                 } else if (receiverID.equals(currentUser)){
                     if(reached) {
                         mReceivedBtn.setVisibility(View.VISIBLE);
@@ -112,6 +117,9 @@ public class OrderPage extends BottomNavBar {
             @Override
             public void onClick(View v) {
                 final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ConfirmedOrders").child(orderID);
+                Intent newIntent = new Intent(getApplicationContext(), OrderPage.class);
+                newIntent.putExtra("orderID", orderID);
+                startActivity(newIntent);
                 dbRef.child("Reached").setValue(true);
             }
         });
@@ -121,7 +129,9 @@ public class OrderPage extends BottomNavBar {
             public void onClick(View v) {
                 final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ConfirmedOrders").child(orderID);
                 dbRef.child("Completed").setValue(true);
-                mReceivedBtn.setVisibility(View.INVISIBLE);
+                Intent newIntent = new Intent(getApplicationContext(), OrderPage.class);
+                newIntent.putExtra("orderID", orderID);
+                startActivity(newIntent);
             }
         });
 
