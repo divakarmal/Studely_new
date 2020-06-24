@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                         if (firebaseAuth.getCurrentUser() != null) {
                             Log.d("AUTH", "User is logged in");
-                            startActivity(new Intent(MainActivity.this, WelcomePage.class));
+                            startActivity(new Intent(MainActivity.this, HomeLanding.class));
                         } else {
                             Log.d("AUTH", "User is not logged in");
                             startActivity(new Intent(MainActivity.this, Login.class));

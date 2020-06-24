@@ -30,7 +30,6 @@
         <activity android:name=".OrderStallSelect" />
         <activity android:name=".HomeLanding" />
         <activity android:name=".UserDetailsForm" />
-        <activity android:name=".WelcomePage" />
         <activity android:name=".Login" />
         <activity android:name=".Register" />
         <activity android:name=".MainActivity">

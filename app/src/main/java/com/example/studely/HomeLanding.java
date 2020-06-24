@@ -10,9 +10,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeLanding extends BottomNavBar {
-    Button mOrderButton, mDeliverButton, myAccuntBtn;
+    Button mOrderButton, mDeliverButton, myAccuntBtn, mlogoutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class HomeLanding extends BottomNavBar {
         mOrderButton = findViewById(R.id.orderBtn);
         mDeliverButton = findViewById(R.id.deliverBtn);
         myAccuntBtn = findViewById(R.id.myProfileBtn);
+        mlogoutBtn = findViewById(R.id.logoutBtn);
 
 
         navBar(this.getApplicationContext());
@@ -41,6 +43,14 @@ public class HomeLanding extends BottomNavBar {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),UserDetailsForm.class));
+            }
+        });
+        mlogoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getApplicationContext(),Login.class));
+                finish();
             }
         });
 
