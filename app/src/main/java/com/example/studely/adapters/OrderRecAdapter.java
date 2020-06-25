@@ -2,7 +2,6 @@ package com.example.studely.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.studely.DeliverOrderSelect;
-import com.example.studely.DeliveryOrderConfirm;
-import com.example.studely.OrderPostConfirm;
+import com.example.studely.DeliverConfirm;
 import com.example.studely.R;
 
 import java.util.List;
@@ -49,7 +46,7 @@ public class OrderRecAdapter extends RecyclerView.Adapter<OrderRecAdapter.OrderV
             @Override
             public void onClick(View v) {
 
-                Intent newIntent = new Intent(context, DeliveryOrderConfirm.class);
+                Intent newIntent = new Intent(context, DeliverConfirm.class);
                 newIntent.putExtra("orderPostingID", data[2]);
                 newIntent.putExtra("canteenID", data[3]);
                 context.startActivity(newIntent);

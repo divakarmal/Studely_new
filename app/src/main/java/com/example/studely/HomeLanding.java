@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class HomeLanding extends BottomNavBar {
     Button mOrderButton, mDeliverButton, myAccuntBtn, mlogoutBtn, listings;
@@ -20,6 +23,8 @@ public class HomeLanding extends BottomNavBar {
         mlogoutBtn = findViewById(R.id.logoutBtn);
         listings = findViewById(R.id.listings);
 
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseMessaging.getInstance().subscribeToTopic("user_"+userID);
 
         navBar(this.getApplicationContext());
 

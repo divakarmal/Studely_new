@@ -13,13 +13,13 @@ import com.example.studely.R;
 
 import java.util.List;
 
-public class myOrderListingsAdapter extends RecyclerView.Adapter<myOrderListingsAdapter.myOrderListingsView> {
+public class MyOrderListingsAdapter extends RecyclerView.Adapter<MyOrderListingsAdapter.myOrderListingsView> {
 
     Context context;
     List<String> destinationList;
     List<String> timeList;
 
-    public myOrderListingsAdapter(Context context, List<String > timeList, List<String> destinationList) {
+    public MyOrderListingsAdapter(Context context, List<String > timeList, List<String> destinationList) {
         this.timeList = timeList;
         this.destinationList = destinationList;
         this.context = context;
@@ -27,14 +27,14 @@ public class myOrderListingsAdapter extends RecyclerView.Adapter<myOrderListings
 
     @NonNull
     @Override
-    public myOrderListingsAdapter.myOrderListingsView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyOrderListingsAdapter.myOrderListingsView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.order_listitng_row, parent, false);
-        return new myOrderListingsAdapter.myOrderListingsView(view);
+        return new MyOrderListingsAdapter.myOrderListingsView(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myOrderListingsAdapter.myOrderListingsView holder, int position) {
+    public void onBindViewHolder(@NonNull MyOrderListingsAdapter.myOrderListingsView holder, int position) {
         String destination = destinationList.get(position);
         String time = timeList.get(position);
         holder.destText.setText(destination);

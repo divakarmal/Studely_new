@@ -1,17 +1,12 @@
 package com.example.studely;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -37,7 +32,7 @@ public class DeliverSelectTime extends BottomNavBar {
         mConfirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntent = new Intent(getApplicationContext(), DeliverPostConfirm.class);
+                Intent newIntent = new Intent(getApplicationContext(), DeliverPostingConfirm.class);
                 String pushID = dbRef.push().getKey();
                 int clockTime = mTimePicker.getHour() * 100 + mTimePicker.getMinute();
                 String numOfOrders;

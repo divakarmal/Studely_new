@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeliveryOrderConfirm extends BottomNavBar {
+public class DeliverConfirm extends BottomNavBar {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +62,6 @@ public class DeliveryOrderConfirm extends BottomNavBar {
 
                 dbRef.child("users").child(receiver).child("ConfirmedOrders").child(pushID).setValue(destination);
                 userRef.child("ConfirmedOrders").child(pushID).setValue(destination);
-
-
             }
 
             @Override
