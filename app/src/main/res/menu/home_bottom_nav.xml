@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/ic_profile"
+        android:checked="true"
+        android:icon="@drawable/ic_account_box_black"
+        android:title="My Profile"
+        />
+
+    <item
+        android:id="@+id/ic_myOrderList"
+        android:checked="true"
+        android:icon="@drawable/ic_list_black"
+        android:title="My Orders"
+        />
+    <item
+        android:id="@+id/ic_logout"
+        android:checked="true"
+        android:icon="@drawable/ic_exit_to_app_black"
+        android:title="Logout"
+        />
+
+</menu>

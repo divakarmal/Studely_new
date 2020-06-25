@@ -29,7 +29,7 @@ public class OrderSummary extends BottomNavBar {
         Bundle bundle = this.getIntent().getExtras();
         final Order order = (Order) bundle.getSerializable("orderObj");
         String cost = Integer.toString(order.calcOrderCost());
-        orderTotal.setText(cost);
+        orderTotal.setText("Total   $" + cost);
 
         SummaryRecAdapter summaryRecAdapter = new SummaryRecAdapter(this, order.getList());
         summaryList.setAdapter(summaryRecAdapter);
