@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.studely.R;
 
@@ -50,11 +51,13 @@ public class myOrderListingsAdapter extends RecyclerView.Adapter<myOrderListings
     public class myOrderListingsView extends RecyclerView.ViewHolder{
 
         TextView destText, deliTimeText;
+        ConstraintLayout mainLayout;
 
         public myOrderListingsView(@NonNull View itemView) {
             super(itemView);
             destText = itemView.findViewById(R.id.destText);
             deliTimeText = itemView.findViewById(R.id.deliTimeText);
+            mainLayout = itemView.findViewById(R.id.mainLayout);
         }
     }
 }
