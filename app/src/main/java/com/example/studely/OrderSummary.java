@@ -35,7 +35,6 @@ public class OrderSummary extends BottomNavBar {
         summaryList.setAdapter(summaryRecAdapter);
         summaryList.setLayoutManager(new LinearLayoutManager(this));
 
-        final String canteenID = order.getCanteen();
         navBar(this.getApplicationContext());
 
         mConfirmButton = findViewById(R.id.confirmBtn);

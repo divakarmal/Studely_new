@@ -25,15 +25,17 @@ public class DelivererRecAdapter extends RecyclerView.Adapter<DelivererRecAdapte
     List<String> nameList;
     List<String> timeList;
     List<String> delivererIDList;
+    List<String> deliveryPostingIDList;
     Order order;
 
     public DelivererRecAdapter(Context context, List<String> nameList, List<String> timeList,
-                                List<String> delivererIDList, Order order) {
+                                List<String> delivererIDList, Order order, List<String> deliveryPostingIDList) {
         this.context = context;
         this.nameList = nameList;
         this.timeList = timeList;
         this.delivererIDList = delivererIDList;
         this.order = order;
+        this.deliveryPostingIDList = deliveryPostingIDList;
     }
 
     @NonNull
@@ -56,6 +58,7 @@ public class DelivererRecAdapter extends RecyclerView.Adapter<DelivererRecAdapte
                 order.setDeliveryTime(timeList.get(position));
 
                 Intent newIntent = new Intent(context, OrderPostConfirm.class);
+                newIntent.putExtra("deliveryPostingID", deliveryPostingIDList.get(position));
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("orderObj", order);
                 newIntent.putExtras(bundle);

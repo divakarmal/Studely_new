@@ -34,6 +34,7 @@ public class OrderDelivererSelect extends AppCompatActivity {
 
         delivererRecView = findViewById(R.id.delivererRecView);
         mPostBtn = findViewById(R.id.postOrderBtn);
+
         Bundle bundle = this.getIntent().getExtras();
         final Order order = (Order) bundle.getSerializable("orderObj");
 
@@ -45,6 +46,7 @@ public class OrderDelivererSelect extends AppCompatActivity {
         final List<String> nameList = new ArrayList<>();
         final List<String> timeList = new ArrayList<>();
         final List<String> delivererIDList = new ArrayList<>();
+        final List<String> deliveryPostingIDList = new ArrayList<>();
         orderPostingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -52,10 +54,11 @@ public class OrderDelivererSelect extends AppCompatActivity {
                     nameList.add(snapshot.child("Name").getValue(String.class));
                     timeList.add(snapshot.child("DeliveryTime").getValue(String.class));
                     delivererIDList.add(snapshot.child("Deliverer").getValue(String.class));
+                    deliveryPostingIDList.add(snapshot.getKey());
                 }
 
                 final DelivererRecAdapter delivererRecAdapter = new DelivererRecAdapter(OrderDelivererSelect.this,
-                        nameList, timeList, delivererIDList, order);
+                        nameList, timeList, delivererIDList, order, deliveryPostingIDList);
                 delivererRecView.setAdapter(delivererRecAdapter);
                 delivererRecView.setLayoutManager(new LinearLayoutManager(OrderDelivererSelect.this));
             }

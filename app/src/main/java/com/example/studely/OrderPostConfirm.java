@@ -18,6 +18,7 @@ public class OrderPostConfirm extends BottomNavBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_post_confirm);
         navBar(this.getApplicationContext());
+        final String deliveryPostingID = getIntent().getExtras().getString("deliveryPostingID");
 
         Bundle bundle = this.getIntent().getExtras();
         final Order order = (Order) bundle.getSerializable("orderObj");
@@ -50,6 +51,7 @@ public class OrderPostConfirm extends BottomNavBar {
 
                 userRef.child("ConfirmedOrders").child(pushID).setValue(order.getDestination());
                 dbRef.child("users").child(order.getDeliverer()).setValue(order.getDestination());
+                dbRef.child("DeliveryPostings").child(order.getCanteen()).child(deliveryPostingID).removeValue();
             }
 
             @Override
