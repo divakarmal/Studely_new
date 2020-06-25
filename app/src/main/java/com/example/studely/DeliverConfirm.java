@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 
 import com.example.studely.classes.Food;
 import com.example.studely.classes.Order;
+import com.example.studely.notifications.NotifServer;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,10 +37,11 @@ public class DeliverConfirm extends BottomNavBar {
         orderRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String pushID = confirmedOrdersRef.push().getKey();
-                DatabaseReference pushRef = confirmedOrdersRef.child(pushID);
                 String destination = dataSnapshot.child("Destination").getValue(String.class);
                 String receiver = dataSnapshot.child("Receiver").getValue(String.class);
+
+                String pushID = confirmedOrdersRef.push().getKey();
+                DatabaseReference pushRef = confirmedOrdersRef.child(pushID);
                 pushRef.child("DeliveryTime").setValue(dataSnapshot.child("DeliveryTime").getValue());
                 pushRef.child("Destination").setValue(destination);
                 pushRef.child("OrderCost").setValue(dataSnapshot.child("OrderCost").getValue(String.class));
@@ -48,6 +50,8 @@ public class DeliverConfirm extends BottomNavBar {
                 pushRef.child("Canteen").setValue(canteenID);
                 pushRef.child("Reached").setValue(false);
                 pushRef.child("Completed").setValue(false);
+                pushRef.child("Time").setValue("0000"); // <-------------------------------------------------------------------
+
                 DatabaseReference itemListRef = pushRef.child("ItemList");
                 for (DataSnapshot snapshot: dataSnapshot.child("ItemList").getChildren()) {
                     String price = snapshot.child("Price").getValue(String.class);
@@ -55,13 +59,14 @@ public class DeliverConfirm extends BottomNavBar {
                     itemListRef.child(snapshot.getKey()).child("Price").setValue(price);
                     itemListRef.child(snapshot.getKey()).child("Quantity").setValue(quantity);
                 }
-                pushRef.child("Time").setValue("0000");
-                dbRef.child("OrderPostings").child(canteenID).child(orderPostingID).removeValue();
-                dbRef.child("users").child(receiver).child("OrderPostings").child(orderPostingID).removeValue();
-
 
                 dbRef.child("users").child(receiver).child("ConfirmedOrders").child(pushID).setValue(destination);
                 userRef.child("ConfirmedOrders").child(pushID).setValue(destination);
+
+                dbRef.child("OrderPostings").child(canteenID).child(orderPostingID).removeValue();
+                dbRef.child("users").child(receiver).child("OrderPostings").child(orderPostingID).removeValue();
+
+                NotifServer.sendMessage(receiver, "Your order has been accepted for delivery!");
             }
 
             @Override

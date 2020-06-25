@@ -20,7 +20,7 @@
         <activity android:name=".MyOrders" />
         <activity android:name=".OrderDelivererSelect" />
         <activity android:name=".OrderConfirm" />
-        <activity android:name=".DeliverPostingConfirm" />
+        <activity android:name=".DeliverPostingConfirmed" />
         <activity android:name=".DeliverSelectTime" />
         <activity android:name=".DeliverOrderSelect" />
         <activity android:name=".OrderFoodSelect" />

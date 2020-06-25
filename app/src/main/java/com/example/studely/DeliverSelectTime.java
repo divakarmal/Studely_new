@@ -32,7 +32,7 @@ public class DeliverSelectTime extends BottomNavBar {
         mConfirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntent = new Intent(getApplicationContext(), DeliverPostingConfirm.class);
+                Intent newIntent = new Intent(getApplicationContext(), DeliverPostingConfirmed.class);
                 String pushID = dbRef.push().getKey();
                 int clockTime = mTimePicker.getHour() * 100 + mTimePicker.getMinute();
                 String numOfOrders;
