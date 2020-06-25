@@ -44,6 +44,7 @@ public class OrderTimeSelect extends BottomNavBar {
                 final String deliveryTime = Integer.toString(clockTime);
                 String pushID = orderPostingsRef.child(canteenID).push().getKey();
                 DatabaseReference pushRef = orderPostingsRef.child(canteenID).child(pushID);
+                dbRef.child("users").child(currentUser).child("OrderPostings").child(pushID).setValue(canteenID);
                 pushRef.child("DeliveryTime").setValue(deliveryTime);
                 pushRef.child("Destination").setValue(order.getDestination());
                 pushRef.child("OrderCost").setValue(Integer.toString(order.calcOrderCost()));

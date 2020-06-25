@@ -43,6 +43,7 @@ public class DeliverSelectTime extends BottomNavBar {
                 String numOfOrders;
                 numOfOrders = mNoOfOrders.getText().toString();
                 String deliveryTime = Integer.toString(clockTime);
+                dbRef.child("users").child(currentUser).child("DeliveryPostings").child(pushID).setValue(canteenID);
                 dbRef.child("DeliveryPostings").child(canteenID).child(pushID).child("Deliverer").setValue(currentUser);
                 dbRef.child("DeliveryPostings").child(canteenID).child(pushID).child("DeliveryTime").setValue(deliveryTime);
                 dbRef.child("DeliveryPostings").child(canteenID).child(pushID).child("NoOfOrders").setValue(numOfOrders);

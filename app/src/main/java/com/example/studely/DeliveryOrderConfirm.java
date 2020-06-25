@@ -57,6 +57,7 @@ public class DeliveryOrderConfirm extends BottomNavBar {
                 }
                 pushRef.child("Time").setValue("0000");
                 dbRef.child("OrderPostings").child(canteenID).child(orderPostingID).removeValue();
+                dbRef.child("users").child(receiver).child("OrderPostings").child(orderPostingID).removeValue();
 
 
                 dbRef.child("users").child(receiver).child("ConfirmedOrders").child(pushID).setValue(destination);
