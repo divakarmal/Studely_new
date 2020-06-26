@@ -27,7 +27,6 @@
         style="@style/Widget.AppCompat.Button"
         android:background="#D3D3D3"
         android:src="@drawable/ic_chevron_right_black_24dp"
-        android:text="Next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.845"

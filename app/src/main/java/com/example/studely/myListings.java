@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.example.studely.adapters.MyOrderListingsAdapter;
+import com.example.studely.adapters.myOrderListingsAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -60,7 +60,7 @@ public class MyListings extends BottomNavBar {
                     });
                 }
 
-                final MyOrderListingsAdapter myListingAdapter = new MyOrderListingsAdapter(MyListings.this,
+                final myOrderListingsAdapter myListingAdapter = new myOrderListingsAdapter(MyListings.this,
                         timeList, destList);
 
                 listingRecView.setAdapter(myListingAdapter);

@@ -4,60 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/myBlue"
+    android:background="@drawable/blue_skies"
     tools:context=".DeliverSelectTime">
 
     <TimePicker
         android:id="@+id/timePicker1"
-        android:layout_width="299dp"
-        android:layout_height="352dp"
-        android:timePickerMode="clock"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="294dp"
+        android:layout_height="213dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="80dp"
+        android:timePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.419"
+        app:layout_constraintHorizontal_bias="0.415"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterTime"
-        app:layout_constraintVertical_bias="0.157" />
+        app:layout_constraintTop_toBottomOf="@+id/enterTime" />
 
     <EditText
         android:id="@+id/numOfOrders"
-        android:layout_width="349dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="299dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="76dp"
         android:ems="10"
         android:hint="How many orders?"
         android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="#f3f3f3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timePicker1"
-        app:layout_constraintVertical_bias="0.237" />
+        app:layout_constraintTop_toBottomOf="@+id/timePicker1" />
 
     <Button
         android:id="@+id/confirmBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="60dp"
+        android:background="#d3d3d3"
         android:text="Confirm"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="#38c7f5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.77"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numOfOrders"
-        app:layout_constraintVertical_bias="0.342" />
+        app:layout_constraintTop_toBottomOf="@+id/numOfOrders" />
 
     <TextView
         android:id="@+id/enterTime"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
         android:text="Enter Delivery Time"
+        android:textColor="#d3d3d3"
         android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.064" />
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="413dp"

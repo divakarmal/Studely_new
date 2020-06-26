@@ -4,33 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/myBlue"
+    android:background="@drawable/blue_skies"
     tools:context=".DeliverOrderSelect">
 
     <Button
         android:id="@+id/newPosting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="156dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="50dp"
+        android:background="#d3d3d3"
         android:text="Make new posting"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        android:textColor="#38c7f5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderRecView"
-        app:layout_constraintVertical_bias="0.455" />
+        app:layout_constraintTop_toBottomOf="@+id/orderRecView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/orderRecView"
-        android:layout_width="387dp"
-        android:layout_height="391dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="160dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="385dp"
+        android:layout_height="451dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
