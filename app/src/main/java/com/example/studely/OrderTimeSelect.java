@@ -26,6 +26,7 @@ public class OrderTimeSelect extends BottomNavBar {
 
         mPostBtn = findViewById(R.id.postOrder);
         mTimePicker = findViewById(R.id.timePicker1);
+        mTimePicker.setIs24HourView(true);
 
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference orderPostingsRef = dbRef.child("OrderPostings");

@@ -50,7 +50,6 @@ public class OrderConfirm extends BottomNavBar {
         }
 
         userRef.child("ConfirmedOrders").child(pushID).setValue(order.getDestination());
-        dbRef.child("users").child(order.getDeliverer()).setValue(order.getDestination());
 
         dbRef.child("DeliveryPostings").child(order.getCanteen()).child(deliveryPostingID).removeValue();
         dbRef.child("users").child(order.getDeliverer()).child("OrderPostings").child(deliveryPostingID).removeValue();

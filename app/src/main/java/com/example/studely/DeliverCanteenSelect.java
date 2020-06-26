@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -25,7 +26,7 @@ public class DeliverCanteenSelect extends BottomNavBar {
 
     Spinner canteenSpinner;
     ArrayAdapter<String> canteenAdapter;
-    Button mNextBtn;
+    ImageButton mNextBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
