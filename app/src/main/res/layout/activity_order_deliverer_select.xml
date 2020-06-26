@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/myBlue">
+    android:background="@drawable/blue_skies">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/delivererRecView"
@@ -35,6 +35,8 @@
         android:layout_width="288dp"
         android:layout_height="50dp"
         android:text="Post New Order Instead"
+        android:background="#D3D3D3"
+        android:textColor="#38C7F5"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"

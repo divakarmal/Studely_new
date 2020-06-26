@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.studely.classes.Food;
 import com.example.studely.adapters.FoodRecAdapter;
@@ -29,7 +30,7 @@ import java.util.List;
 public class OrderFoodSelect extends BottomNavBar {
 
     RecyclerView foodList;
-    Button mNextBtn;
+    ImageButton mNextBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

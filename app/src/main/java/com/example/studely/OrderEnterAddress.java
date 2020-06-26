@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +27,7 @@ import java.util.List;
 public class OrderEnterAddress extends BottomNavBar {
     EditText address;
     CheckBox priAddBool;
-    Button mNextBtn;
+    ImageButton mNextBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/myBlue"
+    android:background="@drawable/blue_skies"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,6 +11,7 @@
         android:id="@+id/textView2"
         android:layout_width="246dp"
         android:layout_height="45dp"
+        android:textColor="#D3D3D3"
         android:text="Order placed!"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
@@ -36,6 +37,7 @@
         android:id="@+id/textView5"
         android:layout_width="249dp"
         android:layout_height="121dp"
+        android:textColor="#D3D3D3"
         android:text="Check out status in my orders tab"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"

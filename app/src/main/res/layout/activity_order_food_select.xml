@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/myBlue"
+    android:background="@drawable/blue_skies"
     tools:context=".OrderFoodSelect">
 
     <TextView
@@ -22,8 +22,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/foodRecView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="400dp"
+        android:layout_height="410dp"
         android:layout_marginTop="160dp"
         android:layout_marginBottom="100dp"
         android:background="@null"
@@ -32,13 +32,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/nextBtn"
+        style="@style/Widget.AppCompat.Button"
+        android:background="#D3D3D3"
+        android:src="@drawable/ic_chevron_right_black_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:text="Next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/foodRecView" />
 

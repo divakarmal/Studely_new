@@ -22,9 +22,9 @@
 
     <ImageButton
         android:id="@+id/nextBtn"
-        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button"
         android:background="#D3D3D3"
         android:src="@drawable/ic_chevron_right_black_24dp"
         android:text="Next"
