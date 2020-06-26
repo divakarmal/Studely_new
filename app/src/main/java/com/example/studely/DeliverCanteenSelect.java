@@ -59,6 +59,8 @@ public class DeliverCanteenSelect extends BottomNavBar {
             public void onCancelled(DatabaseError databaseError) { }
         });
 
+
+
         navBar(this.getApplicationContext());
 
         mNextBtn.setOnClickListener(new View.OnClickListener() {
