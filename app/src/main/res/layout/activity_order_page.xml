@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/myBlue"
+    android:background="@drawable/blue_skies"
     tools:context=".OrderPage">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/OrderID"
-        app:layout_constraintVertical_bias="0.312" />
+        app:layout_constraintVertical_bias="0.309" />
 
     <TextView
         android:id="@+id/textView12"
@@ -106,29 +106,33 @@
 
     <Button
         android:id="@+id/reachedBtn"
-        android:layout_width="63dp"
-        android:layout_height="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Reached"
         android:visibility="gone"
+        android:background="#D3D3D3"
+        android:textColor="#38C7F5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DeliveryTime"
-        app:layout_constraintVertical_bias="0.43" />
+        app:layout_constraintVertical_bias="0.796" />
 
     <Button
         android:id="@+id/receivedBtn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Received"
         android:visibility="gone"
+        android:background="#D3D3D3"
+        android:textColor="#38C7F5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/orderCost"
-        app:layout_constraintVertical_bias="0.43" />
+        app:layout_constraintVertical_bias="0.24000001" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
