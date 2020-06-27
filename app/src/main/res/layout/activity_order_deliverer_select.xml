@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blue_skies">
+    android:background="@drawable/bg_main">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/delivererRecView"
@@ -18,29 +18,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="413dp"
-        android:layout_height="41dp"
-        android:background="#000000"
-        app:itemIconTint="#FFFFFF"
-        app:itemTextColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
 
     <Button
         android:id="@+id/postOrderBtn"
         android:layout_width="288dp"
         android:layout_height="50dp"
         android:text="Post New Order Instead"
-        android:background="#D3D3D3"
-        android:textColor="#38C7F5"
+        android:background="@color/component_color"
+        android:textColor="@color/component_text"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/delivererRecView"
         app:layout_constraintVertical_bias="0.76" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:background="@color/nav_bar_bg"
+        app:itemIconTint="@color/nav_bar_inside"
+        app:itemTextColor="@color/nav_bar_inside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

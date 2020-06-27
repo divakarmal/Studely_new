@@ -1,51 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blue_skies"
+    android:background="@drawable/bg_main"
     tools:context=".OrderCanteenSelect">
 
     <TextView
         android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="189dp"
-        android:layout_marginBottom="565dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
         android:text="Select Stall"
+        android:textColor="@color/component_color"
+        android:fontFamily="@font/advent_pro_semibold"
         android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.179"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.102" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/stallListView"
         android:layout_width="355dp"
         android:layout_height="379dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginEnd="23dp"
         android:layout_marginBottom="118dp"
-        android:background="@android:color/transparent" />
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
-        android:layout_width="413dp"
-        android:layout_height="41dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
-        android:background="#000000"
-        app:itemIconTint="#FFFFFF"
-        app:itemTextColor="#FFFFFF"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:background="@color/nav_bar_bg"
+        app:itemIconTint="@color/nav_bar_inside"
+        app:itemTextColor="@color/nav_bar_inside"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,8 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blue_skies"
+    android:background="@drawable/bg_main"
     tools:context=".DeliverSelectTime">
+
+    <TextView
+        android:id="@+id/enterTime"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
+        android:text="Enter Delivery Time"
+        android:fontFamily="@font/advent_pro_semibold"
+        android:textColor="@color/component_color"
+        android:textSize="36sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TimePicker
         android:id="@+id/timePicker1"
@@ -14,6 +27,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="80dp"
         android:timePickerMode="spinner"
+        android:numbersTextColor="@color/component_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.415"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +42,6 @@
         android:ems="10"
         android:hint="How many orders?"
         android:inputType="number"
-        android:textColor="#f3f3f3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timePicker1" />
 
@@ -38,35 +51,22 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         android:layout_marginEnd="60dp"
-        android:background="#d3d3d3"
+        android:background="@color/component_color"
         android:text="Confirm"
-        android:textColor="#38c7f5"
+        android:textColor="@color/component_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/numOfOrders" />
 
-    <TextView
-        android:id="@+id/enterTime"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="40dp"
-        android:text="Enter Delivery Time"
-        android:textColor="#d3d3d3"
-        android:textSize="36sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
-        android:layout_width="413dp"
-        android:layout_height="41dp"
-        android:background="#000000"
-        app:itemIconTint="#FFFFFF"
-        app:itemTextColor="#FFFFFF"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:background="@color/nav_bar_bg"
+        app:itemIconTint="@color/nav_bar_inside"
+        app:itemTextColor="@color/nav_bar_inside"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

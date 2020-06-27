@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="myBlue">#1b5583</color>
+    <color name="myBlue">#1B5583</color>
+    <color name="nav_bar_bg">#1976d2</color>
+    <color name="nav_bar_inside">#FFFFFF</color>
+    <color name="component_color">#F1F1F1</color>
+    <color name="component_text">#38c7f5</color>
 </resources>

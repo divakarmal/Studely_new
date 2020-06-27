@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:background="@drawable/order2">
+            android:background="@drawable/home_order">
 
             <Button
                 android:id="@+id/orderBtn"
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/deliverypic"
+            android:background="@drawable/home_deliver"
             android:orientation="horizontal">
 
             <Button
@@ -54,20 +54,18 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-
     </LinearLayout>
-
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
-        android:layout_width="413dp"
-        android:layout_height="41dp"
-        android:background="#000000"
-        app:itemIconTint="#FFFFFF"
-        app:itemTextColor="#FFFFFF"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:background="@color/nav_bar_bg"
+        app:itemIconTint="@color/nav_bar_inside"
+        app:itemTextColor="@color/nav_bar_inside"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/home_bottom_nav" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
