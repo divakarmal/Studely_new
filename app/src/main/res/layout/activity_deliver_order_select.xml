@@ -12,12 +12,14 @@
         android:layout_width="156dp"
         android:layout_height="50dp"
         android:layout_marginStart="124dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:background="@color/component_color"
         android:text="Make new posting"
         android:textColor="@color/component_text"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderRecView" />
+        app:layout_constraintTop_toBottomOf="@+id/orderRecView"
+        app:layout_constraintVertical_bias="0.16" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/orderRecView"

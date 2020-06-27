@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderDelivererSelect extends AppCompatActivity {
+public class OrderDelivererSelect extends BottomNavBar {
 
     RecyclerView delivererRecView;
     Button mPostBtn;
@@ -34,6 +34,7 @@ public class OrderDelivererSelect extends AppCompatActivity {
 
         delivererRecView = findViewById(R.id.delivererRecView);
         mPostBtn = findViewById(R.id.postOrderBtn);
+        navBar(this.getApplicationContext());
 
         Bundle bundle = this.getIntent().getExtras();
         final Order order = (Order) bundle.getSerializable("orderObj");
