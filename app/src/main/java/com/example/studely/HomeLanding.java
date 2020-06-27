@@ -11,9 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-//import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class HomeLanding extends AppCompatActivity {
     Button mOrderButton, mDeliverButton;
@@ -22,9 +20,11 @@ public class HomeLanding extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_landing);
+
         mOrderButton = findViewById(R.id.orderBtn);
         mDeliverButton = findViewById(R.id.deliverBtn);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -50,7 +50,7 @@ public class HomeLanding extends AppCompatActivity {
 
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //FirebaseMessaging.getInstance().subscribeToTopic("user_"+userID);
+        FirebaseMessaging.getInstance().subscribeToTopic("user_"+userID);
 
 
         mOrderButton.setOnClickListener(new View.OnClickListener() {
