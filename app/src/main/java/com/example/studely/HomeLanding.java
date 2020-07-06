@@ -35,10 +35,6 @@ public class HomeLanding extends AppCompatActivity {
                         break;
                     case R.id.ic_logout:
                         FirebaseAuth.getInstance().signOut();
-
-
-
-
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         finish();
                         break;
