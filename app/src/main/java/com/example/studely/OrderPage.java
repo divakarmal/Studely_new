@@ -1,11 +1,19 @@
 package com.example.studely;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,6 +22,10 @@ import android.widget.TextView;
 import com.example.studely.adapters.SummaryRecAdapter;
 import com.example.studely.classes.Food;
 import com.example.studely.classes.Order;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +41,8 @@ public class OrderPage extends BottomNavBar {
     RecyclerView summaryList;
     TextView mOrderID, mTimeStamp, mDeliveryTime, mOrderTotal, mOrderReached, mNothereYet, mComplete, mAwait;
     Button mReachedBtn, mReceivedBtn;
+    Location currentLoc, delLocation;
+    private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
 
 
     @Override
@@ -49,6 +64,8 @@ public class OrderPage extends BottomNavBar {
         mComplete = findViewById(R.id.CompletedOrder);
         mAwait = findViewById(R.id.AwaitingConfirm);
 
+        getCurrentLocation();
+
 
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final List<Food> orderList = new ArrayList<>();
@@ -66,6 +83,22 @@ public class OrderPage extends BottomNavBar {
                 String receiverID = (String) dataSnapshot.child("Receiver").getValue();
                 boolean reached = dataSnapshot.child("Reached").getValue(boolean.class);
                 boolean completed = dataSnapshot.child("Completed").getValue(boolean.class);
+                String delAddress = dataSnapshot.child("Destination").getValue(String.class);
+                Geocoder geocoder = new Geocoder(OrderPage.this);
+                List<Address> addresses = null;
+                try {
+                    addresses = geocoder.getFromLocationName(delAddress, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(addresses.size() > 0) {
+                    double latitude= addresses.get(0).getLatitude();
+                    double longitude= addresses.get(0).getLongitude();
+                    System.out.println(latitude + "long: " + longitude);
+                    delLocation = new Location("providerNA");
+                    delLocation.setLongitude(longitude);
+                    delLocation.setLatitude(latitude);
+                }
 
 
                 if(completed){
@@ -74,7 +107,12 @@ public class OrderPage extends BottomNavBar {
                     if(reached) {
                         mAwait.setVisibility(View.VISIBLE);
                     } else{
-                        mReachedBtn.setVisibility(View.VISIBLE);
+                        if(delLocation.distanceTo(currentLoc) < 500){
+                            System.out.println("reached");
+                            mReachedBtn.setVisibility(View.VISIBLE);
+                        } else {
+                            //TODO
+                        }
                     }
                 } else if (receiverID.equals(currentUser)){
                     if(reached) {
@@ -136,5 +174,36 @@ public class OrderPage extends BottomNavBar {
         });
 
 
+    }
+    private void getCurrentLocation() {
+        final LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(3000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        LocationServices.getFusedLocationProviderClient(OrderPage.this)
+                .requestLocationUpdates(locationRequest, new LocationCallback() {
+                    @Override
+                    public void onLocationResult(LocationResult locationResult) {
+                        super.onLocationResult(locationResult);
+                        LocationServices.getFusedLocationProviderClient(OrderPage.this)
+                                .removeLocationUpdates(this);
+                        if(locationResult != null && locationResult.getLocations().size() > 0){
+                            int latestLocationIndex = locationResult.getLocations().size() - 1;
+                            double latitude =
+                                    locationResult.getLocations().get(latestLocationIndex).getLatitude();
+                            double longitude =
+                                    locationResult.getLocations().get(latestLocationIndex).getLongitude();
+                            Location location = new Location("providerNA");
+                            location.setLatitude(latitude);
+                            location.setLongitude(longitude);
+                            currentLoc = location;
+                            System.out.println("Current " + latitude + "long: " + longitude);
+                        }
+                    }
+                }, Looper.getMainLooper());
     }
 }

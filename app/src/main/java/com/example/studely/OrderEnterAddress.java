@@ -10,6 +10,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,6 +40,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,6 +89,18 @@ public class OrderEnterAddress extends BottomNavBar {
                     @Override
                     public void onClick(View v) {
                         address.setText(priAdd);
+                        Geocoder geocoder = new Geocoder(OrderEnterAddress.this);
+                        List<Address> addresses = null;
+                        try {
+                            addresses = geocoder.getFromLocationName(priAdd, 1);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        if(addresses.size() > 0) {
+                            double latitude= addresses.get(0).getLatitude();
+                            double longitude= addresses.get(0).getLongitude();
+                            System.out.println(latitude + "long: " + longitude);
+                        }
                     }
                 });
             }
