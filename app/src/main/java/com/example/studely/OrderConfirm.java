@@ -1,16 +1,14 @@
 package com.example.studely;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+
 import androidx.annotation.Nullable;
+
 import com.example.studely.classes.Food;
 import com.example.studely.classes.Order;
 import com.example.studely.notifications.NotifServer;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class OrderConfirm extends BottomNavBar {
 

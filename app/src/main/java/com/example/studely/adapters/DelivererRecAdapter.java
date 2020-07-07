@@ -28,7 +28,7 @@ public class DelivererRecAdapter extends RecyclerView.Adapter<DelivererRecAdapte
     Order order;
 
     public DelivererRecAdapter(Context context, List<String> nameList, List<String> timeList,
-                                List<String> delivererIDList, Order order, List<String> deliveryPostingIDList) {
+                               List<String> delivererIDList, Order order, List<String> deliveryPostingIDList) {
         this.context = context;
         this.nameList = nameList;
         this.timeList = timeList;

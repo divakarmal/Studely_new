@@ -1,18 +1,12 @@
 package com.example.studely;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,9 +37,9 @@ public class DeliverCanteenSelect extends BottomNavBar {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> canteenList = new ArrayList<String>();
 
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String canteenName = snapshot.getKey();
-                    if (canteenName!=null){
+                    if (canteenName != null) {
                         canteenList.add(canteenName);
                     }
                 }
@@ -57,9 +51,9 @@ public class DeliverCanteenSelect extends BottomNavBar {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) { }
+            public void onCancelled(DatabaseError databaseError) {
+            }
         });
-
 
 
         navBar(this.getApplicationContext());

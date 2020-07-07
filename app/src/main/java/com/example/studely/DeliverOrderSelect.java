@@ -1,19 +1,15 @@
 package com.example.studely;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.studely.adapters.OrderRecAdapter;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +35,7 @@ public class DeliverOrderSelect extends BottomNavBar {
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference orderPostingsRef = database.getReference().child("OrderPostings")
-                                                    .child(canteenID);
+                .child(canteenID);
 
         final List<String[]> orderPostingsData = new ArrayList<>();
         final List<String> orderIDList = new ArrayList<>();
@@ -47,7 +43,7 @@ public class DeliverOrderSelect extends BottomNavBar {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    orderPostingsData.add(new String[] {
+                    orderPostingsData.add(new String[]{
                             snapshot.child("Destination").getValue(String.class),
                             snapshot.child("DeliveryTime").getValue(String.class),
                             snapshot.getKey(),
@@ -57,7 +53,7 @@ public class DeliverOrderSelect extends BottomNavBar {
                 }
 
                 final OrderRecAdapter orderRecAdapter = new OrderRecAdapter(DeliverOrderSelect.this,
-                                                            orderPostingsData, orderIDList);
+                        orderPostingsData, orderIDList);
                 orderRecView.setAdapter(orderRecAdapter);
                 orderRecView.setLayoutManager(new LinearLayoutManager(DeliverOrderSelect.this));
             }
@@ -79,7 +75,6 @@ public class DeliverOrderSelect extends BottomNavBar {
         });
 
         navBar(this.getApplicationContext());
-
 
 
     }

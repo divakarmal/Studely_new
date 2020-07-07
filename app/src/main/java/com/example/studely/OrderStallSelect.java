@@ -2,17 +2,12 @@ package com.example.studely;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +35,7 @@ public class OrderStallSelect extends BottomNavBar {
         navBar(this.getApplicationContext());
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference fStallRef = database.getReference().child("canteens")
-                                        .child(canteenID).child("StallList");
+                .child(canteenID).child("StallList");
 
         fStallRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -21,30 +21,29 @@ public class Order implements Serializable {
         orderCost = 0;
     }
 
-    public void setDeliverer(String deliv) { this.deliverer = deliv; }
-
-    public void setReceiver(String receive) { this.receiver = receive; }
-
-    public void setCanteen(String canteen) { this.canteen = canteen; }
-
-    public void setDeliveryTime(String deliTime) {
-        // Conversion
-        this.deliveryTime = deliTime;
+    public void addFood(Food food) {
+        foodList.add(food);
     }
-
-    public void setDestination(String dest) { this.destination = dest; }
-
-    public void addFood(Food food) { foodList.add(food); }
 
     public String getDeliverer() {
         return deliverer;
+    }
+
+    public void setDeliverer(String deliv) {
+        this.deliverer = deliv;
     }
 
     public String getReceiver() {
         return receiver;
     }
 
-    public List<Food> getList() { return this.foodList; }
+    public void setReceiver(String receive) {
+        this.receiver = receive;
+    }
+
+    public List<Food> getList() {
+        return this.foodList;
+    }
 
     public int calcOrderCost() {
         this.orderCost = 0;
@@ -58,11 +57,24 @@ public class Order implements Serializable {
         return deliveryTime;
     }
 
+    public void setDeliveryTime(String deliTime) {
+        // Conversion
+        this.deliveryTime = deliTime;
+    }
+
     public String getCanteen() {
         return canteen;
     }
 
+    public void setCanteen(String canteen) {
+        this.canteen = canteen;
+    }
+
     public String getDestination() {
         return destination;
+    }
+
+    public void setDestination(String dest) {
+        this.destination = dest;
     }
 }

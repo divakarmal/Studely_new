@@ -1,7 +1,5 @@
 package com.example.studely;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 public class OrderPostingConfirmed extends BottomNavBar {

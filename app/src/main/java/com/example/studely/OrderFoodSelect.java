@@ -1,22 +1,18 @@
 package com.example.studely;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-
-import com.example.studely.classes.Food;
 import com.example.studely.adapters.FoodRecAdapter;
+import com.example.studely.classes.Food;
 import com.example.studely.classes.Order;
 import com.example.studely.classes.QtyTextChanged;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -64,13 +60,13 @@ public class OrderFoodSelect extends BottomNavBar {
                 final FoodRecAdapter foodAdapter = new FoodRecAdapter(OrderFoodSelect.this,
                         foodItems.toArray(new String[0]),
                         new QtyTextChanged() {
-                    @Override
-                    public void OnTextChanged(int position, String charSeq) {
-                        if (!charSeq.equals("")) {
-                            foodQty.set(position, Integer.parseInt(charSeq));
-                        }
-                    }
-                }, foodPrice.toArray(new Integer[0]));
+                            @Override
+                            public void OnTextChanged(int position, String charSeq) {
+                                if (!charSeq.equals("")) {
+                                    foodQty.set(position, Integer.parseInt(charSeq));
+                                }
+                            }
+                        }, foodPrice.toArray(new Integer[0]));
 
                 foodList.setAdapter(foodAdapter);
                 foodList.setLayoutManager(new LinearLayoutManager(OrderFoodSelect.this));

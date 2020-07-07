@@ -30,16 +30,16 @@ public class HomeLanding extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.ic_profile:
-                        Intent profile = new Intent(HomeLanding.this,UserDetailsForm.class);
+                        Intent profile = new Intent(HomeLanding.this, UserDetailsForm.class);
                         startActivity(profile);
                         break;
                     case R.id.ic_logout:
                         FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();
                         break;
                     case R.id.ic_myOrderList:
-                        Intent myOrders = new Intent(HomeLanding.this,MyOrders.class);
+                        Intent myOrders = new Intent(HomeLanding.this, MyOrders.class);
                         startActivity(myOrders);
                         break;
                 }
@@ -48,21 +48,20 @@ public class HomeLanding extends AppCompatActivity {
         });
 
 
-
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        FirebaseMessaging.getInstance().subscribeToTopic("user_"+userID);
+        FirebaseMessaging.getInstance().subscribeToTopic("user_" + userID);
 
 
         mOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),OrderEnterAddress.class));
+                startActivity(new Intent(getApplicationContext(), OrderEnterAddress.class));
             }
         });
         mDeliverButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),DeliverCanteenSelect.class));
+                startActivity(new Intent(getApplicationContext(), DeliverCanteenSelect.class));
             }
         });
 

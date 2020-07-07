@@ -11,41 +11,40 @@ import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 
-import com.example.studely.Constants;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class FetchAddressIntentService  extends IntentService {
+public class FetchAddressIntentService extends IntentService {
     private ResultReceiver resultReceiver;
-    public  FetchAddressIntentService(){
+
+    public FetchAddressIntentService() {
         super("FetchAddressIntentService");
     }
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        if(intent!= null){
+        if (intent != null) {
             String errorMessage = "";
             resultReceiver = intent.getParcelableExtra(Constants.RECEIVER);
             Location location = intent.getParcelableExtra(Constants.LOCATION_DATA_EXTRA);
-            if(location == null){
+            if (location == null) {
                 return;
             }
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             List<Address> addresses = null;
             try {
-                addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-            } catch (Exception exception){
+                addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            } catch (Exception exception) {
                 errorMessage = exception.getMessage();
             }
-            if(addresses == null || addresses.isEmpty()){
+            if (addresses == null || addresses.isEmpty()) {
                 deliverResultToReceiver(Constants.FAILURE_RESULT, errorMessage);
             } else {
-                Address address =  addresses.get(0);
+                Address address = addresses.get(0);
                 ArrayList<String> addressFragments = new ArrayList<>();
-                for(int i = 0; i <= address.getMaxAddressLineIndex(); i++){
+                for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
                     addressFragments.add(address.getAddressLine(i));
                 }
                 deliverResultToReceiver(
@@ -59,7 +58,8 @@ public class FetchAddressIntentService  extends IntentService {
         }
 
     }
-    private void deliverResultToReceiver(int resultCode, String addressMessage){
+
+    private void deliverResultToReceiver(int resultCode, String addressMessage) {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.RESULT_DATA_KEY, addressMessage);
         resultReceiver.send(resultCode, bundle);

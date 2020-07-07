@@ -1,11 +1,5 @@
 package com.example.studely;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,13 +9,15 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.studely.adapters.SummaryRecAdapter;
 import com.example.studely.classes.Food;
-import com.example.studely.classes.Order;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -38,12 +34,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderPage extends BottomNavBar {
+    private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
     RecyclerView summaryList;
     TextView mOrderID, mTimeStamp, mDeliveryTime, mOrderTotal, mOrderReached, mNothereYet, mComplete, mAwait;
     Button mReachedBtn, mReceivedBtn;
     Location currentLoc, delLocation;
-    private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +86,9 @@ public class OrderPage extends BottomNavBar {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                if(addresses.size() > 0) {
-                    double latitude= addresses.get(0).getLatitude();
-                    double longitude= addresses.get(0).getLongitude();
+                if (addresses.size() > 0) {
+                    double latitude = addresses.get(0).getLatitude();
+                    double longitude = addresses.get(0).getLongitude();
                     System.out.println(latitude + "long: " + longitude);
                     delLocation = new Location("providerNA");
                     delLocation.setLongitude(longitude);
@@ -101,21 +96,21 @@ public class OrderPage extends BottomNavBar {
                 }
 
 
-                if(completed){
+                if (completed) {
                     mComplete.setVisibility(View.VISIBLE);
-                } else if(delivererID.equals(currentUser)){
-                    if(reached) {
+                } else if (delivererID.equals(currentUser)) {
+                    if (reached) {
                         mAwait.setVisibility(View.VISIBLE);
-                    } else{
-                        if(delLocation.distanceTo(currentLoc) < 500){
+                    } else {
+                        if (delLocation.distanceTo(currentLoc) < 500) {
                             System.out.println("reached");
                             mReachedBtn.setVisibility(View.VISIBLE);
                         } else {
                             //TODO
                         }
                     }
-                } else if (receiverID.equals(currentUser)){
-                    if(reached) {
+                } else if (receiverID.equals(currentUser)) {
+                    if (reached) {
                         mReceivedBtn.setVisibility(View.VISIBLE);
                     } else {
                         mNothereYet.setVisibility(View.VISIBLE);
@@ -123,6 +118,7 @@ public class OrderPage extends BottomNavBar {
                 }
 
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -145,6 +141,7 @@ public class OrderPage extends BottomNavBar {
                 summaryList.setAdapter(summaryRecAdapter);
                 summaryList.setLayoutManager(new LinearLayoutManager(OrderPage.this));
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -175,6 +172,7 @@ public class OrderPage extends BottomNavBar {
 
 
     }
+
     private void getCurrentLocation() {
         final LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(10000);
@@ -191,7 +189,7 @@ public class OrderPage extends BottomNavBar {
                         super.onLocationResult(locationResult);
                         LocationServices.getFusedLocationProviderClient(OrderPage.this)
                                 .removeLocationUpdates(this);
-                        if(locationResult != null && locationResult.getLocations().size() > 0){
+                        if (locationResult != null && locationResult.getLocations().size() > 0) {
                             int latestLocationIndex = locationResult.getLocations().size() - 1;
                             double latitude =
                                     locationResult.getLocations().get(latestLocationIndex).getLatitude();

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.studely.R;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class MyOrderListingsAdapter extends RecyclerView.Adapter<MyOrderListings
     List<String> destinationList;
     List<String> timeList;
 
-    public MyOrderListingsAdapter(Context context, List<String > timeList, List<String> destinationList) {
+    public MyOrderListingsAdapter(Context context, List<String> timeList, List<String> destinationList) {
         this.timeList = timeList;
         this.destinationList = destinationList;
         this.context = context;
@@ -47,8 +48,7 @@ public class MyOrderListingsAdapter extends RecyclerView.Adapter<MyOrderListings
     }
 
 
-
-    public class myOrderListingsView extends RecyclerView.ViewHolder{
+    public class myOrderListingsView extends RecyclerView.ViewHolder {
 
         TextView destText, deliTimeText;
         ConstraintLayout mainLayout;

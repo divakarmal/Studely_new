@@ -1,15 +1,13 @@
 package com.example.studely;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.studely.classes.Food;
+import androidx.annotation.NonNull;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -55,7 +53,6 @@ public class UserDetailsForm extends BottomNavBar {
         });
 
 
-
         mSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +64,7 @@ public class UserDetailsForm extends BottomNavBar {
                 dbRef.child("users").child(currentUser).child("phone_number").setValue(phoneNumber);
                 dbRef.child("users").child(currentUser).child("primary_address").setValue(primaryAddress);
                 dbRef.child("users").child(currentUser).child("pin_code").setValue(pinCode);
-                startActivity(new Intent(getApplicationContext(),HomeLanding.class));
+                startActivity(new Intent(getApplicationContext(), HomeLanding.class));
             }
         });
 

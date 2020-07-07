@@ -2,7 +2,7 @@ package com.example.studely.classes;
 
 import java.io.Serializable;
 
-public class Food implements Serializable  {
+public class Food implements Serializable {
     public String name;
     public int price;
     public int quantity;
@@ -22,6 +22,6 @@ public class Food implements Serializable  {
         int p = this.price;
         int q = this.quantity;
         int c = this.calcCost();
-        return String.format("%s " +"  $" + q +"    x"+ p +"      $" + c, name);
+        return String.format("%s " + "  $" + q + "    x" + p + "      $" + c, name);
     }
 }

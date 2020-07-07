@@ -38,7 +38,7 @@ public class SummaryRecAdapter extends RecyclerView.Adapter<SummaryRecAdapter.Su
         holder.itemText.setText(food.name);
         //holder.priceText.setText("$" + String.valueOf(food.price));
         holder.qtyText.setText(String.valueOf(food.quantity));
-        holder.totalCost.setText("$"+ String.valueOf(food.calcCost()));
+        holder.totalCost.setText("$" + food.calcCost());
     }
 
     @Override
@@ -46,7 +46,7 @@ public class SummaryRecAdapter extends RecyclerView.Adapter<SummaryRecAdapter.Su
         return this.itemList.size();
     }
 
-    public class SummaryViewHolder extends RecyclerView.ViewHolder{
+    public class SummaryViewHolder extends RecyclerView.ViewHolder {
 
         TextView itemText, priceText, qtyText, totalCost;
 

@@ -17,9 +17,9 @@ import com.example.studely.classes.QtyTextChanged;
 
 public class FoodRecAdapter extends RecyclerView.Adapter<FoodRecAdapter.FoodViewHolder> {
 
+    public int[] qty;
     String[] foodItems;
     Integer[] prices;
-    public int[] qty;
     Context context;
     private QtyTextChanged qtyTextChanged;
 
@@ -48,7 +48,8 @@ public class FoodRecAdapter extends RecyclerView.Adapter<FoodRecAdapter.FoodView
 
         qtyNum.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -56,7 +57,8 @@ public class FoodRecAdapter extends RecyclerView.Adapter<FoodRecAdapter.FoodView
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
     }
 

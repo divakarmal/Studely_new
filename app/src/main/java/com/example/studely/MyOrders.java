@@ -32,7 +32,7 @@ public class MyOrders extends BottomNavBar {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final DatabaseReference userOrdersRef = database.getReference().child("users")
-                            .child(currentUser).child("ConfirmedOrders");
+                .child(currentUser).child("ConfirmedOrders");
 
         final List<String> orderIDs = new ArrayList<>();
         final List<String> destinations = new ArrayList<>();

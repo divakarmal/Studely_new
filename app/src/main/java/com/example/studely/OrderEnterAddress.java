@@ -1,13 +1,6 @@
 package com.example.studely;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import com.example.studely.Constants;
-
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -17,22 +10,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.ResultReceiver;
-import android.provider.SyncStateContract;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,15 +31,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class OrderEnterAddress extends BottomNavBar {
+    private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
     EditText address;
     ImageButton mNextBtn;
     private ResultReceiver resultReceiver;
-    private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,9 +85,9 @@ public class OrderEnterAddress extends BottomNavBar {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        if(addresses.size() > 0) {
-                            double latitude= addresses.get(0).getLatitude();
-                            double longitude= addresses.get(0).getLongitude();
+                        if (addresses.size() > 0) {
+                            double latitude = addresses.get(0).getLatitude();
+                            double longitude = addresses.get(0).getLongitude();
                             System.out.println(latitude + "long: " + longitude);
                         }
                     }
@@ -151,7 +140,7 @@ public class OrderEnterAddress extends BottomNavBar {
                         super.onLocationResult(locationResult);
                         LocationServices.getFusedLocationProviderClient(OrderEnterAddress.this)
                                 .removeLocationUpdates(this);
-                        if(locationResult != null && locationResult.getLocations().size() > 0){
+                        if (locationResult != null && locationResult.getLocations().size() > 0) {
                             int latestLocationIndex = locationResult.getLocations().size() - 1;
                             double latitude =
                                     locationResult.getLocations().get(latestLocationIndex).getLatitude();
@@ -166,14 +155,14 @@ public class OrderEnterAddress extends BottomNavBar {
                 }, Looper.getMainLooper());
     }
 
-    private void fetchAddressFromLatLong(Location location){
+    private void fetchAddressFromLatLong(Location location) {
         Intent intent = new Intent(this, FetchAddressIntentService.class);
         intent.putExtra(Constants.RECEIVER, resultReceiver);
         intent.putExtra(Constants.LOCATION_DATA_EXTRA, location);
         startService(intent);
     }
 
-    private class AddressResultReceiver extends ResultReceiver{
+    private class AddressResultReceiver extends ResultReceiver {
         public AddressResultReceiver(Handler handler) {
             super(handler);
         }
@@ -181,7 +170,7 @@ public class OrderEnterAddress extends BottomNavBar {
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
             super.onReceiveResult(resultCode, resultData);
-            if(resultCode == Constants.SUCCESS_RESULT) {
+            if (resultCode == Constants.SUCCESS_RESULT) {
                 address.setText(resultData.getString(Constants.RESULT_DATA_KEY));
             } else {
                 Toast.makeText(OrderEnterAddress.this, resultData.getString(Constants.RESULT_DATA_KEY), Toast.LENGTH_LONG).show();
