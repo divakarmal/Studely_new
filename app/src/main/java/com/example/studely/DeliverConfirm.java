@@ -15,7 +15,7 @@ public class DeliverConfirm extends BottomNavBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delivery_order_confirm);
+        setContentView(R.layout.activity_deliver_order_confirm);
         final String orderPostingID = getIntent().getExtras().getString("orderPostingID");
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();

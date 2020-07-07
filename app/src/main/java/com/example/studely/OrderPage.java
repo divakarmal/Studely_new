@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class OrderPage extends BottomNavBar {
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
@@ -59,14 +60,68 @@ public class OrderPage extends BottomNavBar {
         mComplete = findViewById(R.id.CompletedOrder);
         mAwait = findViewById(R.id.AwaitingConfirm);
 
-        getCurrentLocation();
-
-
-        final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final List<Food> orderList = new ArrayList<>();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         mOrderID.setText(orderID);
         final DatabaseReference dbRef = database.getReference().child("ConfirmedOrders").child(orderID);
+
+        getCurrentLocation().thenRun(new Runnable() {
+            @Override
+            public void run() {
+                OrderPage.this.initFromDB(dbRef);
+            }
+        });
+
+        DatabaseReference fOrderRef = database.getReference().child("ConfirmedOrders")
+                .child(orderID).child("ItemList");
+        fOrderRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String foodName = snapshot.getKey();
+                    int price = Integer.parseInt((String) snapshot.child("Price").getValue());
+                    int quantity = Integer.parseInt((String) snapshot.child("Quantity").getValue());
+                    orderList.add(new Food(foodName, price, quantity));
+                }
+                SummaryRecAdapter summaryRecAdapter = new SummaryRecAdapter(OrderPage.this, orderList);
+                summaryList.setAdapter(summaryRecAdapter);
+                summaryList.setLayoutManager(new LinearLayoutManager(OrderPage.this));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mReachedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ConfirmedOrders").child(orderID);
+                Intent newIntent = new Intent(getApplicationContext(), OrderPage.class);
+                newIntent.putExtra("orderID", orderID);
+                startActivity(newIntent);
+                dbRef.child("Reached").setValue(true);
+            }
+        });
+
+        mReceivedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ConfirmedOrders").child(orderID);
+                dbRef.child("Completed").setValue(true);
+                Intent newIntent = new Intent(getApplicationContext(), OrderPage.class);
+                newIntent.putExtra("orderID", orderID);
+                startActivity(newIntent);
+            }
+        });
+
+
+    }
+
+    private void initFromDB(DatabaseReference dbRef) {
+        final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -124,63 +179,16 @@ public class OrderPage extends BottomNavBar {
 
             }
         });
-
-        DatabaseReference fOrderRef = database.getReference().child("ConfirmedOrders")
-                .child(orderID).child("ItemList");
-        fOrderRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String foodName = snapshot.getKey();
-                    int price = Integer.parseInt((String) snapshot.child("Price").getValue());
-                    int quantity = Integer.parseInt((String) snapshot.child("Quantity").getValue());
-                    orderList.add(new Food(foodName, price, quantity));
-                }
-                SummaryRecAdapter summaryRecAdapter = new SummaryRecAdapter(OrderPage.this, orderList);
-                summaryList.setAdapter(summaryRecAdapter);
-                summaryList.setLayoutManager(new LinearLayoutManager(OrderPage.this));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        mReachedBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ConfirmedOrders").child(orderID);
-                Intent newIntent = new Intent(getApplicationContext(), OrderPage.class);
-                newIntent.putExtra("orderID", orderID);
-                startActivity(newIntent);
-                dbRef.child("Reached").setValue(true);
-            }
-        });
-
-        mReceivedBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ConfirmedOrders").child(orderID);
-                dbRef.child("Completed").setValue(true);
-                Intent newIntent = new Intent(getApplicationContext(), OrderPage.class);
-                newIntent.putExtra("orderID", orderID);
-                startActivity(newIntent);
-            }
-        });
-
-
     }
 
-    private void getCurrentLocation() {
+    private CompletableFuture<Void> getCurrentLocation() {
         final LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(10000);
         locationRequest.setFastestInterval(3000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+            return new CompletableFuture<Void>();
         }
         LocationServices.getFusedLocationProviderClient(OrderPage.this)
                 .requestLocationUpdates(locationRequest, new LocationCallback() {
@@ -203,5 +211,6 @@ public class OrderPage extends BottomNavBar {
                         }
                     }
                 }, Looper.getMainLooper());
+        return new CompletableFuture<Void>();
     }
 }
