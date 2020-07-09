@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
@@ -38,7 +39,7 @@ public class OrderPage extends BottomNavBar {
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
     RecyclerView summaryList;
     TextView mOrderID, mTimeStamp, mDeliveryTime, mOrderTotal, mOrderReached, mNothereYet, mComplete, mAwait;
-    Button mReachedBtn, mReceivedBtn;
+    Button mReachedBtn, mReceivedBtn, testBtn;
     Location currentLoc, delLocation;
 
     @Override
@@ -59,6 +60,7 @@ public class OrderPage extends BottomNavBar {
         mNothereYet = findViewById(R.id.notReachedText);
         mComplete = findViewById(R.id.CompletedOrder);
         mAwait = findViewById(R.id.AwaitingConfirm);
+        testBtn = findViewById(R.id.testBtn);
 
         final List<Food> orderList = new ArrayList<>();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -111,7 +113,18 @@ public class OrderPage extends BottomNavBar {
             public void onClick(View v) {
                 final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ConfirmedOrders").child(orderID);
                 dbRef.child("Completed").setValue(true);
-                Intent newIntent = new Intent(getApplicationContext(), OrderPage.class);
+                Intent newIntent = new Intent(getApplicationContext(), ReviewPage.class);
+                newIntent.putExtra("orderID", orderID);
+                startActivity(newIntent);
+            }
+        });
+
+        testBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ConfirmedOrders").child(orderID);
+                dbRef.child("Completed").setValue(true);
+                Intent newIntent = new Intent(getApplicationContext(), ReviewPage.class);
                 newIntent.putExtra("orderID", orderID);
                 startActivity(newIntent);
             }
@@ -148,6 +161,7 @@ public class OrderPage extends BottomNavBar {
                     delLocation = new Location("providerNA");
                     delLocation.setLongitude(longitude);
                     delLocation.setLatitude(latitude);
+                    System.out.println("del long " + longitude + "lat" + latitude);
                 }
 
 

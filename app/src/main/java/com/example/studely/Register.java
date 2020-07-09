@@ -27,6 +27,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class Register extends AppCompatActivity {
@@ -105,6 +107,12 @@ public class Register extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(Register.this, "User Created", Toast.LENGTH_SHORT).show();
+                            final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+                            final DatabaseReference userRef = dbRef.child("users");
+                            userRef.child(currentUser).child("rating").setValue(0);
+                            userRef.child(currentUser).child("totalRatings").setValue(0);
+                            userRef.child(currentUser).child("name").setValue(fullName);
                             startActivity(new Intent(getApplicationContext(), HomeLanding.class));
 
                         } else {
@@ -137,6 +145,14 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Toast.makeText(getApplicationContext(), "Google account connected", Toast.LENGTH_SHORT).show();
+                        final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+                        String fullName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                        final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+                        final DatabaseReference userRef = dbRef.child("users");
+                        userRef.child(currentUser).child("name").setValue(fullName);
+                        userRef.child(currentUser).child("rating").setValue(0);
+                        userRef.child(currentUser).child("totalRatings").setValue(0);
                         startActivity(new Intent(getApplicationContext(), HomeLanding.class));
                     }
                 }).addOnFailureListener(new OnFailureListener() {

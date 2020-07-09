@@ -34,29 +34,33 @@ public class DeliverSelectTime extends BottomNavBar {
 
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference deliverPostingRef = dbRef.child("DeliveryPostings");
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final DatabaseReference userRef = dbRef.child("users").child(currentUser);
+        final DatabaseReference canteenRef = dbRef.child("canteens").child(canteenID).child("DeliveryPostings");
 
 
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull final DataSnapshot snapshot) {
                 final String name = (String) snapshot.child("name").getValue();
 
                 mConfirmBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent newIntent = new Intent(getApplicationContext(), DeliverPostingConfirmed.class);
-                        String pushID = dbRef.push().getKey();
+                        String pushID = deliverPostingRef.push().getKey();
                         int clockTime = mTimePicker.getHour() * 100 + mTimePicker.getMinute();
                         String numOfOrders;
                         numOfOrders = mNoOfOrders.getText().toString();
                         String deliveryTime = Integer.toString(clockTime);
-                        dbRef.child("users").child(currentUser).child("DeliveryPostings").child(pushID).setValue(canteenID);
-                        dbRef.child("DeliveryPostings").child(canteenID).child(pushID).child("Deliverer").setValue(currentUser);
-                        dbRef.child("DeliveryPostings").child(canteenID).child(pushID).child("DeliveryTime").setValue(deliveryTime);
-                        dbRef.child("DeliveryPostings").child(canteenID).child(pushID).child("NoOfOrders").setValue(numOfOrders);
-                        dbRef.child("DeliveryPostings").child(canteenID).child(pushID).child("Name").setValue(name);
+                        userRef.child("DeliveryPostings").child(pushID).setValue(canteenID);
+                        deliverPostingRef.child(pushID).child("Deliverer").setValue(currentUser);
+                        deliverPostingRef.child(pushID).child("DeliveryTime").setValue(deliveryTime);
+                        deliverPostingRef.child(pushID).child("NoOfOrders").setValue(numOfOrders);
+                        deliverPostingRef.child(pushID).child("Name").setValue(name);
+                        canteenRef.child(pushID).setValue("POSTING");
+
 
                         startActivity(newIntent);
                     }
