@@ -34,10 +34,10 @@ public class OrderStallSelect extends BottomNavBar {
         final String destination = getIntent().getExtras().getString("orderDestination");
         navBar(this.getApplicationContext());
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference fStallRef = database.getReference().child("canteens")
+        DatabaseReference stallRef = database.getReference().child("canteens")
                 .child(canteenID).child("StallList");
 
-        fStallRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        stallRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 stalls = new ArrayList<String>();

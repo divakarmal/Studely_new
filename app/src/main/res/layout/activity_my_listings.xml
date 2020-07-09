@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".MyListings">
 
+    <include
+        layout="@layout/loading_overlay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myOrderListings"
         android:layout_width="351dp"

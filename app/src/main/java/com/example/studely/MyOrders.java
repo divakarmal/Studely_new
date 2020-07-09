@@ -1,6 +1,9 @@
 package com.example.studely;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,11 +24,22 @@ public class MyOrders extends BottomNavBar {
 
     RecyclerView myOrderRecView;
 
+    Button listingsBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
         navBar(this.getApplicationContext());
+
+        listingsBtn = findViewById(R.id.listingsBtn);
+
+        listingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MyListings.class));
+            }
+        });
 
         myOrderRecView = findViewById(R.id.myOrderRecView);
 

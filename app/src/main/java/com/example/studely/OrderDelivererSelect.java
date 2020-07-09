@@ -40,8 +40,7 @@ public class OrderDelivererSelect extends BottomNavBar {
 
         final String canteenID = order.getCanteen();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference orderPostingsRef = database.getReference().child("DeliveryPostings")
-                .child(canteenID);
+        DatabaseReference orderPostingsRef = database.getReference().child("DeliveryPostings");
 
         final List<String> nameList = new ArrayList<>();
         final List<String> timeList = new ArrayList<>();
