@@ -21,9 +21,10 @@ public class OrderConfirm extends BottomNavBar {
 
         Bundle bundle = this.getIntent().getExtras();
         final Order order = (Order) bundle.getSerializable("orderObj");
+        final String currentUser = order.getReceiver();
+
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference confirmedOrdersRef = dbRef.child("ConfirmedOrders");
-        final String currentUser = order.getReceiver();
         final DatabaseReference userRef = dbRef.child("users").child(currentUser);
 
         String pushID = confirmedOrdersRef.push().getKey();
@@ -49,8 +50,9 @@ public class OrderConfirm extends BottomNavBar {
 
         userRef.child("ConfirmedOrders").child(pushID).setValue(order.getDestination());
 
-        dbRef.child("DeliveryPostings").child(order.getCanteen()).child(deliveryPostingID).removeValue();
-        dbRef.child("users").child(order.getDeliverer()).child("OrderPostings").child(deliveryPostingID).removeValue();
+        dbRef.child("DeliveryPostings").child(deliveryPostingID).removeValue();
+        dbRef.child("users").child(order.getDeliverer()).child("DeliveryPostings").child(deliveryPostingID).removeValue();
+        dbRef.child("canteens").child(order.getCanteen()).child("DeliveryPostings").child(deliveryPostingID).removeValue();
 
         NotifServer.sendMessage(order.getDeliverer(), "You have received an order for delivery!");
     }

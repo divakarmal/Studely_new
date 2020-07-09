@@ -40,13 +40,14 @@ public class OrderDelivererSelect extends BottomNavBar {
 
         final String canteenID = order.getCanteen();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference orderPostingsRef = database.getReference().child("DeliveryPostings");
+        DatabaseReference deliveryPostingsRef = database.getReference().child("canteens")
+                .child(canteenID).child("DeliveryPostings");
 
         final List<String> nameList = new ArrayList<>();
         final List<String> timeList = new ArrayList<>();
         final List<String> delivererIDList = new ArrayList<>();
         final List<String> deliveryPostingIDList = new ArrayList<>();
-        orderPostingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        deliveryPostingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {

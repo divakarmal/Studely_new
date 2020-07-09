@@ -36,18 +36,19 @@ public class OrderTimeSelect extends BottomNavBar {
         mPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntent = new Intent(getApplicationContext(), OrderPostingConfirmed.class);
-
-                startActivity(newIntent);
                 int clockTime = mTimePicker.getHour() * 100 + mTimePicker.getMinute();
                 final String deliveryTime = Integer.toString(clockTime);
-                String pushID = orderPostingsRef.child(canteenID).push().getKey();
-                DatabaseReference pushRef = orderPostingsRef.child(canteenID).child(pushID);
+
+                String pushID = orderPostingsRef.push().getKey();
                 dbRef.child("users").child(currentUser).child("OrderPostings").child(pushID).setValue(canteenID);
+                dbRef.child("canteens").child(canteenID).child("OrderPostings").child(pushID).setValue("POSTING");
+
+                DatabaseReference pushRef = orderPostingsRef.child(pushID);
                 pushRef.child("DeliveryTime").setValue(deliveryTime);
                 pushRef.child("Destination").setValue(order.getDestination());
                 pushRef.child("OrderCost").setValue(Integer.toString(order.calcOrderCost()));
                 pushRef.child("Receiver").setValue(currentUser);
+
                 DatabaseReference itemListRef = pushRef.child("ItemList");
                 for (Food food : order.getList()) {
                     itemListRef.child(food.name).child("Price")
@@ -55,6 +56,9 @@ public class OrderTimeSelect extends BottomNavBar {
                     itemListRef.child(food.name).child("Quantity")
                             .setValue(String.valueOf(food.quantity));
                 }
+
+                Intent newIntent = new Intent(getApplicationContext(), OrderPostingConfirmed.class);
+                startActivity(newIntent);
             }
         });
     }
