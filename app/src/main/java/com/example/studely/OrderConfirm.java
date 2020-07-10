@@ -4,8 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
-import com.example.studely.classes.Food;
-import com.example.studely.classes.Order;
+import com.example.studely.misc.Food;
+import com.example.studely.misc.Order;
 import com.example.studely.notifications.NotifServer;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

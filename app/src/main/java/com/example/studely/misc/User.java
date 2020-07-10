@@ -1,4 +1,4 @@
-package com.example.studely.classes;
+package com.example.studely.misc;
 
 import java.io.Serializable;
 

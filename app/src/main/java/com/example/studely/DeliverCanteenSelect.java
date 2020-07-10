@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
@@ -21,16 +22,18 @@ public class DeliverCanteenSelect extends BottomNavBar {
     Spinner canteenSpinner;
     ArrayAdapter<String> canteenAdapter;
     ImageButton mNextBtn;
+    FrameLayout loadingOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deliver_canteen_select);
-        setContentView(R.layout.activity_order_canteen_select);
+        loadingOverlay = findViewById(R.id.loading_overlay);
         canteenSpinner = (Spinner) findViewById(R.id.canteenSpinner);
         mNextBtn = findViewById(R.id.nextBtn);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference fCanteenRef = database.getReference().child("canteens");
+        loadingOverlay.setVisibility(View.VISIBLE);
 
         fCanteenRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -48,6 +51,8 @@ public class DeliverCanteenSelect extends BottomNavBar {
                         android.R.layout.simple_list_item_1, canteenList);
                 canteenAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 canteenSpinner.setAdapter(canteenAdapter);
+
+                loadingOverlay.setVisibility(View.GONE);
             }
 
             @Override

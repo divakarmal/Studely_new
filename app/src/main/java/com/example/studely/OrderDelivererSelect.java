@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.adapters.DelivererRecAdapter;
-import com.example.studely.classes.Order;
+import com.example.studely.misc.Order;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,15 +26,17 @@ public class OrderDelivererSelect extends BottomNavBar {
 
     RecyclerView delivererRecView;
     Button mPostBtn;
+    FrameLayout loadingOverlay;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_deliverer_select);
+        navBar(this.getApplicationContext());
 
         delivererRecView = findViewById(R.id.delivererRecView);
         mPostBtn = findViewById(R.id.postOrderBtn);
-        navBar(this.getApplicationContext());
+        loadingOverlay = findViewById(R.id.loading_overlay);
 
         Bundle bundle = this.getIntent().getExtras();
         final Order order = (Order) bundle.getSerializable("orderObj");
@@ -47,6 +50,8 @@ public class OrderDelivererSelect extends BottomNavBar {
         final List<String> timeList = new ArrayList<>();
         final List<String> delivererIDList = new ArrayList<>();
         final List<String> deliveryPostingIDList = new ArrayList<>();
+
+        loadingOverlay.setVisibility(View.VISIBLE);
         deliveryPostingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -61,6 +66,7 @@ public class OrderDelivererSelect extends BottomNavBar {
                         nameList, timeList, delivererIDList, order, deliveryPostingIDList);
                 delivererRecView.setAdapter(delivererRecAdapter);
                 delivererRecView.setLayoutManager(new LinearLayoutManager(OrderDelivererSelect.this));
+                loadingOverlay.setVisibility(View.GONE);
             }
 
             @Override

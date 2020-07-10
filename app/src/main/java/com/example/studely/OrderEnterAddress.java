@@ -12,6 +12,7 @@ import android.os.Looper;
 import android.os.ResultReceiver;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -38,17 +39,19 @@ public class OrderEnterAddress extends BottomNavBar {
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
     EditText address;
     ImageButton mNextBtn;
+    FrameLayout loadingOverlay;
     private ResultReceiver resultReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_enter_address);
+        navBar(this.getApplicationContext());
 
         resultReceiver = new AddressResultReceiver(new Handler());
-
         address = findViewById(R.id.addressField);
         mNextBtn = findViewById(R.id.NextBtn);
+        loadingOverlay = findViewById(R.id.loading_overlay);
 
         findViewById(R.id.currentLocation).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,10 +68,11 @@ public class OrderEnterAddress extends BottomNavBar {
             }
         });
 
-        navBar(this.getApplicationContext());
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference userRef = database.getReference().child("users").child(currentUser);
+
+        loadingOverlay.setVisibility(View.VISIBLE);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -92,12 +96,14 @@ public class OrderEnterAddress extends BottomNavBar {
                         }
                     }
                 });
+                loadingOverlay.setVisibility(View.GONE);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
         mNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

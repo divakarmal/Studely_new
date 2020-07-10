@@ -4,17 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TimePicker;
 
-import com.example.studely.classes.Food;
-import com.example.studely.classes.Order;
+import com.example.studely.misc.Food;
+import com.example.studely.misc.Order;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class OrderTimeSelect extends BottomNavBar {
+
     Button mPostBtn;
     TimePicker mTimePicker;
+    FrameLayout loadingOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class OrderTimeSelect extends BottomNavBar {
         mPostBtn = findViewById(R.id.postOrder);
         mTimePicker = findViewById(R.id.timePicker1);
         mTimePicker.setIs24HourView(true);
+        loadingOverlay = findViewById(R.id.loading_overlay);
 
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference orderPostingsRef = dbRef.child("OrderPostings");
@@ -33,6 +37,7 @@ public class OrderTimeSelect extends BottomNavBar {
         final Order order = (Order) bundle.getSerializable("orderObj");
         final String canteenID = order.getCanteen();
 
+        loadingOverlay.setVisibility(View.VISIBLE);
         mPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +62,7 @@ public class OrderTimeSelect extends BottomNavBar {
                             .setValue(String.valueOf(food.quantity));
                 }
 
+                loadingOverlay.setVisibility(View.GONE);
                 Intent newIntent = new Intent(getApplicationContext(), OrderPostingConfirmed.class);
                 startActivity(newIntent);
             }

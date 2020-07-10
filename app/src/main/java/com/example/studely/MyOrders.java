@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
+import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,8 +25,8 @@ import java.util.List;
 public class MyOrders extends BottomNavBar {
 
     RecyclerView myOrderRecView;
-
     Button listingsBtn;
+    FrameLayout loadingOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class MyOrders extends BottomNavBar {
         navBar(this.getApplicationContext());
 
         listingsBtn = findViewById(R.id.listingsBtn);
+        loadingOverlay = findViewById(R.id.loading_overlay);
+        myOrderRecView = findViewById(R.id.myOrderRecView);
 
         listingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,8 +44,6 @@ public class MyOrders extends BottomNavBar {
                 startActivity(new Intent(getApplicationContext(), MyListings.class));
             }
         });
-
-        myOrderRecView = findViewById(R.id.myOrderRecView);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -51,6 +53,7 @@ public class MyOrders extends BottomNavBar {
         final List<String> orderIDs = new ArrayList<>();
         final List<String> destinations = new ArrayList<>();
 
+        loadingOverlay.setVisibility(View.VISIBLE);
         userOrdersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -59,9 +62,11 @@ public class MyOrders extends BottomNavBar {
                     destinations.add((String) snapshot.getValue());
                 }
 
-                final MyOrderAdapter myOrderAdapter = new MyOrderAdapter(MyOrders.this, orderIDs, destinations);
+                MyOrderAdapter myOrderAdapter = new MyOrderAdapter(MyOrders.this, orderIDs, destinations);
                 myOrderRecView.setAdapter(myOrderAdapter);
                 myOrderRecView.setLayoutManager(new LinearLayoutManager(MyOrders.this));
+
+                loadingOverlay.setVisibility(View.GONE);
             }
 
             @Override

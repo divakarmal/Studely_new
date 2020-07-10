@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
@@ -21,21 +22,24 @@ public class OrderCanteenSelect extends BottomNavBar {
     Spinner canteenSpinner;
     ArrayAdapter<String> canteenAdapter;
     ImageButton mNextBtn;
+    FrameLayout loadingOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_canteen_select);
+        navBar(this.getApplicationContext());
 
         mNextBtn = findViewById(R.id.nextBtn);
         canteenSpinner = (Spinner) findViewById(R.id.canteenSpinner);
-        navBar(this.getApplicationContext());
+        loadingOverlay = findViewById(R.id.loading_overlay);
 
         final String destination = getIntent().getExtras().getString("orderDestination");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         DatabaseReference fCanteenRef = database.getReference().child("canteens");
 
+        loadingOverlay.setVisibility(View.VISIBLE);
         fCanteenRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -52,6 +56,7 @@ public class OrderCanteenSelect extends BottomNavBar {
                         android.R.layout.simple_list_item_1, canteenList);
                 canteenAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 canteenSpinner.setAdapter(canteenAdapter);
+                loadingOverlay.setVisibility(View.GONE);
             }
 
             @Override

@@ -1,13 +1,14 @@
 package com.example.studely;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.studely.adapters.MyListingsAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,11 +18,17 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public class MyListings extends BottomNavBar {
 
     FrameLayout loadingOverlay;
+    RecyclerView orderListingsRecView, deliveryListingsRecView;
+
+    final List<String> orderLocList = new ArrayList<>();
+    final List<String> deliveryLocList = new ArrayList<>();
+    final List<String> orderTimeList = new ArrayList<>();
+    final List<String> deliveryTimeList = new ArrayList<>();
+    final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,21 +38,23 @@ public class MyListings extends BottomNavBar {
         loadingOverlay = findViewById(R.id.loading_overlay);
         loadingOverlay.bringToFront();
 
-        Log.d("ASYNC", "Starting async");
-        new MyListingsAsync().execute();
+        loadingOverlay.setVisibility(View.VISIBLE);
+        fetchFromDB();
     }
 
-    public CompletableFuture<List<String>> readDB(DatabaseReference dbRef) {
-        final List<String> arr = new ArrayList<>();
+    private void fetchFromDB() {
+        String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference userRef = dbRef.child("users").child(currentUser);
 
-        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        final List<String> orderPostingsList = new ArrayList<>();
+        final List<String> deliveryPostingsList = new ArrayList<>();
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snap : snapshot.getChildren()) {
-                    arr.add(snap.getKey());
-                }
+                readSnapshot(orderPostingsList, snapshot.child("OrderPostings"));
+                readSnapshot(deliveryPostingsList, snapshot.child("DeliveryPostings"));
 
-
+                readOrderPostings(orderPostingsList, deliveryPostingsList);
             }
 
             @Override
@@ -53,103 +62,61 @@ public class MyListings extends BottomNavBar {
 
             }
         });
-
-        return null;
     }
 
-    private class MyListingsAsync extends AsyncTask<Void, Void, Void> {
-
-        private List<String> deliveryPushIDs = new ArrayList<>();
-        private List<String> orderPushIDs = new ArrayList<>();
-
-        public MyListingsAsync() {}
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            loadingOverlay.setVisibility(View.VISIBLE);
+    private void readSnapshot(List<String> list, DataSnapshot snapshot) {
+        for (DataSnapshot snap : snapshot.getChildren()) {
+            list.add(snap.getKey());
         }
+    }
 
-        @Override
-        protected Void doInBackground(Void... voids) {
-            String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private void readOrderPostings(final List<String> orderPostList, final List<String> deliveryPostList) {
+        DatabaseReference orderPostingsRef = dbRef.child("OrderPostings");
 
-            final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference userRef = dbRef.child("users").child(currentUser);
-
-            userRef.child("OrderPostings").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot snap : snapshot.getChildren()) {
-                        orderPushIDs.add(snap.getKey());
-                    }
-
-                    DatabaseReference orderPostingsRef = dbRef.child("OrderPostings");
-
-                    orderPostingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (String pushID : orderPushIDs) {
-                                if (snapshot.hasChild(pushID)) {
-                                    Log.d("ORDER", pushID);
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+        orderPostingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (String pushID : orderPostList) {
+                    orderLocList.add((String) snapshot.child(pushID).child("Destination").getValue());
+                    orderTimeList.add((String) snapshot.child(pushID).child("DeliveryTime").getValue());
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                MyListingsAdapter orderListingsAdapter = new MyListingsAdapter(MyListings.this, orderTimeList, orderLocList);
+                orderListingsRecView.setAdapter(orderListingsAdapter);
+                orderListingsRecView.setLayoutManager(new LinearLayoutManager(MyListings.this));
 
-                }
-            });
+                readDeliveryPostings(deliveryPostList);
+            }
 
-            userRef.child("DeliveryPostings").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot snap : snapshot.getChildren()) {
-                        deliveryPushIDs.add(snap.getKey());
-                    }
-                }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
 
-                }
-            });
+    private void readDeliveryPostings(final List<String> deliveryPostList) {
+        DatabaseReference deliveryPostingsRef = dbRef.child("DeliveryPostings");
 
-
-
-            DatabaseReference deliveryPostingsRef = dbRef.child("DeliveryPostings");
-
-            deliveryPostingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (String pushID : deliveryPushIDs) {
-                        if (snapshot.hasChild(pushID)) {
-                            Log.d("DELIVERY", pushID);
-                        }
-                    }
+        deliveryPostingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (String pushID : deliveryPostList) {
+                    deliveryLocList.add((String) snapshot.child(pushID).child("Canteen").getValue());
+                    deliveryTimeList.add((String) snapshot.child(pushID).child("DeliveryTime").getValue());
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                MyListingsAdapter deliveryListingsAdapter = new MyListingsAdapter(MyListings.this, deliveryTimeList, deliveryLocList);
+                deliveryListingsRecView.setAdapter(deliveryListingsAdapter);
+                deliveryListingsRecView.setLayoutManager(new LinearLayoutManager(MyListings.this));
 
-                }
-            });
+                loadingOverlay.setVisibility(View.GONE);
+            }
 
-            return null;
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            loadingOverlay.setVisibility(View.GONE);
-        }
+            }
+        });
     }
 }

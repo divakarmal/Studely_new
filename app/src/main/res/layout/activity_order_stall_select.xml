@@ -8,6 +8,11 @@
     android:background="@drawable/bg_main"
     tools:context=".OrderCanteenSelect">
 
+    <include
+        layout="@layout/loading_overlay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/heading"
         android:layout_width="wrap_content"

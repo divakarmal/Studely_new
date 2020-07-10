@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.R;
-import com.example.studely.classes.QtyTextChanged;
+import com.example.studely.misc.QtyTextChanged;
 
 public class FoodRecAdapter extends RecyclerView.Adapter<FoodRecAdapter.FoodViewHolder> {
 

@@ -67,7 +67,7 @@ public class OrderRecAdapter extends RecyclerView.Adapter<OrderRecAdapter.OrderV
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
-            destText = itemView.findViewById(R.id.destText);
+            destText = itemView.findViewById(R.id.locText);
             deliTimeText = itemView.findViewById(R.id.deliTimeText);
             mainLayout = itemView.findViewById(R.id.mainLayout);
         }

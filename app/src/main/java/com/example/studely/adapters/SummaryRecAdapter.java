@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.R;
-import com.example.studely.classes.Food;
+import com.example.studely.misc.Food;
 
 import java.util.List;
 

@@ -3,6 +3,7 @@ package com.example.studely;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
@@ -10,9 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.adapters.FoodRecAdapter;
-import com.example.studely.classes.Food;
-import com.example.studely.classes.Order;
-import com.example.studely.classes.QtyTextChanged;
+import com.example.studely.misc.Food;
+import com.example.studely.misc.Order;
+import com.example.studely.misc.QtyTextChanged;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,15 +28,17 @@ public class OrderFoodSelect extends BottomNavBar {
 
     RecyclerView foodList;
     ImageButton mNextBtn;
+    FrameLayout loadingOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_food_select);
+        navBar(this.getApplicationContext());
 
         foodList = findViewById(R.id.foodRecView);
         mNextBtn = findViewById(R.id.nextBtn);
-        navBar(this.getApplicationContext());
+        loadingOverlay = findViewById(R.id.loading_overlay);
 
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final String stallID = getIntent().getExtras().getString("stallID");
@@ -47,6 +50,7 @@ public class OrderFoodSelect extends BottomNavBar {
         final List<String> foodItems = new ArrayList<>();
         final List<Integer> foodQty = new ArrayList<>();
         final List<Integer> foodPrice = new ArrayList<>();
+        loadingOverlay.setVisibility(View.VISIBLE);
         fFoodRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -70,6 +74,7 @@ public class OrderFoodSelect extends BottomNavBar {
 
                 foodList.setAdapter(foodAdapter);
                 foodList.setLayoutManager(new LinearLayoutManager(OrderFoodSelect.this));
+                loadingOverlay.setVisibility(View.GONE);
             }
 
             @Override

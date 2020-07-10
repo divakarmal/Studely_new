@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.OrderConfirm;
 import com.example.studely.R;
-import com.example.studely.classes.Order;
+import com.example.studely.misc.Order;
 
 import java.util.List;
 

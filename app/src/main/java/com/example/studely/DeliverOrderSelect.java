@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +24,7 @@ public class DeliverOrderSelect extends BottomNavBar {
 
     Button mNewPostingBtn;
     RecyclerView orderRecView;
+    FrameLayout loadingOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class DeliverOrderSelect extends BottomNavBar {
 
         orderRecView = findViewById(R.id.orderRecView);
         mNewPostingBtn = findViewById(R.id.newPosting);
+        loadingOverlay = findViewById(R.id.loading_overlay);
 
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -39,6 +42,8 @@ public class DeliverOrderSelect extends BottomNavBar {
 
         final List<String[]> orderPostingsData = new ArrayList<>();
         final List<String> orderIDList = new ArrayList<>();
+
+        loadingOverlay.setVisibility(View.VISIBLE);
         orderPostingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -52,10 +57,12 @@ public class DeliverOrderSelect extends BottomNavBar {
                     orderIDList.add(snapshot.getKey());
                 }
 
-                final OrderRecAdapter orderRecAdapter = new OrderRecAdapter(DeliverOrderSelect.this,
+                OrderRecAdapter orderRecAdapter = new OrderRecAdapter(DeliverOrderSelect.this,
                         orderPostingsData, orderIDList);
                 orderRecView.setAdapter(orderRecAdapter);
                 orderRecView.setLayoutManager(new LinearLayoutManager(DeliverOrderSelect.this));
+
+                loadingOverlay.setVisibility(View.GONE);
             }
 
             @Override
@@ -68,7 +75,7 @@ public class DeliverOrderSelect extends BottomNavBar {
         mNewPostingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntent = new Intent(getApplicationContext(), DeliverSelectTime.class);
+                Intent newIntent = new Intent(getApplicationContext(), DeliverTimeSelect.class);
                 newIntent.putExtra("canteenID", canteenID);
                 startActivity(newIntent);
             }

@@ -24,7 +24,7 @@
         <activity android:name=".OrderDelivererSelect" />
         <activity android:name=".OrderConfirm" />
         <activity android:name=".DeliverPostingConfirmed" />
-        <activity android:name=".DeliverSelectTime" />
+        <activity android:name=".DeliverTimeSelect" />
         <activity android:name=".DeliverOrderSelect" />
         <activity android:name=".OrderFoodSelect" />
         <activity android:name=".DeliverCanteenSelect" />
