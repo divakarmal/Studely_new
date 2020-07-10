@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ReviewPage"></activity>
+        <activity android:name=".DeliveryPostings"></activity>
+        <activity android:name=".ReviewPage" />
         <activity android:name=".MyListings" />
         <activity android:name=".DeliverConfirm" />
         <activity android:name=".OrderPostingConfirmed" />

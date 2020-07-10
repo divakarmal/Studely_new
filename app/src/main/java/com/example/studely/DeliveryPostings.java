@@ -3,7 +3,6 @@ package com.example.studely;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -22,50 +21,49 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyListings extends BottomNavBar {
+public class DeliveryPostings extends BottomNavBar {
 
     FrameLayout loadingOverlay;
-    RecyclerView orderListingsRecView;
-    TextView deliveryListingsText;
+    RecyclerView deliveryListingsRecView;
+    TextView orderListingsText;
 
-    final List<String> orderLocList = new ArrayList<>();
-    final List<String> orderTimeList = new ArrayList<>();
+    final List<String> deliveryLocList = new ArrayList<>();
+    final List<String> deliveryTimeList = new ArrayList<>();
     final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_listings);
+        setContentView(R.layout.activity_delivery_postings);
         navBar(this.getApplicationContext());
 
         loadingOverlay = findViewById(R.id.loading_overlay);
-        orderListingsRecView = findViewById(R.id.myOrderListings);
+        deliveryListingsRecView = findViewById(R.id.myDeliveryListings);
+        orderListingsText = findViewById(R.id.orderListings);
         loadingOverlay.bringToFront();
-        deliveryListingsText = findViewById(R.id.deliveryListings);
+
         loadingOverlay.setVisibility(View.VISIBLE);
         fetchFromDB();
-
-        deliveryListingsText.setOnClickListener(new View.OnClickListener() {
+        orderListingsText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntent = new Intent(getApplicationContext(), DeliveryPostings.class);
+                Intent newIntent = new Intent(getApplicationContext(), MyListings.class);
                 startActivity(newIntent);
             }
         });
-
     }
 
     private void fetchFromDB() {
         String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference userRef = dbRef.child("users").child(currentUser);
 
-        final List<String> orderPostingsList = new ArrayList<>();
+        final List<String> deliveryPostingsList = new ArrayList<>();
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                readSnapshot(orderPostingsList, snapshot.child("OrderPostings"));
+                readSnapshot(deliveryPostingsList, snapshot.child("DeliveryPostings"));
 
-                readOrderPostings(orderPostingsList);
+                readDeliveryPostings(deliveryPostingsList);
             }
 
             @Override
@@ -81,22 +79,22 @@ public class MyListings extends BottomNavBar {
         }
     }
 
-    private void readOrderPostings(final List<String> orderPostList) {
-        DatabaseReference orderPostingsRef = dbRef.child("OrderPostings");
+    private void readDeliveryPostings(final List<String> deliveryPostList) {
+        DatabaseReference deliveryPostingsRef = dbRef.child("DeliveryPostings");
 
-        orderPostingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        deliveryPostingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (String pushID : orderPostList) {
-                    orderLocList.add((String) snapshot.child(pushID).child("Destination").getValue());
-                    orderTimeList.add((String) snapshot.child(pushID).child("DeliveryTime").getValue());
+                for (String pushID : deliveryPostList) {
+                    deliveryLocList.add((String) snapshot.child(pushID).child("Canteen").getValue());
+                    deliveryTimeList.add((String) snapshot.child(pushID).child("DeliveryTime").getValue());
                 }
 
-                MyListingsAdapter orderListingsAdapter = new MyListingsAdapter(MyListings.this, orderTimeList, orderLocList);
-                orderListingsRecView.setAdapter(orderListingsAdapter);
-                orderListingsRecView.setLayoutManager(new LinearLayoutManager(MyListings.this));
-                loadingOverlay.setVisibility(View.GONE);
+                MyListingsAdapter deliveryListingsAdapter = new MyListingsAdapter(DeliveryPostings.this, deliveryTimeList, deliveryLocList);
+                deliveryListingsRecView.setAdapter(deliveryListingsAdapter);
+                deliveryListingsRecView.setLayoutManager(new LinearLayoutManager(DeliveryPostings.this));
 
+                loadingOverlay.setVisibility(View.GONE);
             }
 
             @Override

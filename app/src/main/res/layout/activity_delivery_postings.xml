@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/myOrderListings"
+        android:id="@+id/myDeliveryListings"
         android:layout_width="410dp"
         android:layout_height="219dp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
@@ -42,7 +42,8 @@
         android:text="Delivery Listings"
         android:textColor="@color/component_color"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/myOrderListings"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/myDeliveryListings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toEndOf="@+id/orderListings"
@@ -56,8 +57,7 @@
         android:text="Order Listings"
         android:textColor="@color/component_color"
         android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/myOrderListings"
+        app:layout_constraintBottom_toTopOf="@+id/myDeliveryListings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.096"
         app:layout_constraintStart_toStartOf="parent"
