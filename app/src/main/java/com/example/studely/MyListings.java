@@ -34,8 +34,11 @@ public class MyListings extends BottomNavBar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_listings);
+        navBar(this.getApplicationContext());
 
         loadingOverlay = findViewById(R.id.loading_overlay);
+        orderListingsRecView = findViewById(R.id.myOrderListings);
+        deliveryListingsRecView = findViewById(R.id.myDeliveryListings);
         loadingOverlay.bringToFront();
 
         loadingOverlay.setVisibility(View.VISIBLE);

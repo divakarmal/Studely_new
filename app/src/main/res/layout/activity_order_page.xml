@@ -103,36 +103,36 @@
 
     <Button
         android:id="@+id/reachedBtn"
-        android:layout_width="18dp"
-        android:layout_height="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@color/component_color"
         android:text="Reached"
         android:textColor="@color/component_text"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.631"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DeliveryTime"
-        app:layout_constraintVertical_bias="0.8" />
+        app:layout_constraintVertical_bias="0.768" />
 
     <Button
         android:id="@+id/receivedBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Received"
-        android:visibility="gone"
         android:background="@color/component_color"
+        android:text="Received"
         android:textColor="@color/component_text"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.411"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DeliveryTime"
-        app:layout_constraintVertical_bias="0.8" />
+        app:layout_constraintVertical_bias="0.685" />
 
     <TextView
-        android:id="@+id/orderReached"
+        android:id="@+id/status"
         android:layout_width="407dp"
         android:layout_height="32dp"
         android:text="Order is here, press the received button once order is collected"
@@ -144,51 +144,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.985" />
-
-    <TextView
-        android:id="@+id/AwaitingConfirm"
-        android:layout_width="168dp"
-        android:layout_height="18dp"
-        android:text="Awaiting Confirmation"
-        android:textAlignment="center"
-        android:textColor="@color/component_color"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.87" />
-
-    <TextView
-        android:id="@+id/notReachedText"
-        android:layout_width="166dp"
-        android:layout_height="18dp"
-        android:text="Your order is not here yet"
-        android:textAlignment="center"
-        android:textColor="@color/component_color"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.87" />
-
-    <TextView
-        android:id="@+id/CompletedOrder"
-        android:layout_width="wrap_content"
-        android:layout_height="18dp"
-        android:text="Order Complete!"
-        android:textAlignment="center"
-        android:textColor="@color/component_color"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.87" />
 
     <TextView
         android:id="@+id/textView15"
@@ -263,12 +218,13 @@
         android:id="@+id/testBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
         android:text="test"
-        app:layout_constraintBottom_toBottomOf="@+id/orderReached"
+        app:layout_constraintBottom_toBottomOf="@+id/status"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.828" />
+        app:layout_constraintVertical_bias="0.843" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

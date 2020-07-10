@@ -33,14 +33,13 @@ public class HomeLanding extends AppCompatActivity {
                         Intent profile = new Intent(HomeLanding.this, UserDetailsForm.class);
                         startActivity(profile);
                         break;
-                    case R.id.ic_logout:
-                        FirebaseAuth.getInstance().signOut();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
-                        break;
                     case R.id.ic_myOrderList:
                         Intent myOrders = new Intent(HomeLanding.this, MyOrders.class);
                         startActivity(myOrders);
+                        break;
+                    case R.id.ic_myListings:
+                        Intent listings = new Intent(HomeLanding.this, MyListings.class);
+                        startActivity(listings);
                         break;
                 }
                 return false;

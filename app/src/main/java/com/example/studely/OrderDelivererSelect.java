@@ -107,8 +107,5 @@ public class OrderDelivererSelect extends BottomNavBar {
             }
         });
 
-
-
-
     }
 }

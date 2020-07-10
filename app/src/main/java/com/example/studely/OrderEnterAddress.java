@@ -41,6 +41,7 @@ public class OrderEnterAddress extends BottomNavBar {
     ImageButton mNextBtn;
     FrameLayout loadingOverlay;
     private ResultReceiver resultReceiver;
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,6 @@ public class OrderEnterAddress extends BottomNavBar {
             }
         });
 
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference userRef = database.getReference().child("users").child(currentUser);
 
@@ -82,6 +82,7 @@ public class OrderEnterAddress extends BottomNavBar {
                     @Override
                     public void onClick(View v) {
                         address.setText(priAdd);
+                        /*
                         Geocoder geocoder = new Geocoder(OrderEnterAddress.this);
                         List<Address> addresses = null;
                         try {
@@ -92,8 +93,9 @@ public class OrderEnterAddress extends BottomNavBar {
                         if (addresses.size() > 0) {
                             double latitude = addresses.get(0).getLatitude();
                             double longitude = addresses.get(0).getLongitude();
-                            System.out.println(latitude + "long: " + longitude);
                         }
+
+                         */
                     }
                 });
                 loadingOverlay.setVisibility(View.GONE);

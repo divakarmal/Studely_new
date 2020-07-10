@@ -48,6 +48,7 @@ public class DeliverTimeSelect extends BottomNavBar {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {
                 final String name = (String) snapshot.child("name").getValue();
+                loadingOverlay.setVisibility(View.GONE);
 
                 mConfirmBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -56,7 +57,14 @@ public class DeliverTimeSelect extends BottomNavBar {
                         int clockTime = mTimePicker.getHour() * 100 + mTimePicker.getMinute();
                         String numOfOrders;
                         numOfOrders = mNoOfOrders.getText().toString();
-                        String deliveryTime = Integer.toString(clockTime);
+                        String deliveryTime;
+                        if(clockTime < 100){
+                            deliveryTime = "00" + clockTime;
+                        } else if (clockTime < 1000){
+                            deliveryTime = "0" + clockTime;
+                        }else {
+                            deliveryTime = Integer.toString(clockTime);
+                        }
                         userRef.child("DeliveryPostings").child(pushID).setValue(canteenID);
                         deliverPostingRef.child(pushID).child("Deliverer").setValue(currentUser);
                         deliverPostingRef.child(pushID).child("DeliveryTime").setValue(deliveryTime);
@@ -64,8 +72,6 @@ public class DeliverTimeSelect extends BottomNavBar {
                         deliverPostingRef.child(pushID).child("Name").setValue(name);
                         deliverPostingRef.child(pushID).child("Canteen").setValue(canteenID);
                         canteenRef.child(pushID).setValue("POSTING");
-
-                        loadingOverlay.setVisibility(View.GONE);
                         Intent newIntent = new Intent(getApplicationContext(), DeliverPostingConfirmed.class);
                         startActivity(newIntent);
                     }

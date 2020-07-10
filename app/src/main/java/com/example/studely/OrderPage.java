@@ -38,7 +38,7 @@ import java.util.concurrent.CompletableFuture;
 public class OrderPage extends BottomNavBar {
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
     RecyclerView summaryList;
-    TextView mOrderID, mTimeStamp, mDeliveryTime, mOrderTotal, mOrderReached, mNothereYet, mComplete, mAwait;
+    TextView mOrderID, mTimeStamp, mDeliveryTime, mOrderTotal, mStatus;
     Button mReachedBtn, mReceivedBtn, testBtn;
     Location currentLoc, delLocation;
 
@@ -56,10 +56,7 @@ public class OrderPage extends BottomNavBar {
         mOrderTotal = findViewById(R.id.orderCost);
         mReachedBtn = findViewById(R.id.reachedBtn);
         mReceivedBtn = findViewById(R.id.receivedBtn);
-        mOrderReached = findViewById(R.id.orderReached);
-        mNothereYet = findViewById(R.id.notReachedText);
-        mComplete = findViewById(R.id.CompletedOrder);
-        mAwait = findViewById(R.id.AwaitingConfirm);
+        mStatus = findViewById(R.id.status);
         testBtn = findViewById(R.id.testBtn);
 
         final List<Food> orderList = new ArrayList<>();
@@ -166,12 +163,12 @@ public class OrderPage extends BottomNavBar {
 
 
                 if (completed) {
-                    mComplete.setVisibility(View.VISIBLE);
+                    mStatus.setText("Order Complete");
                 } else if (delivererID.equals(currentUser)) {
                     if (reached) {
-                        mAwait.setVisibility(View.VISIBLE);
+                        mStatus.setText("Awaiting Confirmation");
                     } else {
-                        if (delLocation.distanceTo(currentLoc) < 500) {
+                        if (delLocation.distanceTo(currentLoc) < 100) {
                             System.out.println("reached");
                             mReachedBtn.setVisibility(View.VISIBLE);
                         } else {
@@ -180,9 +177,10 @@ public class OrderPage extends BottomNavBar {
                     }
                 } else if (receiverID.equals(currentUser)) {
                     if (reached) {
+                        mStatus.setText("Order is here, press the received button once order is collected");
                         mReceivedBtn.setVisibility(View.VISIBLE);
                     } else {
-                        mNothereYet.setVisibility(View.VISIBLE);
+                        mStatus.setText("Order is not here yet");
                     }
                 }
 

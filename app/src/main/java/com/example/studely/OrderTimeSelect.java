@@ -37,12 +37,18 @@ public class OrderTimeSelect extends BottomNavBar {
         final Order order = (Order) bundle.getSerializable("orderObj");
         final String canteenID = order.getCanteen();
 
-        loadingOverlay.setVisibility(View.VISIBLE);
         mPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int clockTime = mTimePicker.getHour() * 100 + mTimePicker.getMinute();
-                final String deliveryTime = Integer.toString(clockTime);
+                String deliveryTime;
+                if(clockTime < 100){
+                    deliveryTime = "00" + clockTime;
+                } else if (clockTime < 1000){
+                    deliveryTime = "0" + clockTime;
+                }else {
+                    deliveryTime = Integer.toString(clockTime);
+                }
 
                 String pushID = orderPostingsRef.push().getKey();
                 dbRef.child("users").child(currentUser).child("OrderPostings").child(pushID).setValue(canteenID);
@@ -61,8 +67,6 @@ public class OrderTimeSelect extends BottomNavBar {
                     itemListRef.child(food.name).child("Quantity")
                             .setValue(String.valueOf(food.quantity));
                 }
-
-                loadingOverlay.setVisibility(View.GONE);
                 Intent newIntent = new Intent(getApplicationContext(), OrderPostingConfirmed.class);
                 startActivity(newIntent);
             }

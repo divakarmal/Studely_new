@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.studely.adapters.FoodRecAdapter;
 import com.example.studely.misc.Food;
 import com.example.studely.misc.Order;

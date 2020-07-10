@@ -15,10 +15,10 @@
         android:title="My Orders"
         />
     <item
-        android:id="@+id/ic_logout"
+        android:id="@+id/ic_myListings"
         android:checked="true"
-        android:icon="@drawable/ic_exit_to_app_black"
-        android:title="Logout"
+        android:icon="@drawable/ic_list_black"
+        android:title="My Listings"
         />
 
 </menu>

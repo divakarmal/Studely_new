@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 
 import com.example.studely.adapters.SummaryRecAdapter;
-import com.example.studely.classes.Food;
+import com.example.studely.misc.Food;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

@@ -7,6 +7,11 @@
     android:background="@drawable/bg_main"
     tools:context=".UserDetailsForm">
 
+    <include
+        layout="@layout/loading_overlay"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/headingName"
         android:layout_width="wrap_content"
@@ -117,19 +122,20 @@
 
     <Button
         android:id="@+id/submitBtn"
-        android:layout_width="349dp"
-        android:layout_height="41dp"
+        android:layout_width="155dp"
+        android:layout_height="46dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="update"
-        android:textSize="13sp"
         android:background="@color/component_color"
+        android:text="update"
         android:textColor="@color/component_text"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.933"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pinCodeField"
-        app:layout_constraintVertical_bias="0.369" />
+        app:layout_constraintVertical_bias="0.261" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
@@ -156,5 +162,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.025" />
+
+    <Button
+        android:id="@+id/logoutBtn"
+        android:layout_width="155dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="48dp"
+        android:background="@color/component_color"
+        android:text="logout"
+        android:textColor="@color/component_text"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintEnd_toStartOf="@+id/submitBtn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pinCodeField"
+        app:layout_constraintVertical_bias="0.361" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

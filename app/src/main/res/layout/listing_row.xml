@@ -22,27 +22,28 @@
 
             <TextView
                 android:id="@+id/locText"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="20dp"
+                android:layout_width="166dp"
+                android:layout_height="31dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:textSize="28sp"
-                android:textStyle="bold"
                 android:textColor="@color/rec_row_text"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/deliTimeText"
-                android:layout_width="105dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="15dp"
+                android:layout_width="84dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="56dp"
                 android:ems="10"
                 android:textAlignment="textEnd"
-                android:textSize="28sp"
                 android:textColor="@color/rec_row_text"
+                android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/locText"
                 app:layout_constraintTop_toTopOf="@+id/locText" />
 

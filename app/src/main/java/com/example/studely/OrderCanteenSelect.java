@@ -46,9 +46,9 @@ public class OrderCanteenSelect extends BottomNavBar {
                 final List<String> canteenList = new ArrayList<String>();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String canteenName = snapshot.getKey();
-                    if (canteenName != null) {
-                        canteenList.add(canteenName);
+                    String canteenID = snapshot.getKey();
+                    if (canteenID != null) {
+                        canteenList.add(canteenID);
                     }
                 }
 

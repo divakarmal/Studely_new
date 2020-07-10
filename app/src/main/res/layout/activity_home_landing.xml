@@ -44,10 +44,10 @@
             <Button
                 android:id="@+id/deliverBtn"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="378dp"
                 android:background="@android:color/transparent"
-                android:gravity="top|center"
                 android:fontFamily="casual"
+                android:gravity="top|center"
                 android:text="Deliver"
                 android:textColor="#000000"
                 android:textSize="30sp"

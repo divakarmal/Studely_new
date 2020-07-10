@@ -48,16 +48,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
 
-    <Button
-        android:id="@+id/popup"
-        android:layout_width="80dp"
-        android:layout_height="42dp"
-        android:text="popup"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.833"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.138" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
