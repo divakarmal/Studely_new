@@ -30,6 +30,7 @@ public class DeliverOrderSelect extends BottomNavBar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deliver_order_select);
+        navBar(this.getApplicationContext());
 
         orderRecView = findViewById(R.id.orderRecView);
         mNewPostingBtn = findViewById(R.id.newPosting);
@@ -37,32 +38,19 @@ public class DeliverOrderSelect extends BottomNavBar {
 
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference orderPostingsRef = database.getReference().child("OrderPostings")
-                .child(canteenID);
-
-        final List<String[]> orderPostingsData = new ArrayList<>();
+        DatabaseReference postingIDRef = database.getReference().child("canteens").child(canteenID)
+                .child("OrderPostings");
         final List<String> orderIDList = new ArrayList<>();
 
         loadingOverlay.setVisibility(View.VISIBLE);
-        orderPostingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        postingIDRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    orderPostingsData.add(new String[]{
-                            snapshot.child("Destination").getValue(String.class),
-                            snapshot.child("DeliveryTime").getValue(String.class),
-                            snapshot.getKey(),
-                            canteenID
-                    });
                     orderIDList.add(snapshot.getKey());
                 }
 
-                OrderRecAdapter orderRecAdapter = new OrderRecAdapter(DeliverOrderSelect.this,
-                        orderPostingsData, orderIDList);
-                orderRecView.setAdapter(orderRecAdapter);
-                orderRecView.setLayoutManager(new LinearLayoutManager(DeliverOrderSelect.this));
-
-                loadingOverlay.setVisibility(View.GONE);
+                initRecView(orderIDList, canteenID);
             }
 
             @Override
@@ -80,10 +68,37 @@ public class DeliverOrderSelect extends BottomNavBar {
                 startActivity(newIntent);
             }
         });
-
-        navBar(this.getApplicationContext());
-
-
     }
 
+    private void initRecView(final List<String> postingIDList, final String canteenID) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        final List<String[]> orderPostingsData = new ArrayList<>();
+
+        dbRef.child("OrderPostings").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (String pushID : postingIDList) {
+                    DataSnapshot snapshot = dataSnapshot.child(pushID);
+                    orderPostingsData.add(new String[]{
+                            snapshot.child("Destination").getValue(String.class),
+                            snapshot.child("DeliveryTime").getValue(String.class),
+                            snapshot.getKey(),
+                            canteenID
+                    });
+                }
+
+                OrderRecAdapter orderRecAdapter = new OrderRecAdapter(DeliverOrderSelect.this,
+                        orderPostingsData, postingIDList);
+                orderRecView.setAdapter(orderRecAdapter);
+                orderRecView.setLayoutManager(new LinearLayoutManager(DeliverOrderSelect.this));
+
+                loadingOverlay.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }

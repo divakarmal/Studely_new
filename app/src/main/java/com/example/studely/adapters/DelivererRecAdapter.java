@@ -21,20 +21,16 @@ import java.util.List;
 public class DelivererRecAdapter extends RecyclerView.Adapter<DelivererRecAdapter.DelivererViewHolder> {
 
     Context context;
-    List<String> nameList;
-    List<String> timeList;
-    List<String> delivererIDList;
-    List<String> deliveryPostingIDList;
+    List<String[]> deliveryPostingsData;
+    List<String> deliveryIDList;
     Order order;
 
-    public DelivererRecAdapter(Context context, List<String> nameList, List<String> timeList,
-                               List<String> delivererIDList, Order order, List<String> deliveryPostingIDList) {
+    public DelivererRecAdapter(Context context, List<String[]> deliveryPostingsData,
+                               List<String> deliveryIDList, Order order) {
         this.context = context;
-        this.nameList = nameList;
-        this.timeList = timeList;
-        this.delivererIDList = delivererIDList;
+        this.deliveryPostingsData = deliveryPostingsData;
+        this.deliveryIDList = deliveryIDList;
         this.order = order;
-        this.deliveryPostingIDList = deliveryPostingIDList;
     }
 
     @NonNull
@@ -47,17 +43,18 @@ public class DelivererRecAdapter extends RecyclerView.Adapter<DelivererRecAdapte
 
     @Override
     public void onBindViewHolder(@NonNull DelivererViewHolder holder, final int position) {
-        holder.nameText.setText(nameList.get(position));
-        holder.deliTimeText.setText(timeList.get(position));
+        final String[] data = deliveryPostingsData.get(position);
+        holder.nameText.setText(data[0]);
+        holder.deliTimeText.setText(data[1]);
 
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                order.setDeliverer(delivererIDList.get(position));
-                order.setDeliveryTime(timeList.get(position));
+                order.setDeliverer(data[2]);
+                order.setDeliveryTime(data[1]);
 
                 Intent newIntent = new Intent(context, OrderConfirm.class);
-                newIntent.putExtra("deliveryPostingID", deliveryPostingIDList.get(position));
+                newIntent.putExtra("deliveryPostingID", deliveryIDList.get(position));
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("orderObj", order);
                 newIntent.putExtras(bundle);
@@ -68,7 +65,7 @@ public class DelivererRecAdapter extends RecyclerView.Adapter<DelivererRecAdapte
 
     @Override
     public int getItemCount() {
-        return this.nameList.size();
+        return this.deliveryIDList.size();
     }
 
     public class DelivererViewHolder extends RecyclerView.ViewHolder {

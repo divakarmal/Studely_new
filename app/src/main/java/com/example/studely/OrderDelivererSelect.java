@@ -46,9 +46,6 @@ public class OrderDelivererSelect extends BottomNavBar {
         DatabaseReference deliveryPostingsRef = database.getReference().child("canteens")
                 .child(canteenID).child("DeliveryPostings");
 
-        final List<String> nameList = new ArrayList<>();
-        final List<String> timeList = new ArrayList<>();
-        final List<String> delivererIDList = new ArrayList<>();
         final List<String> deliveryPostingIDList = new ArrayList<>();
 
         loadingOverlay.setVisibility(View.VISIBLE);
@@ -56,17 +53,10 @@ public class OrderDelivererSelect extends BottomNavBar {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    nameList.add(snapshot.child("Name").getValue(String.class));
-                    timeList.add(snapshot.child("DeliveryTime").getValue(String.class));
-                    delivererIDList.add(snapshot.child("Deliverer").getValue(String.class));
                     deliveryPostingIDList.add(snapshot.getKey());
                 }
 
-                final DelivererRecAdapter delivererRecAdapter = new DelivererRecAdapter(OrderDelivererSelect.this,
-                        nameList, timeList, delivererIDList, order, deliveryPostingIDList);
-                delivererRecView.setAdapter(delivererRecAdapter);
-                delivererRecView.setLayoutManager(new LinearLayoutManager(OrderDelivererSelect.this));
-                loadingOverlay.setVisibility(View.GONE);
+                initRecView(deliveryPostingIDList, order);
             }
 
             @Override
@@ -85,5 +75,40 @@ public class OrderDelivererSelect extends BottomNavBar {
                 startActivity(newIntent);
             }
         });
+    }
+
+    private void initRecView(final List<String> postingIDList, final Order order) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+
+        dbRef.child("DeliveryPostings").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<String[]> deliveryPostingsData = new ArrayList<>();
+                for (String pushID : postingIDList) {
+                    DataSnapshot snapshot = dataSnapshot.child(pushID);
+                    deliveryPostingsData.add(new String[] {
+                            snapshot.child("Name").getValue(String.class),
+                            snapshot.child("DeliveryTime").getValue(String.class),
+                            snapshot.child("Deliverer").getValue(String.class)
+                    });
+                }
+
+                DelivererRecAdapter delivererRecAdapter = new DelivererRecAdapter(OrderDelivererSelect.this,
+                        deliveryPostingsData, postingIDList, order);
+                delivererRecView.setAdapter(delivererRecAdapter);
+                delivererRecView.setLayoutManager(new LinearLayoutManager(OrderDelivererSelect.this));
+
+                loadingOverlay.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
     }
 }
