@@ -60,6 +60,7 @@ public class OrderPage extends BottomNavBar {
         mReceivedBtn = findViewById(R.id.receivedBtn);
         mStatus = findViewById(R.id.status);
         testBtn = findViewById(R.id.testBtn);
+        loadingOverlay = findViewById(R.id.loading_overlay);
 
         mOrderID.setText(orderID);
 
