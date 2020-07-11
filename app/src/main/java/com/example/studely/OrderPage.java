@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
-import android.widget.PopupWindow;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
@@ -42,6 +42,8 @@ public class OrderPage extends BottomNavBar {
     Button mReachedBtn, mReceivedBtn, testBtn;
     Location currentLoc, delLocation;
 
+    FrameLayout loadingOverlay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,18 +61,13 @@ public class OrderPage extends BottomNavBar {
         mStatus = findViewById(R.id.status);
         testBtn = findViewById(R.id.testBtn);
 
+        mOrderID.setText(orderID);
+
+        loadingOverlay.setVisibility(View.VISIBLE);
+        getCurrentLocation();
+
         final List<Food> orderList = new ArrayList<>();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        mOrderID.setText(orderID);
-        final DatabaseReference dbRef = database.getReference().child("ConfirmedOrders").child(orderID);
-
-        getCurrentLocation().thenRun(new Runnable() {
-            @Override
-            public void run() {
-                OrderPage.this.initFromDB(dbRef);
-            }
-        });
-
         DatabaseReference fOrderRef = database.getReference().child("ConfirmedOrders")
                 .child(orderID).child("ItemList");
         fOrderRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -130,8 +127,9 @@ public class OrderPage extends BottomNavBar {
 
     }
 
-    private void initFromDB(DatabaseReference dbRef) {
+    private void initFromDB() {
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -184,6 +182,7 @@ public class OrderPage extends BottomNavBar {
                     }
                 }
 
+                loadingOverlay.setVisibility(View.GONE);
             }
 
             @Override
@@ -193,15 +192,16 @@ public class OrderPage extends BottomNavBar {
         });
     }
 
-    private CompletableFuture<Void> getCurrentLocation() {
+    private void getCurrentLocation() {
         final LocationRequest locationRequest = new LocationRequest();
         locationRequest.setInterval(10000);
         locationRequest.setFastestInterval(3000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return new CompletableFuture<Void>();
+            return;
         }
+
         LocationServices.getFusedLocationProviderClient(OrderPage.this)
                 .requestLocationUpdates(locationRequest, new LocationCallback() {
                     @Override
@@ -219,10 +219,10 @@ public class OrderPage extends BottomNavBar {
                             location.setLatitude(latitude);
                             location.setLongitude(longitude);
                             currentLoc = location;
-                            System.out.println("Current " + latitude + "long: " + longitude);
+
+                            initFromDB();
                         }
                     }
                 }, Looper.getMainLooper());
-        return new CompletableFuture<Void>();
     }
 }
