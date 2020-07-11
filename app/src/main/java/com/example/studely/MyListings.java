@@ -1,6 +1,7 @@
 package com.example.studely;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,11 +26,13 @@ import java.util.List;
 public class MyListings extends BottomNavBar {
 
     FrameLayout loadingOverlay;
-    RecyclerView orderListingsRecView;
-    TextView deliveryListingsText;
+    RecyclerView orderListingsRecView, deliveryListingsRecView;
+    TextView deliveryListingsText, orderListingsText;
 
     final List<String> orderLocList = new ArrayList<>();
     final List<String> orderTimeList = new ArrayList<>();
+    final List<String> deliveryLocList = new ArrayList<>();
+    final List<String> deliveryTimeList = new ArrayList<>();
     final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
     @Override
@@ -42,14 +45,28 @@ public class MyListings extends BottomNavBar {
         orderListingsRecView = findViewById(R.id.myOrderListings);
         loadingOverlay.bringToFront();
         deliveryListingsText = findViewById(R.id.deliveryListings);
+        deliveryListingsRecView = findViewById(R.id.myDeliveryListings);
+        orderListingsText = findViewById(R.id.orderListings);
         loadingOverlay.setVisibility(View.VISIBLE);
         fetchFromDB();
 
         deliveryListingsText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntent = new Intent(getApplicationContext(), DeliveryPostings.class);
-                startActivity(newIntent);
+                deliveryListingsText.setTypeface(null, Typeface.BOLD);
+                orderListingsText.setTypeface(null, Typeface.NORMAL);
+                orderListingsRecView.setVisibility(View.GONE);
+                deliveryListingsRecView.setVisibility(View.VISIBLE);
+                }
+        });
+
+        orderListingsText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deliveryListingsText.setTypeface(null, Typeface.NORMAL);
+                orderListingsText.setTypeface(null, Typeface.BOLD);
+                orderListingsRecView.setVisibility(View.VISIBLE);
+                deliveryListingsRecView.setVisibility(View.GONE);
             }
         });
 
@@ -60,12 +77,14 @@ public class MyListings extends BottomNavBar {
         DatabaseReference userRef = dbRef.child("users").child(currentUser);
 
         final List<String> orderPostingsList = new ArrayList<>();
+        final List<String> deliveryPostingsList = new ArrayList<>();
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 readSnapshot(orderPostingsList, snapshot.child("OrderPostings"));
+                readSnapshot(deliveryPostingsList, snapshot.child("DeliveryPostings"));
 
-                readOrderPostings(orderPostingsList);
+                readOrderPostings(orderPostingsList, deliveryPostingsList);
             }
 
             @Override
@@ -81,7 +100,7 @@ public class MyListings extends BottomNavBar {
         }
     }
 
-    private void readOrderPostings(final List<String> orderPostList) {
+    private void readOrderPostings(final List<String> orderPostList, final List<String> deliveryPostingsList) {
         DatabaseReference orderPostingsRef = dbRef.child("OrderPostings");
 
         orderPostingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -95,8 +114,33 @@ public class MyListings extends BottomNavBar {
                 MyListingsAdapter orderListingsAdapter = new MyListingsAdapter(MyListings.this, orderTimeList, orderLocList);
                 orderListingsRecView.setAdapter(orderListingsAdapter);
                 orderListingsRecView.setLayoutManager(new LinearLayoutManager(MyListings.this));
-                loadingOverlay.setVisibility(View.GONE);
+                readDeliveryPostings(deliveryPostingsList);
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void readDeliveryPostings(final List<String> deliveryPostList) {
+        DatabaseReference deliveryPostingsRef = dbRef.child("DeliveryPostings");
+
+        deliveryPostingsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (String pushID : deliveryPostList) {
+                    deliveryLocList.add((String) snapshot.child(pushID).child("Canteen").getValue());
+                    deliveryTimeList.add((String) snapshot.child(pushID).child("DeliveryTime").getValue());
+                }
+
+                MyListingsAdapter deliveryListingsAdapter = new MyListingsAdapter(MyListings.this, deliveryTimeList, deliveryLocList);
+                deliveryListingsRecView.setAdapter(deliveryListingsAdapter);
+                deliveryListingsRecView.setLayoutManager(new LinearLayoutManager(MyListings.this));
+
+                loadingOverlay.setVisibility(View.GONE);
             }
 
             @Override
