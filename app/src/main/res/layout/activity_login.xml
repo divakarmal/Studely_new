@@ -28,14 +28,21 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="320dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/ic_email"
+        android:drawablePadding="12dp"
+        android:drawableTint="@color/component_text"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
+        android:paddingLeft="10dp"
+        android:textColor="@color/component_text"
+        android:textColorHint="@color/component_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/heading"
-        app:layout_constraintVertical_bias="0.226" />
+        app:layout_constraintVertical_bias="0.413" />
 
     <EditText
         android:id="@+id/passwordField"
@@ -43,14 +50,21 @@
         android:layout_height="41dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/ic_lock"
+        android:drawablePadding="12dp"
+        android:drawableTint="@color/component_text"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        android:textColor="@color/component_text"
+        android:textColorHint="@color/component_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailField"
-        app:layout_constraintVertical_bias="0.119" />
+        app:layout_constraintVertical_bias="0.06" />
 
     <Button
         android:id="@+id/loginBtn"
@@ -59,7 +73,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="152dp"
-        android:background="@color/component_color"
+        android:background="@drawable/custom_button"
         android:text="Login"
         android:textColor="@color/component_text"
         android:textSize="13sp"

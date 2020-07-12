@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="20dp"
-        android:background="@color/component_color"
+        android:background="@drawable/custom_button"
         android:src="@drawable/ic_chevron_right_black_24dp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"

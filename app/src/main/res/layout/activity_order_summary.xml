@@ -45,7 +45,7 @@
         android:layout_height="36dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="28dp"
-        android:background="@color/component_color"
+        android:background="@drawable/custom_button"
         android:text="Confirm"
         android:textColor="@color/component_text"
         app:layout_constraintBottom_toBottomOf="parent"

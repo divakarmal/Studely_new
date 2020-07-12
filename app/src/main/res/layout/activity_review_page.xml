@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="52dp"
-        android:background="@color/component_color"
+        android:background="@drawable/custom_button"
         android:text="Submit"
         android:textColor="@color/component_text"
         app:layout_constraintBottom_toBottomOf="parent"

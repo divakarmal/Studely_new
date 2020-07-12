@@ -17,7 +17,7 @@
         android:layout_width="156dp"
         android:layout_height="50dp"
         android:layout_marginStart="124dp"
-        android:background="@color/component_color"
+        android:background="@drawable/custom_button"
         android:text="Make new posting"
         android:textColor="@color/component_text"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
