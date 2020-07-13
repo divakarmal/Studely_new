@@ -39,8 +39,9 @@ public class OrderPage extends BottomNavBar {
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
     RecyclerView summaryList;
     TextView mOrderID, mTimeStamp, mDeliveryTime, mOrderTotal, mStatus;
-    Button mReachedBtn, mReceivedBtn, testBtn;
+    Button mReachedBtn, mReceivedBtn;
     Location currentLoc, delLocation;
+    String orderID;
 
     FrameLayout loadingOverlay;
 
@@ -50,7 +51,7 @@ public class OrderPage extends BottomNavBar {
         setContentView(R.layout.activity_order_page);
         navBar(this.getApplicationContext());
 
-        final String orderID = getIntent().getExtras().getString("orderID");
+        orderID = getIntent().getExtras().getString("orderID");
         summaryList = findViewById(R.id.recyclerView);
         mOrderID = findViewById(R.id.OrderID);
         mTimeStamp = findViewById(R.id.TimeStamp);
@@ -59,7 +60,6 @@ public class OrderPage extends BottomNavBar {
         mReachedBtn = findViewById(R.id.reachedBtn);
         mReceivedBtn = findViewById(R.id.receivedBtn);
         mStatus = findViewById(R.id.status);
-        testBtn = findViewById(R.id.testBtn);
         loadingOverlay = findViewById(R.id.loading_overlay);
         loadingOverlay.bringToFront();
         loadingOverlay.getParent().requestLayout();
@@ -117,23 +117,12 @@ public class OrderPage extends BottomNavBar {
             }
         });
 
-        testBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ConfirmedOrders").child(orderID);
-                dbRef.child("Completed").setValue(true);
-                Intent newIntent = new Intent(getApplicationContext(), ReviewPage.class);
-                newIntent.putExtra("orderID", orderID);
-                startActivity(newIntent);
-            }
-        });
-
 
     }
 
     private void initFromDB() {
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ConfirmedOrders").child(orderID);
 
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -223,6 +212,7 @@ public class OrderPage extends BottomNavBar {
                             location.setLatitude(latitude);
                             location.setLongitude(longitude);
                             currentLoc = location;
+
 
                             initFromDB();
                         }

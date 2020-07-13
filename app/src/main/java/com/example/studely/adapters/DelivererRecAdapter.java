@@ -15,6 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.studely.OrderConfirm;
 import com.example.studely.R;
 import com.example.studely.misc.Order;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -24,14 +29,17 @@ public class DelivererRecAdapter extends RecyclerView.Adapter<DelivererRecAdapte
     List<String[]> deliveryPostingsData;
     List<String> deliveryIDList;
     Order order;
+    List<String> ratingList;
 
     public DelivererRecAdapter(Context context, List<String[]> deliveryPostingsData,
-                               List<String> deliveryIDList, Order order) {
+                               List<String> deliveryIDList, Order order, List<String> ratingList) {
         this.context = context;
         this.deliveryPostingsData = deliveryPostingsData;
         this.deliveryIDList = deliveryIDList;
         this.order = order;
+        this.ratingList = ratingList;
     }
+
 
     @NonNull
     @Override
@@ -46,6 +54,7 @@ public class DelivererRecAdapter extends RecyclerView.Adapter<DelivererRecAdapte
         final String[] data = deliveryPostingsData.get(position);
         holder.nameText.setText(data[0]);
         holder.deliTimeText.setText(data[1]);
+        holder.rating.setText(ratingList.get(position));
 
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +81,7 @@ public class DelivererRecAdapter extends RecyclerView.Adapter<DelivererRecAdapte
 
         TextView nameText;
         TextView deliTimeText;
+        TextView rating;
         ConstraintLayout mainLayout;
 
         public DelivererViewHolder(@NonNull View itemView) {
@@ -79,6 +89,7 @@ public class DelivererRecAdapter extends RecyclerView.Adapter<DelivererRecAdapte
             nameText = itemView.findViewById(R.id.nameText);
             deliTimeText = itemView.findViewById(R.id.deliTimeText);
             mainLayout = itemView.findViewById(R.id.mainLayout);
+            rating = itemView.findViewById(R.id.ratingText);
         }
     }
 }

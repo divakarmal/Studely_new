@@ -23,7 +23,7 @@ public class DeliverConfirm extends BottomNavBar {
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference orderRef = dbRef.child("OrderPostings").child(canteenID).child(orderPostingID);
         final DatabaseReference confirmedOrdersRef = dbRef.child("ConfirmedOrders");
-        final DatabaseReference userRef = dbRef.child("users").child(currentUser);
+        final DatabaseReference userRef = dbRef.child("users");
         navBar(this.getApplicationContext());
 
         orderRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -37,7 +37,7 @@ public class DeliverConfirm extends BottomNavBar {
                 pushRef.child("DeliveryTime").setValue(dataSnapshot.child("DeliveryTime").getValue());
                 pushRef.child("Destination").setValue(destination);
                 pushRef.child("OrderCost").setValue(dataSnapshot.child("OrderCost").getValue(String.class));
-                pushRef.child("Receiver").setValue(dataSnapshot.child("Receiver").getValue());
+                pushRef.child("Receiver").setValue(receiver);
                 pushRef.child("Deliverer").setValue(currentUser);
                 pushRef.child("Canteen").setValue(canteenID);
                 pushRef.child("Reached").setValue(false);
@@ -52,9 +52,8 @@ public class DeliverConfirm extends BottomNavBar {
                     itemListRef.child(snapshot.getKey()).child("Quantity").setValue(quantity);
                 }
 
-                dbRef.child("users").child(receiver).child("ConfirmedOrders").child(pushID).setValue(destination);
-                userRef.child("ConfirmedOrders").child(pushID).setValue(destination);
-
+                userRef.child(currentUser).child("ConfirmedOrders").child(pushID).setValue(destination);
+                userRef.child(receiver).child("ConfirmedOrders").child(pushID).setValue(destination);
                 dbRef.child("OrderPostings").child(canteenID).child(orderPostingID).removeValue();
                 dbRef.child("users").child(receiver).child("OrderPostings").child(orderPostingID).removeValue();
 

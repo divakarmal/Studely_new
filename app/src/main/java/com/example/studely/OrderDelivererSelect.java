@@ -86,22 +86,18 @@ public class OrderDelivererSelect extends BottomNavBar {
         dbRef.child("DeliveryPostings").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<String[]> deliveryPostingsData = new ArrayList<>();
+                List<String[]> deliveryPostingsData;
+                deliveryPostingsData = new ArrayList<>();
                 for (String pushID : postingIDList) {
                     DataSnapshot snapshot = dataSnapshot.child(pushID);
-                    deliveryPostingsData.add(new String[] {
+                    deliveryPostingsData.add(new String[]{
                             snapshot.child("Name").getValue(String.class),
                             snapshot.child("DeliveryTime").getValue(String.class),
-                            snapshot.child("Deliverer").getValue(String.class)
+                            snapshot.child("Deliverer").getValue(String.class),
                     });
                 }
 
-                DelivererRecAdapter delivererRecAdapter = new DelivererRecAdapter(OrderDelivererSelect.this,
-                        deliveryPostingsData, postingIDList, order);
-                delivererRecView.setAdapter(delivererRecAdapter);
-                delivererRecView.setLayoutManager(new LinearLayoutManager(OrderDelivererSelect.this));
-
-                loadingOverlay.setVisibility(View.GONE);
+                getRatings(postingIDList,order, deliveryPostingsData);
             }
 
             @Override
@@ -109,6 +105,37 @@ public class OrderDelivererSelect extends BottomNavBar {
 
             }
         });
+    }
+
+        private void getRatings(final List<String> postingIDList, final Order order, final List<String[]> deliveryPostingData) {
+            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("users");
+
+            dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    List<String> ratingList = new ArrayList<>();
+                    for (int i = 0; i < deliveryPostingData.size(); i++ ) {
+                        String delivererID = deliveryPostingData.get(i)[2];
+                        final Long rating = dataSnapshot.child(delivererID).child("rating").getValue(Long.class);
+                        final String ratingText = rating/10 + "." + rating%10;
+                        ratingList.add(ratingText);
+                    }
+
+
+
+                    DelivererRecAdapter delivererRecAdapter = new DelivererRecAdapter(OrderDelivererSelect.this,
+                            deliveryPostingData, postingIDList, order, ratingList);
+                    delivererRecView.setAdapter(delivererRecAdapter);
+                    delivererRecView.setLayoutManager(new LinearLayoutManager(OrderDelivererSelect.this));
+
+                    loadingOverlay.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
 
     }
 }

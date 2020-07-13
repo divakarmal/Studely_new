@@ -25,7 +25,7 @@ public class OrderConfirm extends BottomNavBar {
 
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference confirmedOrdersRef = dbRef.child("ConfirmedOrders");
-        final DatabaseReference userRef = dbRef.child("users").child(currentUser);
+        final DatabaseReference userRef = dbRef.child("users");
 
         String pushID = confirmedOrdersRef.push().getKey();
         DatabaseReference pushRef = confirmedOrdersRef.child(pushID);
@@ -48,7 +48,8 @@ public class OrderConfirm extends BottomNavBar {
                     .setValue(String.valueOf(food.quantity));
         }
 
-        userRef.child("ConfirmedOrders").child(pushID).setValue(order.getDestination());
+        userRef.child(currentUser).child("ConfirmedOrders").child(pushID).setValue(order.getDestination());
+        userRef.child(order.getDeliverer()).child("ConfirmedOrders").child(pushID).setValue(order.getDestination());
 
         dbRef.child("DeliveryPostings").child(deliveryPostingID).removeValue();
         dbRef.child("users").child(order.getDeliverer()).child("DeliveryPostings").child(deliveryPostingID).removeValue();
