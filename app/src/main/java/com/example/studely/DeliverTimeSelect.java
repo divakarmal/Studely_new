@@ -35,6 +35,9 @@ public class DeliverTimeSelect extends BottomNavBar {
         mNoOfOrders = findViewById(R.id.numOfOrders);
         mTimePicker.setIs24HourView(true);
         loadingOverlay = findViewById(R.id.loading_overlay);
+        loadingOverlay.bringToFront();
+        loadingOverlay.getParent().requestLayout();
+        ((View) loadingOverlay.getParent()).invalidate();
 
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();

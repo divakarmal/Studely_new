@@ -29,6 +29,9 @@ public class DeliverCanteenSelect extends BottomNavBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deliver_canteen_select);
         loadingOverlay = findViewById(R.id.loading_overlay);
+        loadingOverlay.bringToFront();
+        loadingOverlay.getParent().requestLayout();
+        ((View) loadingOverlay.getParent()).invalidate();
         canteenSpinner = (Spinner) findViewById(R.id.canteenSpinner);
         mNextBtn = findViewById(R.id.nextBtn);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();

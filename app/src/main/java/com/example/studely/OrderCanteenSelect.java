@@ -33,6 +33,9 @@ public class OrderCanteenSelect extends BottomNavBar {
         mNextBtn = findViewById(R.id.nextBtn);
         canteenSpinner = (Spinner) findViewById(R.id.canteenSpinner);
         loadingOverlay = findViewById(R.id.loading_overlay);
+        loadingOverlay.bringToFront();
+        loadingOverlay.getParent().requestLayout();
+        ((View) loadingOverlay.getParent()).invalidate();
 
         final String destination = getIntent().getExtras().getString("orderDestination");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();

@@ -35,6 +35,9 @@ public class DeliverOrderSelect extends BottomNavBar {
         orderRecView = findViewById(R.id.orderRecView);
         mNewPostingBtn = findViewById(R.id.newPosting);
         loadingOverlay = findViewById(R.id.loading_overlay);
+        loadingOverlay.bringToFront();
+        loadingOverlay.getParent().requestLayout();
+        ((View) loadingOverlay.getParent()).invalidate();
 
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();

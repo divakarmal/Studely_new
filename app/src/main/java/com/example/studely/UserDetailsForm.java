@@ -26,14 +26,18 @@ public class UserDetailsForm extends BottomNavBar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details_form);
+        navBar(this.getApplicationContext());
+
         name = findViewById(R.id.nameField);
         phoneNum = findViewById(R.id.phoneNumField);
         priAdd = findViewById(R.id.priAddField);
         pinCode = findViewById(R.id.pinCodeField);
         mSubmitBtn = findViewById(R.id.submitBtn);
-        loadingOverlay = findViewById(R.id.loading_overlay);
         mLogOutBtn = findViewById(R.id.logoutBtn);
-        navBar(this.getApplicationContext());
+        loadingOverlay = findViewById(R.id.loading_overlay);
+        loadingOverlay.bringToFront();
+        loadingOverlay.getParent().requestLayout();
+        ((View) loadingOverlay.getParent()).invalidate();
 
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference userRef = dbRef.child("users");

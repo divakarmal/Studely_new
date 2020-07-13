@@ -37,6 +37,9 @@ public class OrderFoodSelect extends BottomNavBar {
         foodList = findViewById(R.id.foodRecView);
         mNextBtn = findViewById(R.id.nextBtn);
         loadingOverlay = findViewById(R.id.loading_overlay);
+        loadingOverlay.bringToFront();
+        loadingOverlay.getParent().requestLayout();
+        ((View) loadingOverlay.getParent()).invalidate();
 
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final String stallID = getIntent().getExtras().getString("stallID");

@@ -40,6 +40,9 @@ public class OrderStallSelect extends BottomNavBar {
 
         stallList = (ListView) findViewById(R.id.stallListView);
         loadingOverlay = findViewById(R.id.loading_overlay);
+        loadingOverlay.bringToFront();
+        loadingOverlay.getParent().requestLayout();
+        ((View) loadingOverlay.getParent()).invalidate();
 
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final String destination = getIntent().getExtras().getString("orderDestination");

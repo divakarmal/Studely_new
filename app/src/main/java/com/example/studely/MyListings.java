@@ -42,12 +42,14 @@ public class MyListings extends BottomNavBar {
         setContentView(R.layout.activity_my_listings);
         navBar(this.getApplicationContext());
 
-        loadingOverlay = findViewById(R.id.loading_overlay);
         orderListingsRecView = findViewById(R.id.myOrderListings);
-        loadingOverlay.bringToFront();
         deliveryListingsText = findViewById(R.id.deliveryListings);
         deliveryListingsRecView = findViewById(R.id.myDeliveryListings);
         orderListingsText = findViewById(R.id.orderListings);
+        loadingOverlay = findViewById(R.id.loading_overlay);
+        loadingOverlay.bringToFront();
+        loadingOverlay.getParent().requestLayout();
+        ((View) loadingOverlay.getParent()).invalidate();
         loadingOverlay.setVisibility(View.VISIBLE);
         fetchFromDB();
 

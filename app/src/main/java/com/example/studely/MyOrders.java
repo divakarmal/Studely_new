@@ -35,8 +35,11 @@ public class MyOrders extends BottomNavBar {
         navBar(this.getApplicationContext());
 
         listingsBtn = findViewById(R.id.listingsBtn);
-        loadingOverlay = findViewById(R.id.loading_overlay);
         myOrderRecView = findViewById(R.id.myOrderRecView);
+        loadingOverlay = findViewById(R.id.loading_overlay);
+        loadingOverlay.bringToFront();
+        loadingOverlay.getParent().requestLayout();
+        ((View) loadingOverlay.getParent()).invalidate();
 
         listingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override

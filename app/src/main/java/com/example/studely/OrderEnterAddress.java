@@ -53,6 +53,9 @@ public class OrderEnterAddress extends BottomNavBar {
         address = findViewById(R.id.addressField);
         mNextBtn = findViewById(R.id.NextBtn);
         loadingOverlay = findViewById(R.id.loading_overlay);
+        loadingOverlay.bringToFront();
+        loadingOverlay.getParent().requestLayout();
+        ((View) loadingOverlay.getParent()).invalidate();
 
         findViewById(R.id.currentLocation).setOnClickListener(new View.OnClickListener() {
             @Override

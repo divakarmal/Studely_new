@@ -37,6 +37,9 @@ public class OrderDelivererSelect extends BottomNavBar {
         delivererRecView = findViewById(R.id.delivererRecView);
         mPostBtn = findViewById(R.id.postOrderBtn);
         loadingOverlay = findViewById(R.id.loading_overlay);
+        loadingOverlay.bringToFront();
+        loadingOverlay.getParent().requestLayout();
+        ((View) loadingOverlay.getParent()).invalidate();
 
         Bundle bundle = this.getIntent().getExtras();
         final Order order = (Order) bundle.getSerializable("orderObj");
