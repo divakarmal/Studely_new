@@ -9,17 +9,19 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/summaryRecView"
-        android:layout_width="404dp"
-        android:layout_height="281dp"
-        android:layout_marginTop="160dp"
-        android:layout_marginBottom="100dp"
-        android:background="@android:color/transparent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="180dp"
+        android:background="@drawable/custom_rev_view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.084" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/heading"
@@ -43,29 +45,24 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="86dp"
         android:layout_height="36dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/custom_button"
         android:text="Confirm"
         android:textColor="@color/component_text"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totalOrderCost"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/totalOrderCost" />
 
     <TextView
         android:id="@+id/totalOrderCost"
-        android:layout_width="157dp"
+        android:layout_width="0dp"
         android:layout_height="33dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
         android:text="TextView"
-        android:textSize="24sp"
         android:textColor="@color/component_color"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.889"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/summaryRecView" />
 
     <TextView
@@ -73,42 +70,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Item"
-        android:textSize="24sp"
         android:textColor="@color/component_color"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.191" />
+        app:layout_constraintVertical_bias="0.153" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Quantity"
-        android:textSize="24sp"
         android:textColor="@color/component_color"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.305"
+        app:layout_constraintHorizontal_bias="0.313"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.191" />
+        app:layout_constraintVertical_bias="0.153" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Price"
-        android:textSize="24sp"
         android:textColor="@color/component_color"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.643"
+        app:layout_constraintHorizontal_bias="0.634"
         app:layout_constraintStart_toEndOf="@+id/textView10"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.191" />
+        app:layout_constraintVertical_bias="0.153" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"

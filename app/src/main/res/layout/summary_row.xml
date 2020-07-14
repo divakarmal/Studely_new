@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/rec_row_bg"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,72 +19,61 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="82dp"
-            android:background="@android:color/transparent">
+            android:background="@drawable/custom_rec_view_row">
 
             <TextView
                 android:id="@+id/itemText"
-                android:layout_width="135dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:text="TextView"
-                android:textSize="24sp"
+                android:textSize="@dimen/row_text_size"
                 android:textStyle="bold"
                 android:textColor="@color/rec_row_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.166" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/priceText"
-                android:layout_width="36dp"
-                android:layout_height="23dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="36dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="TextView"
-                android:textSize="18sp"
+                android:text="Text"
+                android:textColor="@color/rec_row_text"
+                android:textSize="@dimen/row_subtext_size"
                 android:textStyle="normal"
                 android:visibility="invisible"
-                android:textColor="@color/rec_row_text"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/itemText"
                 app:layout_constraintStart_toEndOf="@+id/qtyText"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.473" />
+                app:layout_constraintTop_toTopOf="@+id/itemText" />
 
             <TextView
                 android:id="@+id/qtyText"
-                android:layout_width="36dp"
-                android:layout_height="23dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="56dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="TextView"
-                android:textSize="18sp"
-                android:textStyle="normal"
+                android:text="Text"
                 android:textColor="@color/rec_row_text"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textSize="@dimen/row_subtext_size"
+                android:textStyle="normal"
+                app:layout_constraintBottom_toBottomOf="@+id/itemText"
                 app:layout_constraintStart_toEndOf="@+id/itemText"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.473" />
+                app:layout_constraintTop_toTopOf="@+id/itemText" />
 
             <TextView
                 android:id="@+id/totalCost"
-                android:layout_width="36dp"
-                android:layout_height="23dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="TextView"
-                android:textSize="18sp"
-                android:textStyle="normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="Text"
                 android:textColor="@color/rec_row_text"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/priceText"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.526" />
+                android:textSize="@dimen/row_text_size"
+                android:textStyle="normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/itemText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

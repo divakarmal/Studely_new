@@ -17,7 +17,6 @@ public class OrderTimeSelect extends BottomNavBar {
 
     Button mPostBtn;
     TimePicker mTimePicker;
-    FrameLayout loadingOverlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +27,6 @@ public class OrderTimeSelect extends BottomNavBar {
         mPostBtn = findViewById(R.id.postOrder);
         mTimePicker = findViewById(R.id.timePicker1);
         mTimePicker.setIs24HourView(true);
-        loadingOverlay = findViewById(R.id.loading_overlay);
-        loadingOverlay.bringToFront();
-        loadingOverlay.getParent().requestLayout();
-        ((View) loadingOverlay.getParent()).invalidate();
 
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference orderPostingsRef = dbRef.child("OrderPostings");
