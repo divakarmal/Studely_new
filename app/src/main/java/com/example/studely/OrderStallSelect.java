@@ -46,6 +46,7 @@ public class OrderStallSelect extends BottomNavBar {
 
         final String canteenID = getIntent().getExtras().getString("canteenID");
         final String destination = getIntent().getExtras().getString("orderDestination");
+        System.out.println(destination);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference stallRef = database.getReference().child("canteens")
                 .child(canteenID).child("StallList");

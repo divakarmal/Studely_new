@@ -8,7 +8,6 @@
     tools:context=".DeliverOrderSelect">
 
     <include
-        android:id="@+id/include4"
         layout="@layout/loading_overlay"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

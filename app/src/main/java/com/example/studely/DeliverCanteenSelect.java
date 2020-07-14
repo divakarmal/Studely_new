@@ -2,12 +2,18 @@ package com.example.studely;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.studely.adapters.CanteenAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,9 +25,7 @@ import java.util.List;
 
 public class DeliverCanteenSelect extends BottomNavBar {
 
-    Spinner canteenSpinner;
-    ArrayAdapter<String> canteenAdapter;
-    ImageButton mNextBtn;
+    RecyclerView canteenRecView;
     FrameLayout loadingOverlay;
 
     @Override
@@ -32,8 +36,7 @@ public class DeliverCanteenSelect extends BottomNavBar {
         loadingOverlay.bringToFront();
         loadingOverlay.getParent().requestLayout();
         ((View) loadingOverlay.getParent()).invalidate();
-        canteenSpinner = (Spinner) findViewById(R.id.canteenSpinner);
-        mNextBtn = findViewById(R.id.nextBtn);
+        canteenRecView = findViewById(R.id.canteenRecView);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference fCanteenRef = database.getReference().child("canteens");
         loadingOverlay.setVisibility(View.VISIBLE);
@@ -42,19 +45,20 @@ public class DeliverCanteenSelect extends BottomNavBar {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final List<String> canteenList = new ArrayList<String>();
+                final List<Integer> noOfPostings = new ArrayList<Integer>();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String canteenName = snapshot.getKey();
                     if (canteenName != null) {
+                        int postings = (int) snapshot.child("OrderPostings").getChildrenCount();
+                        noOfPostings.add(postings);
                         canteenList.add(canteenName);
                     }
                 }
 
-                canteenAdapter = new ArrayAdapter<String>(DeliverCanteenSelect.this,
-                        android.R.layout.simple_list_item_1, canteenList);
-                canteenAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                canteenSpinner.setAdapter(canteenAdapter);
-
+                CanteenAdapter canteenAdapter = new CanteenAdapter(DeliverCanteenSelect.this, canteenList, noOfPostings);
+                canteenRecView.setAdapter(canteenAdapter);
+                canteenRecView.setLayoutManager(new LinearLayoutManager(DeliverCanteenSelect.this));
                 loadingOverlay.setVisibility(View.GONE);
             }
 
@@ -65,15 +69,5 @@ public class DeliverCanteenSelect extends BottomNavBar {
 
 
         navBar(this.getApplicationContext());
-
-        mNextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent newIntent = new Intent(getApplicationContext(), DeliverOrderSelect.class);
-                String choice = canteenSpinner.getSelectedItem().toString();
-                newIntent.putExtra("canteenID", choice);
-                startActivity(newIntent);
-            }
-        });
     }
 }
