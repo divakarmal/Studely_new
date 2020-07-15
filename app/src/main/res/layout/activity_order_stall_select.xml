@@ -9,7 +9,6 @@
     tools:context=".OrderCanteenSelect">
 
     <include
-        android:id="@+id/include5"
         layout="@layout/loading_overlay"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -47,8 +46,9 @@
         android:layout_marginTop="150dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="140dp"
+        android:background="@drawable/custom_rev_view"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/include5"
+        app:layout_constraintEnd_toEndOf="@+id/loading_overlay"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
