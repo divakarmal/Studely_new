@@ -8,7 +8,6 @@
     tools:context=".MyOrders">
 
     <include
-        android:id="@+id/include2"
         layout="@layout/loading_overlay"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +34,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="140dp"
         android:background="@drawable/custom_rev_view"
-        app:layout_constraintBottom_toBottomOf="@+id/include2"
+        app:layout_constraintBottom_toBottomOf="@+id/loading_overlay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
