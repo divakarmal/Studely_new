@@ -9,6 +9,7 @@
     tools:context=".OrderCanteenSelect">
 
     <include
+        android:id="@+id/include5"
         layout="@layout/loading_overlay"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -17,12 +18,12 @@
         android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/advent_pro_semibold"
         android:text="Select Stall"
         android:textColor="@color/component_color"
-        android:fontFamily="@font/advent_pro_semibold"
-        android:textSize="36sp"
+        android:textSize="@dimen/heading_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,13 +44,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="140dp"
+        android:layout_marginBottom="100dp"
         android:background="@drawable/custom_rev_view"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/loading_overlay"
+        app:layout_constraintEnd_toEndOf="@+id/include5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/heading" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

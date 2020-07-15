@@ -5,21 +5,18 @@
         android:id="@+id/ic_home"
         android:checked="true"
         android:icon="@drawable/ic_home_black"
-        android:title="Home"
-        />
+        android:title="Home" />
 
     <item
         android:id="@+id/ic_myOrderList"
         android:checked="true"
         android:icon="@drawable/ic_list_black"
-        android:title="My Orders"
-        />
+        android:title="My Orders" />
 
     <item
         android:id="@+id/ic_myListings"
         android:checked="true"
         android:icon="@drawable/ic_list_black"
-        android:title="My Listings"
-        />
+        android:title="My Listings" />
 
 </menu>

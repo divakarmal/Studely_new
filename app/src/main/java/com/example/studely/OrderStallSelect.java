@@ -1,9 +1,9 @@
 package com.example.studely;
 
 import android.os.Bundle;
-
 import android.view.View;
 import android.widget.FrameLayout;
+
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 

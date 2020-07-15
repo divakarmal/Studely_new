@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TimePicker;
 
 import com.example.studely.misc.Food;
@@ -40,11 +39,11 @@ public class OrderTimeSelect extends BottomNavBar {
             public void onClick(View v) {
                 int clockTime = mTimePicker.getHour() * 100 + mTimePicker.getMinute();
                 String deliveryTime;
-                if(clockTime < 100){
+                if (clockTime < 100) {
                     deliveryTime = "00" + clockTime;
-                } else if (clockTime < 1000){
+                } else if (clockTime < 1000) {
                     deliveryTime = "0" + clockTime;
-                }else {
+                } else {
                     deliveryTime = Integer.toString(clockTime);
                 }
 

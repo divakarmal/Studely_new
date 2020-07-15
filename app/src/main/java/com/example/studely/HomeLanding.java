@@ -23,7 +23,7 @@ public class HomeLanding extends AppCompatActivity {
 
         mOrderButton = findViewById(R.id.orderBtn);
         mDeliverButton = findViewById(R.id.deliverBtn);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
 
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

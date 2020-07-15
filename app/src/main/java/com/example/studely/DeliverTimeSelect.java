@@ -61,11 +61,11 @@ public class DeliverTimeSelect extends BottomNavBar {
                         String numOfOrders;
                         numOfOrders = mNoOfOrders.getText().toString();
                         String deliveryTime;
-                        if(clockTime < 100){
+                        if (clockTime < 100) {
                             deliveryTime = "00" + clockTime;
-                        } else if (clockTime < 1000){
+                        } else if (clockTime < 1000) {
                             deliveryTime = "0" + clockTime;
-                        }else {
+                        } else {
                             deliveryTime = Integer.toString(clockTime);
                         }
                         userRef.child("DeliveryPostings").child(pushID).setValue(canteenID);

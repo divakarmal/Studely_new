@@ -13,15 +13,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/enterTime"
+        android:id="@+id/heading"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="60dp"
-        android:text="Enter Delivery Time"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/advent_pro_semibold"
+        android:text="Enter Delivery Time"
         android:textColor="@color/component_color"
-        android:textSize="36sp"
+        android:textSize="@dimen/heading_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,35 +29,32 @@
         android:id="@+id/timePicker1"
         android:layout_width="294dp"
         android:layout_height="213dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="80dp"
-        android:timePickerMode="spinner"
         android:numbersTextColor="@color/component_text"
+        android:timePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.415"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterTime" />
+        app:layout_constraintTop_toBottomOf="@+id/heading" />
 
     <EditText
         android:id="@+id/numOfOrders"
         android:layout_width="299dp"
         android:layout_height="42dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="76dp"
-        android:ems="10"
+        android:layout_marginTop="74dp"
         android:background="@drawable/custom_input"
+        android:hint="How many orders?"
+        android:inputType="number"
         android:padding="12dp"
         android:textColor="@color/component_text"
         android:textColorHint="@color/component_text"
-        android:hint="How many orders?"
-        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timePicker1" />
 
     <Button
         android:id="@+id/confirmBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_marginTop="70dp"
         android:layout_marginEnd="60dp"
         android:background="@drawable/custom_button"

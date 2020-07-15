@@ -16,48 +16,42 @@
         android:id="@+id/addressField"
         android:layout_width="349dp"
         android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
+        android:layout_marginTop="100dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/ic_apartment"
         android:drawablePadding="12dp"
-        android:paddingLeft="10dp"
         android:drawableTint="@color/component_text"
-        android:textColor="@color/component_text"
-        android:textColorHint="@color/component_text"
         android:hint="EnterAddress"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingLeft="10dp"
+        android:textColor="@color/component_text"
+        android:textColorHint="@color/component_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heading"
-        app:layout_constraintVertical_bias="0.356" />
+        app:layout_constraintTop_toBottomOf="@+id/currentLocation" />
 
     <ImageButton
         android:id="@+id/NextBtn"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="36dp"
         android:background="@drawable/custom_button"
         android:src="@drawable/ic_chevron_right_black_24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.879"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addressField"
-        app:layout_constraintVertical_bias="0.242" />
+        app:layout_constraintTop_toBottomOf="@+id/addressField" />
 
     <TextView
         android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/advent_pro_semibold"
         android:text="Enter Address"
         android:textColor="@color/component_color"
-        android:textSize="36sp"
+        android:textSize="@dimen/heading_size"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,29 +71,25 @@
         android:id="@+id/currentLocation"
         android:layout_width="138dp"
         android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/custom_button"
         android:text="Use Current Location"
         android:textColor="@color/component_text"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.146"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.287" />
+        app:layout_constraintTop_toBottomOf="@id/heading" />
 
     <Button
         android:id="@+id/primaryAddress"
         android:layout_width="136dp"
         android:layout_height="52dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="40dp"
         android:background="@drawable/custom_button"
         android:text="Use Primary Address"
         android:textColor="@color/component_text"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.858"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.284" />
+        app:layout_constraintTop_toBottomOf="@id/heading" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

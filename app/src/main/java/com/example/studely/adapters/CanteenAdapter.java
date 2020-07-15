@@ -2,13 +2,9 @@ package com.example.studely.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,12 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.DeliverOrderSelect;
-import com.example.studely.OrderCanteenSelect;
-import com.example.studely.OrderConfirm;
-import com.example.studely.OrderDelivererSelect;
 import com.example.studely.OrderStallSelect;
 import com.example.studely.R;
-import com.example.studely.misc.QtyTextChanged;
 
 import java.util.List;
 
@@ -66,7 +58,7 @@ public class CanteenAdapter extends RecyclerView.Adapter<CanteenAdapter.CanteenV
             @Override
             public void onClick(View v) {
 
-                if(order) {
+                if (order) {
                     Intent newIntent = new Intent(context, OrderStallSelect.class);
                     newIntent.putExtra("canteenID", canteenList.get(position));
                     newIntent.putExtra("orderDestination", address);

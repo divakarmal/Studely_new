@@ -1,17 +1,14 @@
 package com.example.studely;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.studely.adapters.MyListingsAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,15 +23,14 @@ import java.util.List;
 
 public class MyListings extends BottomNavBar {
 
-    FrameLayout loadingOverlay;
-    RecyclerView orderListingsRecView, deliveryListingsRecView;
-    TextView deliveryListingsText, orderListingsText;
-
     final List<String> orderLocList = new ArrayList<>();
     final List<String> orderTimeList = new ArrayList<>();
     final List<String> deliveryLocList = new ArrayList<>();
     final List<String> deliveryTimeList = new ArrayList<>();
     final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+    FrameLayout loadingOverlay;
+    RecyclerView orderListingsRecView, deliveryListingsRecView;
+    TextView deliveryListingsText, orderListingsText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +56,7 @@ public class MyListings extends BottomNavBar {
                 orderListingsText.setTypeface(null, Typeface.NORMAL);
                 orderListingsRecView.setVisibility(View.GONE);
                 deliveryListingsRecView.setVisibility(View.VISIBLE);
-                }
+            }
         });
 
         orderListingsText.setOnClickListener(new View.OnClickListener() {

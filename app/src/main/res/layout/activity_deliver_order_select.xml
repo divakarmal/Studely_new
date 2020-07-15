@@ -8,6 +8,7 @@
     tools:context=".DeliverOrderSelect">
 
     <include
+        android:id="@+id/include4"
         layout="@layout/loading_overlay"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,14 +30,14 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="140dp"
+        android:background="@drawable/custom_rev_view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/custom_rev_view" />
+        app:layout_constraintTop_toBottomOf="@+id/subheading1" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
@@ -51,46 +52,39 @@
         app:menu="@menu/bottom_navigation_menu" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/advent_pro_semibold"
         android:text="Select Order"
         android:textColor="@color/component_color"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/orderRecView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.227" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/subheading1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:text="Destination"
         android:textColor="@color/component_color"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/orderRecView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.061"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.604" />
+        app:layout_constraintStart_toStartOf="@+id/orderRecView"
+        app:layout_constraintTop_toBottomOf="@+id/heading" />
 
     <TextView
-        android:id="@+id/textView23"
+        android:id="@+id/subheading2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:text="Delivery Time"
         android:textColor="@color/component_color"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/orderRecView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.604" />
+        app:layout_constraintEnd_toEndOf="@id/orderRecView"
+        app:layout_constraintTop_toTopOf="@id/subheading1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

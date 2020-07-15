@@ -17,29 +17,29 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="100dp"
         android:background="@drawable/custom_rev_view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/orderListings" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/myDeliveryListings"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="100dp"
-        android:visibility="gone"
         android:background="@drawable/custom_rev_view"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/orderListings" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
@@ -59,12 +59,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="50dp"
+        android:fontFamily="@font/advent_pro_semibold"
         android:text="Order Listings"
-        android:textColor="@color/component_color"
-        android:textSize="24sp"
-        android:textStyle="bold"
         android:textAlignment="center"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/component_color"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/myOrderListings"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -72,11 +73,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
+        android:fontFamily="@font/advent_pro_semibold"
         android:text="Delivery Listings"
+        android:textAlignment="center"
         android:textColor="@color/component_color"
         android:textSize="24sp"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/myOrderListings"
         app:layout_constraintTop_toTopOf="@+id/orderListings" />
 
 

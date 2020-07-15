@@ -18,10 +18,10 @@ import java.util.List;
 
 public class StallRecAdapter extends RecyclerView.Adapter<StallRecAdapter.StallRecViewHolder> {
 
-    Context context;
-    List<String> stallList;
     final String canteenID;
     final String destination;
+    Context context;
+    List<String> stallList;
 
     public StallRecAdapter(Context context, List<String> stallList, String canteenID, String destination) {
         this.context = context;

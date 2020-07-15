@@ -33,7 +33,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public class OrderPage extends BottomNavBar {
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
@@ -129,7 +128,7 @@ public class OrderPage extends BottomNavBar {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mTimeStamp.setText((String) dataSnapshot.child("Time").getValue());
                 mDeliveryTime.setText((String) dataSnapshot.child("DeliveryTime").getValue());
-                mOrderTotal.setText("$" + (String) dataSnapshot.child("OrderCost").getValue());
+                mOrderTotal.setText("$" + dataSnapshot.child("OrderCost").getValue());
                 String delivererID = (String) dataSnapshot.child("Deliverer").getValue();
                 String receiverID = (String) dataSnapshot.child("Receiver").getValue();
                 boolean reached = dataSnapshot.child("Reached").getValue(boolean.class);

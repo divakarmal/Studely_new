@@ -3,8 +3,6 @@ package com.example.studely;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,17 +29,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
-import java.util.List;
-
 
 public class OrderEnterAddress extends BottomNavBar {
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
     EditText address;
     ImageButton mNextBtn;
     FrameLayout loadingOverlay;
     private ResultReceiver resultReceiver;
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

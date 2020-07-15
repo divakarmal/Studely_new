@@ -1,16 +1,13 @@
 package com.example.studely;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 
-import com.example.studely.adapters.SummaryRecAdapter;
-import com.example.studely.misc.Food;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -65,7 +62,7 @@ public class ReviewPage extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         int currentRating = dataSnapshot.child("rating").getValue(int.class);
                         int totalRatings = dataSnapshot.child("totalRatings").getValue(int.class);
-                        int newRating = (((int)ratingBar.getRating() * 10) + (currentRating * totalRatings))/(totalRatings + 1);
+                        int newRating = (((int) ratingBar.getRating() * 10) + (currentRating * totalRatings)) / (totalRatings + 1);
                         dbRef.child("rating").setValue(newRating);
                         dbRef.child("totalRatings").setValue(totalRatings + 1);
                     }

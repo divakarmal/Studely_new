@@ -4,27 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OrderTimeSelect"
-    android:background="@drawable/bg_main">
+    android:background="@drawable/bg_main"
+    tools:context=".OrderTimeSelect">
 
     <TimePicker
         android:id="@+id/timePicker1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="62dp"
         android:background="@android:color/transparent"
         android:timePickerMode="spinner"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/delTime"
-        app:layout_constraintVertical_bias="0.198" />
+        app:layout_constraintTop_toBottomOf="@+id/delTime" />
 
     <TextView
         android:id="@+id/delTime"
-        android:layout_width="342dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/advent_pro_semibold"
         android:text="Enter Delivery Time"
         android:textColor="@color/component_color"
@@ -36,10 +35,10 @@
         android:id="@+id/postOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="62dp"
+        android:background="@drawable/custom_button"
         android:text="POST"
         android:textColor="@color/component_text"
-        android:background="@drawable/custom_button"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timePicker1" />
