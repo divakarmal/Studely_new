@@ -8,7 +8,6 @@
     tools:context=".DeliverCanteenSelect">
 
     <include
-        android:id="@+id/include3"
         layout="@layout/loading_overlay"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

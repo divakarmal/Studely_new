@@ -2,16 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_main"
+    android:foreground="@drawable/shape_window_dim"
     tools:context=".ListingPage">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/DeleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="delete"
+        android:background="@drawable/custom_button"
+        android:textColor="@color/component_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.752"
@@ -20,10 +24,12 @@
         app:layout_constraintVertical_bias="0.846" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/BackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="back"
+        android:background="@drawable/custom_button"
+        android:textColor="@color/component_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.191"
@@ -32,7 +38,7 @@
         app:layout_constraintVertical_bias="0.846" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="time"
@@ -44,7 +50,7 @@
         app:layout_constraintVertical_bias="0.084" />
 
     <TextView
-        android:id="@+id/textView23"
+        android:id="@+id/canteen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="canteen"
@@ -59,6 +65,7 @@
         android:id="@+id/summary"
         android:layout_width="375dp"
         android:layout_height="313dp"
+        android:background="@drawable/custom_rev_view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

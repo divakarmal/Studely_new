@@ -56,6 +56,7 @@ public class OrderTimeSelect extends BottomNavBar {
                 pushRef.child("Destination").setValue(order.getDestination());
                 pushRef.child("OrderCost").setValue(Integer.toString(order.calcOrderCost()));
                 pushRef.child("Receiver").setValue(currentUser);
+                pushRef.child("Canteen").setValue(canteenID);
 
                 DatabaseReference itemListRef = pushRef.child("ItemList");
                 for (Food food : order.getList()) {

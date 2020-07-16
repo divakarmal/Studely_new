@@ -110,7 +110,7 @@ public class MyListings extends BottomNavBar {
                     orderTimeList.add((String) snapshot.child(pushID).child("DeliveryTime").getValue());
                 }
 
-                MyListingsAdapter orderListingsAdapter = new MyListingsAdapter(MyListings.this, orderTimeList, orderLocList);
+                MyListingsAdapter orderListingsAdapter = new MyListingsAdapter(MyListings.this, orderTimeList, orderLocList, orderPostList, true);
                 orderListingsRecView.setAdapter(orderListingsAdapter);
                 orderListingsRecView.setLayoutManager(new LinearLayoutManager(MyListings.this));
                 readDeliveryPostings(deliveryPostingsList);
@@ -135,7 +135,7 @@ public class MyListings extends BottomNavBar {
                     deliveryTimeList.add((String) snapshot.child(pushID).child("DeliveryTime").getValue());
                 }
 
-                MyListingsAdapter deliveryListingsAdapter = new MyListingsAdapter(MyListings.this, deliveryTimeList, deliveryLocList);
+                MyListingsAdapter deliveryListingsAdapter = new MyListingsAdapter(MyListings.this, deliveryTimeList, deliveryLocList, deliveryPostList, false);
                 deliveryListingsRecView.setAdapter(deliveryListingsAdapter);
                 deliveryListingsRecView.setLayoutManager(new LinearLayoutManager(MyListings.this));
 
