@@ -52,9 +52,13 @@ public class DeliverConfirm extends BottomNavBar {
                     itemListRef.child(snapshot.getKey()).child("Quantity").setValue(quantity);
                 }
 
-                userRef.child(currentUser).child("ConfirmedOrders").child(pushID).setValue(destination);
-                userRef.child(receiver).child("ConfirmedOrders").child(pushID).setValue(destination);
+                userRef.child(currentUser).child("ConfirmedOrders").child(pushID).child("destination").setValue(destination);
+                userRef.child(currentUser).child("ConfirmedOrders").child(pushID).child("isOrderer").setValue("0");
+                userRef.child(receiver).child("ConfirmedOrders").child(pushID).child("destination").setValue(destination);
+                userRef.child(receiver).child("ConfirmedOrders").child(pushID).child("isOrderer").setValue("1");
+
                 dbRef.child("OrderPostings").child(canteenID).child(orderPostingID).removeValue();
+                dbRef.child("canteens").child(canteenID).child("OrderPostings").child(orderPostingID).removeValue();
                 dbRef.child("users").child(receiver).child("OrderPostings").child(orderPostingID).removeValue();
 
                 NotifServer.sendMessage(receiver, "Your order has been accepted for delivery!");

@@ -54,6 +54,7 @@ public class MyOrders extends BottomNavBar {
 
         final List<String> orderIDs = new ArrayList<>();
         final List<String> destinations = new ArrayList<>();
+        final List<String> isOrderer = new ArrayList<>();
 
         loadingOverlay.setVisibility(View.VISIBLE);
         userOrdersRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -61,10 +62,11 @@ public class MyOrders extends BottomNavBar {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     orderIDs.add(snapshot.getKey());
-                    destinations.add((String) snapshot.getValue());
+                    destinations.add((String) snapshot.child("destination").getValue());
+                    isOrderer.add((String) snapshot.child("isOrderer").getValue());
                 }
 
-                MyOrderAdapter myOrderAdapter = new MyOrderAdapter(MyOrders.this, orderIDs, destinations);
+                MyOrderAdapter myOrderAdapter = new MyOrderAdapter(MyOrders.this, orderIDs, destinations, isOrderer);
                 myOrderRecView.setAdapter(myOrderAdapter);
                 myOrderRecView.setLayoutManager(new LinearLayoutManager(MyOrders.this));
 

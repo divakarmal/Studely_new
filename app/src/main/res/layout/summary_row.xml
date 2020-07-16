@@ -53,13 +53,13 @@
                 android:id="@+id/qtyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="56dp"
                 android:text="Text"
                 android:textColor="@color/rec_row_text"
                 android:textSize="@dimen/row_subtext_size"
                 android:textStyle="normal"
+                android:layout_marginEnd="100dp"
                 app:layout_constraintBottom_toBottomOf="@+id/itemText"
-                app:layout_constraintStart_toEndOf="@+id/itemText"
+                app:layout_constraintEnd_toStartOf="@+id/totalCost"
                 app:layout_constraintTop_toTopOf="@+id/itemText" />
 
             <TextView

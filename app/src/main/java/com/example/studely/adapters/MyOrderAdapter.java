@@ -11,7 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.studely.OrderPage;
+import com.example.studely.OrderPageDeliverer;
+import com.example.studely.OrderPageOrderer;
 import com.example.studely.R;
 
 import java.util.List;
@@ -21,11 +22,13 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderV
     Context context;
     List<String> orderIDs;
     List<String> destinations;
+    List<String> isOrderer;
 
-    public MyOrderAdapter(Context context, List<String> orderIDs, List<String> destinations) {
+    public MyOrderAdapter(Context context, List<String> orderIDs, List<String> destinations, List<String> isOrderer) {
         this.context = context;
         this.orderIDs = orderIDs;
         this.destinations = destinations;
+        this.isOrderer = isOrderer;
     }
 
     @NonNull
@@ -43,7 +46,12 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderV
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntent = new Intent(context, OrderPage.class);
+                Intent newIntent;
+                if (isOrderer.get(position) == "1") {
+                    newIntent = new Intent(context, OrderPageOrderer.class);
+                } else {
+                    newIntent = new Intent(context, OrderPageDeliverer.class);
+                }
                 newIntent.putExtra("orderID", orderIDs.get(position));
                 context.startActivity(newIntent);
             }

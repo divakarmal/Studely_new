@@ -35,7 +35,7 @@
         <activity android:name=".DeliverConfirm" />
         <activity android:name=".OrderPostingConfirmed" />
         <activity android:name=".OrderTimeSelect" />
-        <activity android:name=".OrderPage" />
+        <activity android:name=".OrderPageOrderer" />
         <activity android:name=".BottomNavBar" />
         <activity android:name=".MyOrders" />
         <activity android:name=".OrderDelivererSelect" />

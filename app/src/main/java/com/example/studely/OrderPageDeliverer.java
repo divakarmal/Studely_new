@@ -34,11 +34,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderPage extends BottomNavBar {
+public class OrderPageDeliverer extends BottomNavBar {
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
     RecyclerView summaryList;
     TextView mOrderID, mTimeStamp, mDeliveryTime, mOrderTotal, mStatus;
-    Button mReachedBtn, mReceivedBtn;
+    Button mReachedBtn;
     Location currentLoc, delLocation;
     String orderID;
 
@@ -47,17 +47,16 @@ public class OrderPage extends BottomNavBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_page);
+        setContentView(R.layout.activity_order_page_orderer);
         navBar(this.getApplicationContext());
 
         orderID = getIntent().getExtras().getString("orderID");
-        summaryList = findViewById(R.id.recyclerView);
+        summaryList = findViewById(R.id.sumRecView);
         mOrderID = findViewById(R.id.OrderID);
         mTimeStamp = findViewById(R.id.TimeStamp);
         mDeliveryTime = findViewById(R.id.DeliveryTime);
         mOrderTotal = findViewById(R.id.orderCost);
         mReachedBtn = findViewById(R.id.reachedBtn);
-        mReceivedBtn = findViewById(R.id.receivedBtn);
         mStatus = findViewById(R.id.status);
         loadingOverlay = findViewById(R.id.loading_overlay);
         loadingOverlay.bringToFront();
@@ -83,9 +82,9 @@ public class OrderPage extends BottomNavBar {
                     int quantity = Integer.parseInt((String) snapshot.child("Quantity").getValue());
                     orderList.add(new Food(foodName, price, quantity));
                 }
-                SummaryRecAdapter summaryRecAdapter = new SummaryRecAdapter(OrderPage.this, orderList);
+                SummaryRecAdapter summaryRecAdapter = new SummaryRecAdapter(OrderPageDeliverer.this, orderList);
                 summaryList.setAdapter(summaryRecAdapter);
-                summaryList.setLayoutManager(new LinearLayoutManager(OrderPage.this));
+                summaryList.setLayoutManager(new LinearLayoutManager(OrderPageDeliverer.this));
             }
 
             @Override
@@ -98,25 +97,12 @@ public class OrderPage extends BottomNavBar {
             @Override
             public void onClick(View v) {
                 final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ConfirmedOrders").child(orderID);
-                Intent newIntent = new Intent(getApplicationContext(), OrderPage.class);
+                Intent newIntent = new Intent(getApplicationContext(), OrderPageDeliverer.class);
                 newIntent.putExtra("orderID", orderID);
                 startActivity(newIntent);
                 dbRef.child("Reached").setValue(true);
             }
         });
-
-        mReceivedBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ConfirmedOrders").child(orderID);
-                dbRef.child("Completed").setValue(true);
-                Intent newIntent = new Intent(getApplicationContext(), ReviewPage.class);
-                newIntent.putExtra("orderID", orderID);
-                startActivity(newIntent);
-            }
-        });
-
-
     }
 
     private void initFromDB() {
@@ -134,7 +120,7 @@ public class OrderPage extends BottomNavBar {
                 boolean reached = dataSnapshot.child("Reached").getValue(boolean.class);
                 boolean completed = dataSnapshot.child("Completed").getValue(boolean.class);
                 String delAddress = dataSnapshot.child("Destination").getValue(String.class);
-                Geocoder geocoder = new Geocoder(OrderPage.this);
+                Geocoder geocoder = new Geocoder(OrderPageDeliverer.this);
                 List<Address> addresses = null;
                 try {
                     addresses = geocoder.getFromLocationName(delAddress, 1);
@@ -154,7 +140,7 @@ public class OrderPage extends BottomNavBar {
 
                 if (completed) {
                     mStatus.setText("Order Complete");
-                } else if (delivererID.equals(currentUser)) {
+                } else {
                     if (reached) {
                         mStatus.setText("Awaiting Confirmation");
                     } else {
@@ -162,15 +148,8 @@ public class OrderPage extends BottomNavBar {
                             System.out.println("reached");
                             mReachedBtn.setVisibility(View.VISIBLE);
                         } else {
-                            //TODO
+                            mStatus.setText("Please reach the destination before proceeding");
                         }
-                    }
-                } else if (receiverID.equals(currentUser)) {
-                    if (reached) {
-                        mStatus.setText("Order is here, press the received button once order is collected");
-                        mReceivedBtn.setVisibility(View.VISIBLE);
-                    } else {
-                        mStatus.setText("Order is not here yet");
                     }
                 }
 
@@ -194,12 +173,12 @@ public class OrderPage extends BottomNavBar {
             return;
         }
 
-        LocationServices.getFusedLocationProviderClient(OrderPage.this)
+        LocationServices.getFusedLocationProviderClient(OrderPageDeliverer.this)
                 .requestLocationUpdates(locationRequest, new LocationCallback() {
                     @Override
                     public void onLocationResult(LocationResult locationResult) {
                         super.onLocationResult(locationResult);
-                        LocationServices.getFusedLocationProviderClient(OrderPage.this)
+                        LocationServices.getFusedLocationProviderClient(OrderPageDeliverer.this)
                                 .removeLocationUpdates(this);
                         if (locationResult != null && locationResult.getLocations().size() > 0) {
                             int latestLocationIndex = locationResult.getLocations().size() - 1;

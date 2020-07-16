@@ -72,7 +72,7 @@ public class ReviewPage extends AppCompatActivity {
 
                     }
                 });
-                Intent newIntent = new Intent(getApplicationContext(), OrderPage.class);
+                Intent newIntent = new Intent(getApplicationContext(), OrderPageOrderer.class);
                 newIntent.putExtra("orderID", orderID);
                 startActivity(newIntent);
             }
