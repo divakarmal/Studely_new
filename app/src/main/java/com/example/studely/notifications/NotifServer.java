@@ -16,4 +16,8 @@ public class NotifServer {
         notifRef.child(pushID).child("userTo").setValue(userTo);
         notifRef.child(pushID).child("message").setValue(message);
     }
+
+    public static void sendAwait(String userTo, String pushID) {
+
+    }
 }

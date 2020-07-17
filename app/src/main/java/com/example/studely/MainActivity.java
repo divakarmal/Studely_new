@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         logRegBtn = findViewById(R.id.loginRegBtn);
         proceed = findViewById(R.id.nextmg);
+
+        String msg = getIntent().getStringExtra("Toast");
+        if (msg != null) {
+            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+        }
 
         FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override

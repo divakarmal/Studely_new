@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,6 +41,11 @@ public class OrderDelivererSelect extends BottomNavBar {
         loadingOverlay.bringToFront();
         loadingOverlay.getParent().requestLayout();
         ((View) loadingOverlay.getParent()).invalidate();
+
+        String msg = getIntent().getStringExtra("Toast");
+        if (msg != null) {
+            Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+        }
 
         Bundle bundle = this.getIntent().getExtras();
         final Order order = (Order) bundle.getSerializable("orderObj");

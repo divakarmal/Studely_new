@@ -30,7 +30,7 @@ public class DeliverTimeSelect extends BottomNavBar {
         setContentView(R.layout.activity_deliver_time_select);
         navBar(this.getApplicationContext());
 
-        mConfirmBtn = findViewById(R.id.confirmBtn);
+        mConfirmBtn = findViewById(R.id.acceptBtn);
         mTimePicker = findViewById(R.id.timePicker1);
         mNoOfOrders = findViewById(R.id.numOfOrders);
         mTimePicker.setIs24HourView(true);

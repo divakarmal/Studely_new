@@ -36,7 +36,7 @@ public class OrderSummary extends BottomNavBar {
         summaryList.setAdapter(summaryRecAdapter);
         summaryList.setLayoutManager(new LinearLayoutManager(this));
 
-        mConfirmButton = findViewById(R.id.confirmBtn);
+        mConfirmButton = findViewById(R.id.acceptBtn);
         mConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
