@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         logRegBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Login.class));
+                startActivity(new Intent(getApplicationContext(), Register.class));
             }
         });
 

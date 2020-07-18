@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -93,12 +94,25 @@ public class OrderFoodSelect extends BottomNavBar {
                 order.setCanteen(canteenID);
                 order.setDestination(destination);
                 order.setReceiver(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                int totalItems = 0;
                 for (int i = 0; i < foodQty.size(); i++) {
                     int qty = foodQty.get(i);
+                    totalItems += qty;
                     if (qty != 0) {
                         order.addFood(new Food(foodItems.get(i), foodPrice.get(i), qty));
                     }
                 }
+                int cost = order.calcOrderCost();
+
+                if(cost == 0){
+                    Toast.makeText(OrderFoodSelect.this, "At least ome item must be ordered", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(totalItems > 10){
+                    Toast.makeText(OrderFoodSelect.this, "Bruh fat", Toast.LENGTH_SHORT).show(); // idk display what?
+                    return;
+                }
+
                 Intent newIntent = new Intent(getApplicationContext(), OrderSummary.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("orderObj", order);

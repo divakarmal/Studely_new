@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.ResultReceiver;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -107,6 +108,14 @@ public class OrderEnterAddress extends BottomNavBar {
         mNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                final String orderAddress = address.getText().toString().trim();
+
+                if (TextUtils.isEmpty(orderAddress)) {
+                    address.setError("Address is required");
+                    return;
+                }
+
                 Intent newIntent = new Intent(getApplicationContext(), OrderCanteenSelect.class);
                 String add = address.getText().toString();
                 newIntent.putExtra("orderDestination", add);

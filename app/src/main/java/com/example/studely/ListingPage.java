@@ -35,7 +35,6 @@ public class ListingPage extends BottomNavBar {
     RecyclerView listingRecView;
     PopupWindow mPopupWindow;
     private ConstraintLayout constraintLayout;
-    String canteenID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +90,7 @@ public class ListingPage extends BottomNavBar {
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
                     time.setText(dataSnapshot.child("DeliveryTime").getValue(String.class));
-                    canteen.setText(canteenID);
+                    canteen.setText(dataSnapshot.child("Canteen").getValue(String.class));
                     listingRecView.setVisibility(View.GONE);
                 }
 

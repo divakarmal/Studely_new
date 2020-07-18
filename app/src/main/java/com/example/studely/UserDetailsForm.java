@@ -2,6 +2,7 @@ package com.example.studely;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class UserDetailsForm extends BottomNavBar {
 
-    EditText phoneNum, priAdd, pinCode, name;
+    EditText phoneNum, priAdd, name;
     Button mSubmitBtn, mLogOutBtn;
     FrameLayout loadingOverlay;
 
@@ -31,7 +32,6 @@ public class UserDetailsForm extends BottomNavBar {
         name = findViewById(R.id.nameField);
         phoneNum = findViewById(R.id.phoneNumField);
         priAdd = findViewById(R.id.priAddField);
-        pinCode = findViewById(R.id.pinCodeField);
         mSubmitBtn = findViewById(R.id.submitBtn);
         mLogOutBtn = findViewById(R.id.logoutBtn);
         loadingOverlay = findViewById(R.id.loading_overlay);
@@ -51,7 +51,6 @@ public class UserDetailsForm extends BottomNavBar {
                 name.setText(dataSnapshot.child(currentUser).child("name").getValue(String.class));
                 phoneNum.setText(dataSnapshot.child(currentUser).child("phone_number").getValue(String.class));
                 priAdd.setText(dataSnapshot.child(currentUser).child("primary_address").getValue(String.class));
-                pinCode.setText(dataSnapshot.child(currentUser).child("pin_code").getValue(String.class));
                 loadingOverlay.setVisibility(View.GONE);
             }
 
@@ -65,14 +64,38 @@ public class UserDetailsForm extends BottomNavBar {
         mSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                final String mName = name.getText().toString().trim();
+                final String mPhoneNum = phoneNum.getText().toString().trim();
+                final String mPriAdd = priAdd.getText().toString();
+
+                if (TextUtils.isEmpty(mName)) {
+                    name.setError("Name is required");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(mPhoneNum)) {
+                    phoneNum.setError("Phone number is Required.");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(mPriAdd)) {
+                    priAdd.setError("Primary address is Required.");
+                    return;
+                }
+
+                if (mPhoneNum.length() != 8) {
+                    phoneNum.setError("Phone number must be 8 digits");
+                    return;
+                }
+
+
                 String phoneNumber = phoneNum.getText().toString();
                 String primaryAddress = priAdd.getText().toString();
-                String pinCode = UserDetailsForm.this.pinCode.getText().toString();
-                String mName = name.getText().toString();
-                dbRef.child("users").child(currentUser).child("name").setValue(mName);
+                String myName = name.getText().toString();
+                dbRef.child("users").child(currentUser).child("name").setValue(myName);
                 dbRef.child("users").child(currentUser).child("phone_number").setValue(phoneNumber);
                 dbRef.child("users").child(currentUser).child("primary_address").setValue(primaryAddress);
-                dbRef.child("users").child(currentUser).child("pin_code").setValue(pinCode);
                 startActivity(new Intent(getApplicationContext(), HomeLanding.class));
             }
         });

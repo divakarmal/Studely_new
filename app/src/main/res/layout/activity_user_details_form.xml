@@ -38,6 +38,7 @@
         android:ems="10"
         android:hint="name"
         android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:textColor="@color/component_text"
         android:textColorHint="@color/component_text"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -72,6 +73,8 @@
         android:ems="10"
         android:hint="phone number"
         android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:inputType="number"
         android:textColor="@color/component_text"
         android:textColorHint="@color/component_text"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -106,6 +109,7 @@
         android:ems="10"
         android:hint="primary address"
         android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:textColor="@color/component_text"
         android:textColorHint="@color/component_text"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -113,40 +117,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneNumField"
         app:layout_constraintVertical_bias="0.156" />
-
-    <TextView
-        android:id="@+id/headingPin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pin Code"
-        android:textColor="@color/component_color"
-        app:layout_constraintBottom_toTopOf="@+id/pinCodeField"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.087"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priAddField"
-        app:layout_constraintVertical_bias="0.657" />
-
-    <EditText
-        android:id="@+id/pinCodeField"
-        android:layout_width="349dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/custom_input"
-        android:drawableStart="@drawable/ic_apartment"
-        android:drawablePadding="12dp"
-        android:drawableTint="@color/component_text"
-        android:ems="10"
-        android:hint="pin code"
-        android:paddingLeft="10dp"
-        android:textColor="@color/component_text"
-        android:textColorHint="@color/component_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priAddField"
-        app:layout_constraintVertical_bias="0.182" />
 
     <Button
         android:id="@+id/submitBtn"
@@ -162,7 +132,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.933"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pinCodeField"
+        app:layout_constraintTop_toBottomOf="@+id/priAddField"
         app:layout_constraintVertical_bias="0.261" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -203,7 +173,7 @@
         app:layout_constraintEnd_toStartOf="@+id/submitBtn"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pinCodeField"
-        app:layout_constraintVertical_bias="0.361" />
+        app:layout_constraintTop_toBottomOf="@+id/priAddField"
+        app:layout_constraintVertical_bias="0.318" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
