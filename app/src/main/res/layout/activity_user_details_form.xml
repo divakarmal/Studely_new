@@ -8,6 +8,7 @@
     tools:context=".UserDetailsForm">
 
     <include
+        android:id="@+id/include"
         layout="@layout/loading_overlay"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -18,12 +19,10 @@
         android:layout_height="wrap_content"
         android:text="Name"
         android:textColor="@color/component_color"
-        app:layout_constraintBottom_toTopOf="@+id/nameField"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.083"
+        android:layout_marginTop="36dp"
+        android:layout_marginStart="24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.81" />
+        app:layout_constraintTop_toBottomOf="@+id/heading" />
 
     <EditText
         android:id="@+id/nameField"
@@ -36,16 +35,15 @@
         android:drawablePadding="12dp"
         android:drawableTint="@color/component_text"
         android:ems="10"
-        android:hint="name"
+        android:hint="Name"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textColor="@color/component_text"
         android:textColorHint="@color/component_text"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.188" />
+        app:layout_constraintTop_toBottomOf="@+id/headingName" />
 
     <TextView
         android:id="@+id/headingPhNum"
@@ -53,12 +51,9 @@
         android:layout_height="wrap_content"
         android:text="Phone Number"
         android:textColor="@color/component_color"
-        app:layout_constraintBottom_toTopOf="@+id/phoneNumField"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.098"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameField"
-        app:layout_constraintVertical_bias="0.575" />
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="@+id/headingName"
+        app:layout_constraintTop_toBottomOf="@+id/nameField" />
 
     <EditText
         android:id="@+id/phoneNumField"
@@ -71,17 +66,16 @@
         android:drawablePadding="12dp"
         android:drawableTint="@color/component_text"
         android:ems="10"
-        android:hint="phone number"
+        android:hint="Phone number"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:inputType="number"
         android:textColor="@color/component_text"
         android:textColorHint="@color/component_text"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameField"
-        app:layout_constraintVertical_bias="0.113" />
+        app:layout_constraintTop_toBottomOf="@id/headingPhNum"/>
 
     <TextView
         android:id="@+id/headingPriAdd"
@@ -89,12 +83,9 @@
         android:layout_height="wrap_content"
         android:text="Primary Address"
         android:textColor="@color/component_color"
-        app:layout_constraintBottom_toTopOf="@+id/priAddField"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneNumField"
-        app:layout_constraintVertical_bias="0.565" />
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="@+id/headingPhNum"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumField" />
 
     <EditText
         android:id="@+id/priAddField"
@@ -107,33 +98,28 @@
         android:drawablePadding="12dp"
         android:drawableTint="@color/component_text"
         android:ems="10"
-        android:hint="primary address"
+        android:hint="Primary address"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textColor="@color/component_text"
         android:textColorHint="@color/component_text"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneNumField"
-        app:layout_constraintVertical_bias="0.156" />
+        app:layout_constraintTop_toBottomOf="@+id/headingPriAdd" />
 
     <Button
         android:id="@+id/submitBtn"
-        android:layout_width="155dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@drawable/custom_button"
         android:text="update"
         android:textColor="@color/component_text"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="16dp"
+        android:ems="6"
+        android:layout_marginEnd="36dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.933"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priAddField"
-        app:layout_constraintVertical_bias="0.261" />
+        app:layout_constraintTop_toTopOf="@+id/logoutBtn" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
@@ -148,32 +134,31 @@
         app:menu="@menu/bottom_navigation_menu" />
 
     <TextView
-        android:id="@+id/textView24"
+        android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/advent_pro_semibold"
         android:text="My Profile"
         android:textColor="@color/component_color"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        android:textSize="@dimen/heading_size"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/logoutBtn"
-        android:layout_width="155dp"
-        android:layout_height="46dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="48dp"
         android:background="@drawable/custom_button"
         android:text="logout"
         android:textColor="@color/component_text"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
-        app:layout_constraintEnd_toStartOf="@+id/submitBtn"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:textSize="16dp"
+        android:ems="6"
+        android:layout_marginTop="48dp"
+        android:layout_marginStart="36dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priAddField"
-        app:layout_constraintVertical_bias="0.318" />
+        app:layout_constraintTop_toBottomOf="@+id/priAddField"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
