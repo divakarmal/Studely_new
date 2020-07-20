@@ -14,6 +14,7 @@ public class Order implements Serializable {
     private int orderCost;
     private String deliveryTime;
     private String destination;
+    int items;
 
     public Order() {
         timestamp = LocalDateTime.now();
@@ -41,6 +42,10 @@ public class Order implements Serializable {
         this.receiver = receive;
     }
 
+    public void setItems(int items) {
+        this.items = items;
+    }
+
     public List<Food> getList() {
         return this.foodList;
     }
@@ -60,6 +65,10 @@ public class Order implements Serializable {
     public void setDeliveryTime(String deliTime) {
         // Conversion
         this.deliveryTime = deliTime;
+    }
+
+    public int getItems(){
+        return this.items;
     }
 
     public String getCanteen() {

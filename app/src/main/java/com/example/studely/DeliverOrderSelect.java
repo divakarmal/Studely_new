@@ -89,7 +89,7 @@ public class DeliverOrderSelect extends BottomNavBar {
                             snapshot.child("Destination").getValue(String.class),
                             snapshot.child("DeliveryTime").getValue(String.class),
                             snapshot.getKey(),
-                            canteenID
+                            canteenID, snapshot.child("TotalItems").getValue(String.class), snapshot.child("OrderCost").getValue(String.class)
                     });
                 }
 

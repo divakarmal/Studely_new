@@ -43,6 +43,10 @@ public class OrderRecAdapter extends RecyclerView.Adapter<OrderRecAdapter.OrderV
         final String[] data = orderPostingsData.get(position);
         holder.destText.setText(data[0]);
         holder.deliTimeText.setText(data[1]);
+        String items = data[4];
+        String cost = data[5];
+        String itemCostText = "Items: " + items + ", Cost: $" + cost;
+        holder.itemCost.setText(itemCostText);
 
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,12 +68,14 @@ public class OrderRecAdapter extends RecyclerView.Adapter<OrderRecAdapter.OrderV
 
         TextView destText;
         TextView deliTimeText;
+        TextView itemCost;
         ConstraintLayout mainLayout;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             destText = itemView.findViewById(R.id.locText);
             deliTimeText = itemView.findViewById(R.id.deliTimeText);
+            itemCost = itemView.findViewById(R.id.itemCostText);
             mainLayout = itemView.findViewById(R.id.mainLayout);
         }
     }

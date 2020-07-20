@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
 public class DeliverTimeSelect extends BottomNavBar {
 
     Button mConfirmBtn;
@@ -70,15 +72,29 @@ public class DeliverTimeSelect extends BottomNavBar {
                         } else {
                             deliveryTime = Integer.toString(clockTime);
                         }
-                        userRef.child("DeliveryPostings").child(pushID).setValue(canteenID);
-                        deliverPostingRef.child(pushID).child("Deliverer").setValue(currentUser);
-                        deliverPostingRef.child(pushID).child("DeliveryTime").setValue(deliveryTime);
-                        deliverPostingRef.child(pushID).child("NoOfOrders").setValue(numOfOrders);
-                        deliverPostingRef.child(pushID).child("Name").setValue(name);
-                        deliverPostingRef.child(pushID).child("Canteen").setValue(canteenID);
-                        canteenRef.child(pushID).setValue("POSTING");
-                        Intent newIntent = new Intent(getApplicationContext(), DeliverPostingConfirmed.class);
-                        startActivity(newIntent);
+
+                        Calendar rightNow = Calendar.getInstance();
+                        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+                        int min = rightNow.get(Calendar.MINUTE);
+                        int currentTime = hour * 100 + min;
+
+                        if (clockTime <= (currentTime + 1200) % 2400) {
+                            userRef.child("DeliveryPostings").child(pushID).setValue(canteenID);
+                            deliverPostingRef.child(pushID).child("Deliverer").setValue(currentUser);
+                            deliverPostingRef.child(pushID).child("DeliveryTime").setValue(deliveryTime);
+                            deliverPostingRef.child(pushID).child("NoOfOrders").setValue(numOfOrders);
+                            deliverPostingRef.child(pushID).child("Name").setValue(name);
+                            deliverPostingRef.child(pushID).child("Canteen").setValue(canteenID);
+                            canteenRef.child(pushID).setValue("POSTING");
+                            Intent newIntent = new Intent(getApplicationContext(), DeliverPostingConfirmed.class);
+                            startActivity(newIntent);
+                        }
+                        else {
+                            Toast.makeText(DeliverTimeSelect.this, "Can't deliver that far ahead", Toast.LENGTH_SHORT).show();
+                            Intent newIntent = new Intent(getApplicationContext(), OrderTimeSelect.class);
+                            newIntent.putExtra("canteenID", canteenID);
+                            startActivity(newIntent);
+                        }
                     }
                 });
             }
