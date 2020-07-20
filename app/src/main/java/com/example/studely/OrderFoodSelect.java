@@ -108,7 +108,7 @@ public class OrderFoodSelect extends BottomNavBar {
                 order.setItems(totalItems);
 
                 if(cost == 0){
-                    Toast.makeText(OrderFoodSelect.this, "At least ome item must be ordered", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderFoodSelect.this, "At least one item must be ordered", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(totalItems > 10){

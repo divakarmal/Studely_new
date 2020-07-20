@@ -47,7 +47,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderV
             @Override
             public void onClick(View v) {
                 Intent newIntent;
-                if (isOrderer.get(position) == "1") {
+                if (isOrderer.get(position).equals("1")) {
                     newIntent = new Intent(context, OrderPageOrderer.class);
                 } else {
                     newIntent = new Intent(context, OrderPageDeliverer.class);

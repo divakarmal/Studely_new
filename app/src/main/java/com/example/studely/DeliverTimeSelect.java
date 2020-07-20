@@ -78,7 +78,7 @@ public class DeliverTimeSelect extends BottomNavBar {
                         int min = rightNow.get(Calendar.MINUTE);
                         int currentTime = hour * 100 + min;
 
-                        if (clockTime <= (currentTime + 1200) % 2400) {
+                        if (clockTime <= (currentTime + 1200) % 2400 || (clockTime <= (currentTime + 1200) && clockTime >= currentTime)) {
                             userRef.child("DeliveryPostings").child(pushID).setValue(canteenID);
                             deliverPostingRef.child(pushID).child("Deliverer").setValue(currentUser);
                             deliverPostingRef.child(pushID).child("DeliveryTime").setValue(deliveryTime);
