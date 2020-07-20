@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.adapters.DelivererRecAdapter;
+import com.example.studely.misc.DatabaseErrorHandler;
 import com.example.studely.misc.Order;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -70,7 +71,8 @@ public class OrderDelivererSelect extends BottomNavBar {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                String error = DatabaseErrorHandler.handleError(databaseError);
+                Toast.makeText(OrderDelivererSelect.this, error, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -107,8 +109,9 @@ public class OrderDelivererSelect extends BottomNavBar {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                String error = DatabaseErrorHandler.handleError(databaseError);
+                Toast.makeText(OrderDelivererSelect.this, error, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -142,8 +145,9 @@ public class OrderDelivererSelect extends BottomNavBar {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                String error = DatabaseErrorHandler.handleError(databaseError);
+                Toast.makeText(OrderDelivererSelect.this, error, Toast.LENGTH_LONG).show();
             }
         });
 

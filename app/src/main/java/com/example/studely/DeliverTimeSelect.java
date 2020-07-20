@@ -7,9 +7,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.studely.misc.DatabaseErrorHandler;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -82,8 +84,9 @@ public class DeliverTimeSelect extends BottomNavBar {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                String error = DatabaseErrorHandler.handleError(databaseError);
+                Toast.makeText(DeliverTimeSelect.this, error, Toast.LENGTH_LONG).show();
             }
         });
     }

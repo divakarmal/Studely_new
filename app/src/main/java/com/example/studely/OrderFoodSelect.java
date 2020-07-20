@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.adapters.FoodRecAdapter;
+import com.example.studely.misc.DatabaseErrorHandler;
 import com.example.studely.misc.Food;
 import com.example.studely.misc.Order;
 import com.example.studely.misc.QtyTextChanged;
@@ -83,7 +84,8 @@ public class OrderFoodSelect extends BottomNavBar {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                String error = DatabaseErrorHandler.handleError(databaseError);
+                Toast.makeText(OrderFoodSelect.this, error, Toast.LENGTH_LONG).show();
             }
         });
 

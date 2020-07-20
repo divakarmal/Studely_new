@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.Consumer;
 
+import com.example.studely.misc.DatabaseErrorHandler;
 import com.example.studely.misc.Food;
 import com.example.studely.misc.Order;
 import com.example.studely.notifications.NotifServer;
@@ -61,8 +63,9 @@ public class OrderConfirm extends BottomNavBar {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                String error = DatabaseErrorHandler.handleError(databaseError);
+                Toast.makeText(OrderConfirm.this, error, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -118,8 +121,9 @@ public class OrderConfirm extends BottomNavBar {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                String error = DatabaseErrorHandler.handleError(databaseError);
+                Toast.makeText(OrderConfirm.this, error, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -160,5 +164,11 @@ public class OrderConfirm extends BottomNavBar {
         dbRef.child("canteens").child(order.getCanteen()).child("DeliveryPostings").child(deliveryPostingID).removeValue();
 
         NotifServer.sendMessage(order.getDeliverer(), "You have received an order for delivery!");
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(OrderConfirm.this, HomeLanding.class);
+        startActivity(intent);
     }
 }

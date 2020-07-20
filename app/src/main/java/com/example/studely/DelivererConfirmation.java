@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.adapters.SummaryRecAdapter;
+import com.example.studely.misc.DatabaseErrorHandler;
 import com.example.studely.misc.Food;
 import com.example.studely.notifications.NotifServer;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +31,8 @@ public class DelivererConfirmation extends BottomNavBar {
     RecyclerView summaryRecView;
     TextView orderName, orderContact, orderTime, orderDestination;
     Button acceptBtn, declineBtn;
+
+    DatabaseReference detailsRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,7 @@ public class DelivererConfirmation extends BottomNavBar {
         final String pushID = bundle.getString("pushID");
 
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-        final DatabaseReference detailsRef = dbRef.child("AwaitingConfirmation").child(pushID);
+        detailsRef = dbRef.child("AwaitingConfirmation").child(pushID);
         final List<Food> orderList = new ArrayList<>();
 
         detailsRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -86,8 +89,9 @@ public class DelivererConfirmation extends BottomNavBar {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                String error = DatabaseErrorHandler.handleError(databaseError);
+                Toast.makeText(DelivererConfirmation.this, error, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -106,5 +110,12 @@ public class DelivererConfirmation extends BottomNavBar {
                 Toast.makeText(DelivererConfirmation.this, "Order Declined", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        detailsRef.child("Accepted").setValue("0");
+        Intent intent = new Intent(DelivererConfirmation.this, MainActivity.class);
+        startActivity(intent);
     }
 }

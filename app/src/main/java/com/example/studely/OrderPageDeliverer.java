@@ -12,12 +12,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.adapters.SummaryRecAdapter;
+import com.example.studely.misc.DatabaseErrorHandler;
 import com.example.studely.misc.Food;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -89,7 +91,8 @@ public class OrderPageDeliverer extends BottomNavBar {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                String error = DatabaseErrorHandler.handleError(databaseError);
+                Toast.makeText(OrderPageDeliverer.this, error, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -158,7 +161,8 @@ public class OrderPageDeliverer extends BottomNavBar {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                String error = DatabaseErrorHandler.handleError(databaseError);
+                Toast.makeText(OrderPageDeliverer.this, error, Toast.LENGTH_LONG).show();
             }
         });
     }

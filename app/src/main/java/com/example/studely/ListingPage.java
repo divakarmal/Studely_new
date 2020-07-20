@@ -15,8 +15,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.studely.adapters.SummaryRecAdapter;
+import com.example.studely.misc.DatabaseErrorHandler;
 import com.example.studely.misc.Food;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -78,7 +80,8 @@ public class ListingPage extends BottomNavBar {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
+                    String error = DatabaseErrorHandler.handleError(databaseError);
+                    Toast.makeText(ListingPage.this, error, Toast.LENGTH_LONG).show();
                 }
             });
         } else {
@@ -96,7 +99,8 @@ public class ListingPage extends BottomNavBar {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
+                    String error = DatabaseErrorHandler.handleError(databaseError);
+                    Toast.makeText(ListingPage.this, error, Toast.LENGTH_LONG).show();
                 }
             });
         }

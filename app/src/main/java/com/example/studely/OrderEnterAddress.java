@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.studely.misc.DatabaseErrorHandler;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
@@ -102,6 +103,8 @@ public class OrderEnterAddress extends BottomNavBar {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                String error = DatabaseErrorHandler.handleError(databaseError);
+                Toast.makeText(OrderEnterAddress.this, error, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -133,7 +136,7 @@ public class OrderEnterAddress extends BottomNavBar {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getCurrentLocation();
             } else {
-                Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_LONG).show();
             }
         }
     }

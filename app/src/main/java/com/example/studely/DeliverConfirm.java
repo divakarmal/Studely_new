@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.studely.misc.DatabaseErrorHandler;
 import com.example.studely.notifications.NotifServer;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -31,9 +32,9 @@ public class DeliverConfirm extends BottomNavBar {
         orderRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String destination = dataSnapshot.child("Destination").getValue(String.class);
-                String receiver = dataSnapshot.child("Receiver").getValue(String.class);
                 if(dataSnapshot.hasChild("Destination")) {
+                    String destination = dataSnapshot.child("Destination").getValue(String.class);
+                    String receiver = dataSnapshot.child("Receiver").getValue(String.class);
 
                     String pushID = confirmedOrdersRef.push().getKey();
                     DatabaseReference pushRef = confirmedOrdersRef.child(pushID);
@@ -65,8 +66,7 @@ public class DeliverConfirm extends BottomNavBar {
                     dbRef.child("users").child(receiver).child("OrderPostings").child(orderPostingID).removeValue();
 
                     NotifServer.sendMessage(receiver, "Your order has been accepted for delivery!");
-                }
-                else {
+                } else {
                     Toast.makeText(DeliverConfirm.this, "This order posting has been deleted/picked by someone else", Toast.LENGTH_SHORT).show();
                     Intent newIntent = new Intent(getApplicationContext(), DeliverOrderSelect.class);
                     newIntent.putExtra("canteenID", canteenID);
@@ -76,9 +76,15 @@ public class DeliverConfirm extends BottomNavBar {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                String error = DatabaseErrorHandler.handleError(databaseError);
+                Toast.makeText(DeliverConfirm.this, error, Toast.LENGTH_LONG).show();
             }
         });
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(DeliverConfirm.this, HomeLanding.class);
+        startActivity(intent);
     }
 }

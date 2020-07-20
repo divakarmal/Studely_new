@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.adapters.OrderRecAdapter;
+import com.example.studely.misc.DatabaseErrorHandler;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,7 +60,8 @@ public class DeliverOrderSelect extends BottomNavBar {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                String error = DatabaseErrorHandler.handleError(databaseError);
+                Toast.makeText(DeliverOrderSelect.this, error, Toast.LENGTH_LONG).show();
             }
         });
 

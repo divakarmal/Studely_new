@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.studely.misc.DatabaseErrorHandler;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,7 +48,8 @@ public class ReviewPage extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                String error = DatabaseErrorHandler.handleError(databaseError);
+                Toast.makeText(ReviewPage.this, error, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -69,7 +72,8 @@ public class ReviewPage extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
+                        String error = DatabaseErrorHandler.handleError(databaseError);
+                        Toast.makeText(ReviewPage.this, error, Toast.LENGTH_LONG).show();
                     }
                 });
                 Intent newIntent = new Intent(getApplicationContext(), OrderPageOrderer.class);

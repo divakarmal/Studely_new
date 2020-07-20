@@ -3,8 +3,6 @@
     package="com.example.studely">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -24,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ListingPage"></activity>
+        <activity android:name=".ListingPage" />
         <activity android:name=".ReviewPage" />
         <activity android:name=".MyListings" />
         <activity android:name=".DeliverConfirm" />

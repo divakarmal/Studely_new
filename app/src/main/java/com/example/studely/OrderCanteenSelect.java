@@ -3,11 +3,13 @@ package com.example.studely;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.adapters.CanteenAdapter;
+import com.example.studely.misc.DatabaseErrorHandler;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,6 +65,8 @@ public class OrderCanteenSelect extends BottomNavBar {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                String error = DatabaseErrorHandler.handleError(databaseError);
+                Toast.makeText(OrderCanteenSelect.this, error, Toast.LENGTH_LONG).show();
             }
         });
 
