@@ -68,7 +68,7 @@ public class OrderPageOrderer extends BottomNavBar {
         mOrderID.setText(orderID);
 
         loadingOverlay.setVisibility(View.VISIBLE);
-        getCurrentLocation();
+        initFromDB();
 
         final List<Food> orderList = new ArrayList<>();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -122,23 +122,7 @@ public class OrderPageOrderer extends BottomNavBar {
                 String receiverID = (String) dataSnapshot.child("Receiver").getValue();
                 boolean reached = dataSnapshot.child("Reached").getValue(boolean.class);
                 boolean completed = dataSnapshot.child("Completed").getValue(boolean.class);
-                String delAddress = dataSnapshot.child("Destination").getValue(String.class);
-                Geocoder geocoder = new Geocoder(OrderPageOrderer.this);
-                List<Address> addresses = null;
-                try {
-                    addresses = geocoder.getFromLocationName(delAddress, 1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (addresses.size() > 0) {
-                    double latitude = addresses.get(0).getLatitude();
-                    double longitude = addresses.get(0).getLongitude();
-                    System.out.println(latitude + "long: " + longitude);
-                    delLocation = new Location("providerNA");
-                    delLocation.setLongitude(longitude);
-                    delLocation.setLatitude(latitude);
-                    System.out.println("del long " + longitude + "lat" + latitude);
-                }
+
 
 
                 if (completed) {
@@ -163,37 +147,4 @@ public class OrderPageOrderer extends BottomNavBar {
         });
     }
 
-    private void getCurrentLocation() {
-        final LocationRequest locationRequest = new LocationRequest();
-        locationRequest.setInterval(10000);
-        locationRequest.setFastestInterval(3000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-
-        LocationServices.getFusedLocationProviderClient(OrderPageOrderer.this)
-                .requestLocationUpdates(locationRequest, new LocationCallback() {
-                    @Override
-                    public void onLocationResult(LocationResult locationResult) {
-                        super.onLocationResult(locationResult);
-                        LocationServices.getFusedLocationProviderClient(OrderPageOrderer.this)
-                                .removeLocationUpdates(this);
-                        if (locationResult != null && locationResult.getLocations().size() > 0) {
-                            int latestLocationIndex = locationResult.getLocations().size() - 1;
-                            double latitude =
-                                    locationResult.getLocations().get(latestLocationIndex).getLatitude();
-                            double longitude =
-                                    locationResult.getLocations().get(latestLocationIndex).getLongitude();
-                            Location location = new Location("providerNA");
-                            location.setLatitude(latitude);
-                            location.setLongitude(longitude);
-                            currentLoc = location;
-
-                            initFromDB();
-                        }
-                    }
-                }, Looper.getMainLooper());
-    }
 }

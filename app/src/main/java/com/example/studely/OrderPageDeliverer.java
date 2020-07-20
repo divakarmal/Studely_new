@@ -49,7 +49,7 @@ public class OrderPageDeliverer extends BottomNavBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_page_orderer);
+        setContentView(R.layout.activity_order_page_deliverer);
         navBar(this.getApplicationContext());
 
         orderID = getIntent().getExtras().getString("orderID");
