@@ -36,32 +36,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/heading" />
 
-    <EditText
-        android:id="@+id/numOfOrders"
-        android:layout_width="299dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="74dp"
-        android:background="@drawable/custom_input"
-        android:hint="How many orders?"
-        android:inputType="number"
-        android:padding="12dp"
-        android:textColor="@color/component_text"
-        android:textColorHint="@color/component_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timePicker1" />
-
     <Button
         android:id="@+id/acceptBtn"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="56dp"
         android:background="@drawable/custom_button"
         android:text="Confirm"
         android:textColor="@color/component_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numOfOrders" />
+        app:layout_constraintTop_toBottomOf="@+id/timePicker1" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"

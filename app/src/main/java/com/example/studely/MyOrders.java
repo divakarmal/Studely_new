@@ -1,9 +1,7 @@
 package com.example.studely;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -26,7 +24,6 @@ import java.util.List;
 public class MyOrders extends BottomNavBar {
 
     RecyclerView myOrderRecView;
-    Button listingsBtn;
     FrameLayout loadingOverlay;
 
     @Override
@@ -35,19 +32,12 @@ public class MyOrders extends BottomNavBar {
         setContentView(R.layout.activity_my_orders);
         navBar(this.getApplicationContext());
 
-        listingsBtn = findViewById(R.id.listingsBtn);
         myOrderRecView = findViewById(R.id.myOrderRecView);
         loadingOverlay = findViewById(R.id.loading_overlay);
         loadingOverlay.bringToFront();
         loadingOverlay.getParent().requestLayout();
         ((View) loadingOverlay.getParent()).invalidate();
 
-        listingsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MyListings.class));
-            }
-        });
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();

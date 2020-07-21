@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -25,7 +24,6 @@ public class DeliverTimeSelect extends BottomNavBar {
 
     Button mConfirmBtn;
     TimePicker mTimePicker;
-    EditText mNoOfOrders;
     FrameLayout loadingOverlay;
 
     @Override
@@ -36,7 +34,6 @@ public class DeliverTimeSelect extends BottomNavBar {
 
         mConfirmBtn = findViewById(R.id.acceptBtn);
         mTimePicker = findViewById(R.id.timePicker1);
-        mNoOfOrders = findViewById(R.id.numOfOrders);
         mTimePicker.setIs24HourView(true);
         loadingOverlay = findViewById(R.id.loading_overlay);
         loadingOverlay.bringToFront();
@@ -62,8 +59,6 @@ public class DeliverTimeSelect extends BottomNavBar {
                     public void onClick(View v) {
                         String pushID = deliverPostingRef.push().getKey();
                         int clockTime = mTimePicker.getHour() * 100 + mTimePicker.getMinute();
-                        String numOfOrders;
-                        numOfOrders = mNoOfOrders.getText().toString();
                         String deliveryTime;
                         if (clockTime < 100) {
                             deliveryTime = "00" + clockTime;
@@ -82,7 +77,6 @@ public class DeliverTimeSelect extends BottomNavBar {
                             userRef.child("DeliveryPostings").child(pushID).setValue(canteenID);
                             deliverPostingRef.child(pushID).child("Deliverer").setValue(currentUser);
                             deliverPostingRef.child(pushID).child("DeliveryTime").setValue(deliveryTime);
-                            deliverPostingRef.child(pushID).child("NoOfOrders").setValue(numOfOrders);
                             deliverPostingRef.child(pushID).child("Name").setValue(name);
                             deliverPostingRef.child(pushID).child("Canteen").setValue(canteenID);
                             canteenRef.child(pushID).setValue("POSTING");

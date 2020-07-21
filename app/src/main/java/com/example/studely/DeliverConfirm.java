@@ -32,6 +32,8 @@ public class DeliverConfirm extends BottomNavBar {
         orderRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.exists()) {
                     String destination = dataSnapshot.child("Destination").getValue(String.class);
                     String receiver = dataSnapshot.child("Receiver").getValue(String.class);
                     System.out.println(receiver);
@@ -66,6 +68,12 @@ public class DeliverConfirm extends BottomNavBar {
                     dbRef.child("users").child(receiver).child("OrderPostings").child(orderPostingID).removeValue();
 
                     NotifServer.sendMessage(receiver, "Your order has been accepted for delivery!");
+                } else {
+                    Toast.makeText(DeliverConfirm.this, "This order posting has been deleted/picked by someone else", Toast.LENGTH_SHORT).show();
+                    Intent newIntent = new Intent(getApplicationContext(), DeliverOrderSelect.class);
+                    newIntent.putExtra("canteenID", canteenID);
+                    startActivity(newIntent);
+                }
 
             }
 

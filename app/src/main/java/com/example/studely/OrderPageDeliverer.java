@@ -109,7 +109,6 @@ public class OrderPageDeliverer extends BottomNavBar {
     }
 
     private void initFromDB() {
-        final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ConfirmedOrders").child(orderID);
 
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -118,8 +117,6 @@ public class OrderPageDeliverer extends BottomNavBar {
                 mTimeStamp.setText((String) dataSnapshot.child("Time").getValue());
                 mDeliveryTime.setText((String) dataSnapshot.child("DeliveryTime").getValue());
                 mOrderTotal.setText("$" + dataSnapshot.child("OrderCost").getValue());
-                String delivererID = (String) dataSnapshot.child("Deliverer").getValue();
-                String receiverID = (String) dataSnapshot.child("Receiver").getValue();
                 boolean reached = dataSnapshot.child("Reached").getValue(boolean.class);
                 boolean completed = dataSnapshot.child("Completed").getValue(boolean.class);
                 String delAddress = dataSnapshot.child("Destination").getValue(String.class);
@@ -148,8 +145,8 @@ public class OrderPageDeliverer extends BottomNavBar {
                         mStatus.setText("Awaiting Confirmation");
                     } else {
                         if (delLocation.distanceTo(currentLoc) < 100) {
-                            System.out.println("reached");
                             mReachedBtn.setVisibility(View.VISIBLE);
+                            mStatus.setText("Press reached button once you have reached");
                         } else {
                             mStatus.setText("Please reach the destination before proceeding");
                         }
