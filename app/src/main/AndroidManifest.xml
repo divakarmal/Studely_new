@@ -16,13 +16,13 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".DelivererConfirmation"
+            android:name="com.example.studely.DelivererConfirmation"
             android:launchMode="singleTask"
             android:taskAffinity=""
             android:excludeFromRecents="true">
 
             <intent-filter>
-                <action android:name="AWAIT_ACTIVITY" />
+                <action android:name="com.example.studely.DelivererConfirmation" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -55,7 +55,6 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

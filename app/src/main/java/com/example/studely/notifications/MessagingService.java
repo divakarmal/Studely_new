@@ -51,11 +51,11 @@ public class MessagingService extends FirebaseMessagingService {
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
             String channelID = "Default";
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelID)
+                    .setContentIntent(pendingIntent)
                     .setSmallIcon(R.mipmap.ic_launcher_round)
-                    .setContentTitle("Studely")
+                    .setContentTitle("Studely testttttt")
                     .setContentText(remoteMessage.getNotification().getBody())
-                    .setAutoCancel(true)
-                    .setContentIntent(pendingIntent);
+                    .setAutoCancel(true);
             NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             NotificationChannel channel = new NotificationChannel(channelID, "Default channel", NotificationManager.IMPORTANCE_DEFAULT);
             manager.createNotificationChannel(channel);
