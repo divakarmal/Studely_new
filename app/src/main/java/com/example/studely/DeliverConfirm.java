@@ -13,6 +13,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
 public class DeliverConfirm extends BottomNavBar {
 
     @Override
@@ -36,7 +38,18 @@ public class DeliverConfirm extends BottomNavBar {
                 if(dataSnapshot.exists()) {
                     String destination = dataSnapshot.child("Destination").getValue(String.class);
                     String receiver = dataSnapshot.child("Receiver").getValue(String.class);
-                    System.out.println(receiver);
+                    Calendar rightNow = Calendar.getInstance();
+                    int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+                    int min = rightNow.get(Calendar.MINUTE);
+                    int currentTime = hour * 100 + min;
+                    String confirmationTime;
+                    if (currentTime < 100) {
+                        confirmationTime = "00" + currentTime;
+                    } else if (currentTime < 1000) {
+                        confirmationTime = "0" + currentTime;
+                    } else {
+                        confirmationTime = Integer.toString(currentTime);
+                    }
 
                     String pushID = confirmedOrdersRef.push().getKey();
                     DatabaseReference pushRef = confirmedOrdersRef.child(pushID);
@@ -48,7 +61,8 @@ public class DeliverConfirm extends BottomNavBar {
                     pushRef.child("Canteen").setValue(canteenID);
                     pushRef.child("Reached").setValue(false);
                     pushRef.child("Completed").setValue(false);
-                    pushRef.child("Time").setValue("0000"); // <-------------------------------------------------------------------
+
+                    pushRef.child("Time").setValue(confirmationTime);
 
                     DatabaseReference itemListRef = pushRef.child("ItemList");
                     for (DataSnapshot snapshot : dataSnapshot.child("ItemList").getChildren()) {

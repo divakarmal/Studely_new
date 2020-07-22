@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
 public class OrderConfirm extends BottomNavBar {
 
     Order order;
@@ -46,6 +48,8 @@ public class OrderConfirm extends BottomNavBar {
         loadingOverlay.bringToFront();
         loadingOverlay.getParent().requestLayout();
         ((View) loadingOverlay.getParent()).invalidate();
+
+        loadingOverlay.setVisibility(View.VISIBLE);
 
         getName();
     }
@@ -98,7 +102,6 @@ public class OrderConfirm extends BottomNavBar {
         }, 600000);
 
         NotifServer.sendAwait(order.getDeliverer(), pushID);
-        loadingOverlay.setVisibility(View.GONE);
 
         pushRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -117,9 +120,11 @@ public class OrderConfirm extends BottomNavBar {
                 } else if (accepted.equals("1")) {
                     confirmed = true;
                     pushRef.removeValue();
+                    loadingOverlay.setVisibility(View.GONE);
                     confirmOrder();
                 } else if (accepted.equals("-1")) {
                     pushRef.removeValue();
+                    loadingOverlay.setVisibility(View.GONE);
                 }
             }
 
@@ -135,6 +140,18 @@ public class OrderConfirm extends BottomNavBar {
         String currentUser = order.getReceiver();
         DatabaseReference confirmedOrdersRef = dbRef.child("ConfirmedOrders");
         DatabaseReference userRef = dbRef.child("users");
+        Calendar rightNow = Calendar.getInstance();
+        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+        int min = rightNow.get(Calendar.MINUTE);
+        int currentTime = hour * 100 + min;
+        String confirmationTime;
+        if (currentTime < 100) {
+            confirmationTime = "00" + currentTime;
+        } else if (currentTime < 1000) {
+            confirmationTime = "0" + currentTime;
+        } else {
+            confirmationTime = Integer.toString(currentTime);
+        }
 
         String pushID = confirmedOrdersRef.push().getKey();
         DatabaseReference pushRef = confirmedOrdersRef.child(pushID);
@@ -147,7 +164,7 @@ public class OrderConfirm extends BottomNavBar {
         pushRef.child("Canteen").setValue(order.getCanteen());
         pushRef.child("Reached").setValue(false);
         pushRef.child("Completed").setValue(false);
-        pushRef.child("Time").setValue("0000"); // <------------------------ How this again
+        pushRef.child("Time").setValue(confirmationTime);
 
         DatabaseReference itemListRef = pushRef.child("ItemList");
         for (Food food : order.getList()) {
