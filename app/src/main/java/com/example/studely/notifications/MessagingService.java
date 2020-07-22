@@ -26,7 +26,7 @@ public class MessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
-        if (remoteMessage.getData() == null) {
+        if (remoteMessage.getNotification().getTitle().equals("Studely")) {
             String channelID = "Default";
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelID)
                     .setSmallIcon(R.mipmap.ic_launcher_round)
@@ -37,6 +37,7 @@ public class MessagingService extends FirebaseMessagingService {
             manager.createNotificationChannel(channel);
             manager.notify(0, builder.build());
         } else {
+            Log.d("NOTIF", "Loaded notif");
             Map<String, String> data = remoteMessage.getData();
 
             Bundle bundle = new Bundle();
@@ -51,7 +52,7 @@ public class MessagingService extends FirebaseMessagingService {
             String channelID = "Default";
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelID)
                     .setSmallIcon(R.mipmap.ic_launcher_round)
-                    .setContentTitle(remoteMessage.getNotification().getTitle())
+                    .setContentTitle("Studely")
                     .setContentText(remoteMessage.getNotification().getBody())
                     .setAutoCancel(true)
                     .setContentIntent(pendingIntent);

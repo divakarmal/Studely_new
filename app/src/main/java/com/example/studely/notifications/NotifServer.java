@@ -45,7 +45,7 @@ public class NotifServer {
             JSONObject json = new JSONObject();
             JSONObject payload = new JSONObject();
             JSONObject notif = new JSONObject();
-            notif.put("title", "Studely");
+            notif.put("title", "Studely await");
             notif.put("body", "New delivery request");
             payload.put("notification", notif);
             JSONObject data = new JSONObject();
