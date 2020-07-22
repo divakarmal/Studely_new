@@ -61,8 +61,8 @@ public class OrderConfirm extends BottomNavBar {
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String name = snapshot.child("Name").getValue(String.class);
-                String contact = snapshot.child("Contact").getValue(String.class);
+                String name = snapshot.child("name").getValue(String.class);
+                String contact = snapshot.child("phone_number").getValue(String.class);
                 awaitConfirm(currentUser, name, contact);
             }
 
@@ -85,6 +85,7 @@ public class OrderConfirm extends BottomNavBar {
         pushRef.child("Location").setValue(order.getDestination());
         pushRef.child("OrdererID").setValue(currentUser);
         pushRef.child("Accepted").setValue("2");
+        pushRef.child("DeliveryTime").setValue(order.getDeliveryTime());
 
         DatabaseReference itemListRef = pushRef.child("ItemList");
         for (Food food : order.getList()) {
@@ -107,8 +108,9 @@ public class OrderConfirm extends BottomNavBar {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String accepted = snapshot.child("Accepted").getValue(String.class);
-                if (accepted.equals("2")) {
-
+                System.out.println(accepted);
+                if(accepted == null){
+                    return;
                 } else if (accepted.equals("0")) {
                     pushRef.removeValue();
                     Intent intent = new Intent(OrderConfirm.this, OrderDelivererSelect.class);
@@ -119,9 +121,9 @@ public class OrderConfirm extends BottomNavBar {
                     startActivity(intent);
                 } else if (accepted.equals("1")) {
                     confirmed = true;
-                    pushRef.removeValue();
                     loadingOverlay.setVisibility(View.GONE);
                     confirmOrder();
+                    pushRef.removeValue();
                 } else if (accepted.equals("-1")) {
                     pushRef.removeValue();
                     loadingOverlay.setVisibility(View.GONE);

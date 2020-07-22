@@ -74,12 +74,10 @@ public class DelivererConfirmation extends BottomNavBar {
                     startActivity(intent);
                 }
 
-                String orderer = snapshot.child("OrdererID").getValue(String.class);
-
-                fillUpStuff(orderer);
-
+                orderName.setText("To: " + snapshot.child("Name").getValue());
+                orderTime.setText("At: " + snapshot.child("DeliveryTime").getValue());
+                orderContact.setText("Contact" + snapshot.child("Contact").getValue());
                 orderDestination.setText("At: " + snapshot.child("Location").getValue());
-                String ordererID = snapshot.child("OrdererID").getValue(String.class);
 
                 for (DataSnapshot snap : snapshot.child("ItemList").getChildren()) {
                     String foodName = snap.getKey();
@@ -121,26 +119,5 @@ public class DelivererConfirmation extends BottomNavBar {
         detailsRef.child("Accepted").setValue("0");
         Intent intent = new Intent(DelivererConfirmation.this, MainActivity.class);
         startActivity(intent);
-    }
-
-    public void fillUpStuff(String orderer){
-        final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference userRef = dbRef.child("users").child(orderer);
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("IN_DB", "Listening");
-                orderName.setText("To: " + snapshot.child("name").getValue());
-                orderContact.setText("At: " + snapshot.child("phone_number").getValue());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                String error = DatabaseErrorHandler.handleError(databaseError);
-                Toast.makeText(DelivererConfirmation.this, error, Toast.LENGTH_LONG).show();
-            }
-        });
-
-
     }
 }
