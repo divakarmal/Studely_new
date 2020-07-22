@@ -15,7 +15,12 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".DelivererConfirmation">
+        <activity
+            android:name=".DelivererConfirmation"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:excludeFromRecents="true">
+
             <intent-filter>
                 <action android:name="AWAIT_ACTIVITY" />
                 <category android:name="android.intent.category.DEFAULT" />

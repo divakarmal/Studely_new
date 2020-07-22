@@ -45,8 +45,8 @@ public class MessagingService extends FirebaseMessagingService {
                 bundle.putString(key, data.get(key));
             }
             Intent intent = new Intent(this, DelivererConfirmation.class);
-            intent.putExtras(intent);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtras(bundle);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
             String channelID = "Default";
