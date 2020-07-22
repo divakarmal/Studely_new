@@ -80,6 +80,7 @@ public class OrderConfirm extends BottomNavBar {
         pushRef.child("Time").setValue(String.valueOf(startTime)); // <--------------- TIME
         pushRef.child("Location").setValue(order.getDestination());
         pushRef.child("OrdererID").setValue(currentUser);
+        pushRef.child("Accepted").setValue("2");
 
         DatabaseReference itemListRef = pushRef.child("ItemList");
         for (Food food : order.getList()) {
@@ -103,7 +104,9 @@ public class OrderConfirm extends BottomNavBar {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String accepted = snapshot.child("Accepted").getValue(String.class);
-                if (accepted.equals("0")) {
+                if (accepted.equals("2")) {
+
+                } else if (accepted.equals("0")) {
                     pushRef.removeValue();
                     Intent intent = new Intent(OrderConfirm.this, OrderDelivererSelect.class);
                     intent.putExtra("Toast", "Order expired");

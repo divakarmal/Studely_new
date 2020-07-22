@@ -1,5 +1,7 @@
 package com.example.studely.notifications;
 
+import android.util.Log;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -18,12 +20,16 @@ public class NotifServer {
 
         try {
             JSONObject json = new JSONObject();
+            JSONObject payload = new JSONObject();
             JSONObject notif = new JSONObject();
             notif.put("title", "Studely");
             notif.put("body", message);
-            json.put("notification", notif);
+            payload.put("notification", notif);
+            json.put("userTo", userTo);
+            json.put("payload", payload);
 
-            notifRef.child(pushID).setValue(json);
+            Log.d("NOTIF", json.toString());
+            notifRef.child(pushID).setValue(json.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -37,14 +43,19 @@ public class NotifServer {
 
         try {
             JSONObject json = new JSONObject();
+            JSONObject payload = new JSONObject();
             JSONObject notif = new JSONObject();
             notif.put("title", "Studely");
             notif.put("body", "New delivery request");
-            json.put("notification", notif);
+            payload.put("notification", notif);
             JSONObject data = new JSONObject();
             data.put("pushID", delivID);
-            json.put("data", data);
-            notifRef.child(pushID).setValue(json);
+            payload.put("data", data);
+            json.put("userTo", userTo);
+            json.put("payload", payload);
+
+            Log.d("NOTIF", json.toString());
+            notifRef.child(pushID).setValue(json.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
