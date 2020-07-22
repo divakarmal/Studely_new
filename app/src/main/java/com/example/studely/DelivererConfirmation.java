@@ -67,7 +67,7 @@ public class DelivererConfirmation extends BottomNavBar {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.d("IN_DB", "Listening");
-                long pushTime = snapshot.child("pushTime").getValue(Long.class);
+                long pushTime = Long.parseLong(snapshot.child("pushTime").getValue(String.class));
                 if (System.currentTimeMillis() - pushTime > 600000) {
                     Intent intent = new Intent(DelivererConfirmation.this, MainActivity.class);
                     intent.putExtra("Toast", "Order no longer valid");
