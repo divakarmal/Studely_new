@@ -2,6 +2,7 @@ package com.example.studely;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -53,15 +54,19 @@ public class DelivererConfirmation extends BottomNavBar {
         ((View) loadingOverlay.getParent()).invalidate();
 
         Bundle bundle = getIntent().getExtras();
+
         final String pushID = bundle.getString("pushID");
+        Log.d("PUSH", pushID);
 
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         detailsRef = dbRef.child("AwaitingConfirmation").child(pushID);
         final List<Food> orderList = new ArrayList<>();
+        Log.d("DB", "Accessed");
 
         detailsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("IN_DB", "Listening");
                 long pushTime = snapshot.child("pushTime").getValue(Long.class);
                 if (System.currentTimeMillis() - pushTime > 600000) {
                     Intent intent = new Intent(DelivererConfirmation.this, MainActivity.class);
@@ -84,8 +89,6 @@ public class DelivererConfirmation extends BottomNavBar {
                 SummaryRecAdapter summaryRecAdapter = new SummaryRecAdapter(DelivererConfirmation.this, orderList);
                 summaryRecView.setAdapter(summaryRecAdapter);
                 summaryRecView.setLayoutManager(new LinearLayoutManager(DelivererConfirmation.this));
-
-                NotifServer.sendMessage(ordererID, "Deliverer has accepted your order!");
             }
 
             @Override

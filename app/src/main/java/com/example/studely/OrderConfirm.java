@@ -81,7 +81,7 @@ public class OrderConfirm extends BottomNavBar {
 
         pushRef.child("Name").setValue(name);
         pushRef.child("Contact").setValue(contact);
-        pushRef.child("Time").setValue(String.valueOf(startTime)); // <--------------- TIME
+        pushRef.child("pushTime").setValue(String.valueOf(startTime)); // <--------------- TIME
         pushRef.child("Location").setValue(order.getDestination());
         pushRef.child("OrdererID").setValue(currentUser);
         pushRef.child("Accepted").setValue("2");
