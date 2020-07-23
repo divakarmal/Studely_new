@@ -1,6 +1,8 @@
 package com.example.studely;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,11 +21,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+import java.util.List;
+
 public class UserDetailsForm extends BottomNavBar {
 
     EditText phoneNum, priAdd, name;
     Button mSubmitBtn, mLogOutBtn;
     FrameLayout loadingOverlay;
+
+    Geocoder geocoder = new Geocoder(UserDetailsForm.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +74,7 @@ public class UserDetailsForm extends BottomNavBar {
         mSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loadingOverlay.setVisibility(View.VISIBLE);
 
                 final String mName = name.getText().toString().trim();
                 final String mPhoneNum = phoneNum.getText().toString().trim();
@@ -74,24 +82,39 @@ public class UserDetailsForm extends BottomNavBar {
 
                 if (TextUtils.isEmpty(mName)) {
                     name.setError("Name is required");
+                    loadingOverlay.setVisibility(View.GONE);
                     return;
                 }
 
                 if (TextUtils.isEmpty(mPhoneNum)) {
                     phoneNum.setError("Phone number is Required.");
+                    loadingOverlay.setVisibility(View.GONE);
                     return;
                 }
 
                 if (TextUtils.isEmpty(mPriAdd)) {
                     priAdd.setError("Primary address is Required.");
+                    loadingOverlay.setVisibility(View.GONE);
                     return;
+                } else {
+                    List<Address> addresses;
+                    try {
+                        addresses = geocoder.getFromLocationName(mPriAdd, 1);
+                        if (addresses == null) {
+                            priAdd.setError("Invalid address entered");
+                            loadingOverlay.setVisibility(View.GONE);
+                            return;
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 if (mPhoneNum.length() != 8) {
                     phoneNum.setError("Phone number must be 8 digits");
+                    loadingOverlay.setVisibility(View.GONE);
                     return;
                 }
-
 
                 String phoneNumber = phoneNum.getText().toString();
                 String primaryAddress = priAdd.getText().toString();
@@ -99,6 +122,7 @@ public class UserDetailsForm extends BottomNavBar {
                 dbRef.child("users").child(currentUser).child("name").setValue(myName);
                 dbRef.child("users").child(currentUser).child("phone_number").setValue(phoneNumber);
                 dbRef.child("users").child(currentUser).child("primary_address").setValue(primaryAddress);
+                loadingOverlay.setVisibility(View.GONE);
                 startActivity(new Intent(getApplicationContext(), HomeLanding.class));
             }
         });
