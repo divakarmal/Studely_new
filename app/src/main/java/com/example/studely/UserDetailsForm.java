@@ -32,7 +32,6 @@ public class UserDetailsForm extends BottomNavBar {
     Geocoder geocoder;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

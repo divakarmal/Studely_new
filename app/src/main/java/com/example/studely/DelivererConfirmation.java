@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.studely.adapters.SummaryRecAdapter;
 import com.example.studely.misc.DatabaseErrorHandler;
 import com.example.studely.misc.Food;
-import com.example.studely.notifications.NotifServer;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

@@ -107,11 +107,11 @@ public class OrderFoodSelect extends BottomNavBar {
                 int cost = order.calcOrderCost();
                 order.setItems(totalItems);
 
-                if(cost == 0){
+                if (cost == 0) {
                     Toast.makeText(OrderFoodSelect.this, "At least one item must be ordered", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(totalItems > 10){
+                if (totalItems > 10) {
                     Toast.makeText(OrderFoodSelect.this, "Bruh fat", Toast.LENGTH_SHORT).show(); // idk display what?
                     return;
                 }

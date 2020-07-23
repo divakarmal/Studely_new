@@ -6,14 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.DeliverConfirm;
-import com.example.studely.DeliverOrderSelect;
 import com.example.studely.R;
 
 import java.util.List;
@@ -51,10 +49,10 @@ public class OrderRecAdapter extends RecyclerView.Adapter<OrderRecAdapter.OrderV
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Intent newIntent = new Intent(context, DeliverConfirm.class);
-                    newIntent.putExtra("orderPostingID", data[2]);
-                    newIntent.putExtra("canteenID", data[3]);
-                    context.startActivity(newIntent);
+                Intent newIntent = new Intent(context, DeliverConfirm.class);
+                newIntent.putExtra("orderPostingID", data[2]);
+                newIntent.putExtra("canteenID", data[3]);
+                context.startActivity(newIntent);
             }
         });
     }
