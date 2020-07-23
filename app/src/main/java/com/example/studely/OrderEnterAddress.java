@@ -55,6 +55,7 @@ public class OrderEnterAddress extends BottomNavBar {
     Geocoder geocoder;
     AutocompleteSupportFragment autocompleteSupportFragment;
     String add;
+    private final String API_KEY =  getString(R.string.google_maps_api_key);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +69,10 @@ public class OrderEnterAddress extends BottomNavBar {
         loadingOverlay.getParent().requestLayout();
         ((View) loadingOverlay.getParent()).invalidate();
         geocoder = new Geocoder(OrderEnterAddress.this);
-        String apiKey = "AIzaSyBw4aV8bpYU_iPbEG0jgU177oi57VJSB5c";
         PlacesClient placesClient;
 
         if (!Places.isInitialized()) {
-            Places.initialize(OrderEnterAddress.this, apiKey);
+            Places.initialize(OrderEnterAddress.this, API_KEY);
         }
         placesClient = Places.createClient(this);
 
