@@ -86,6 +86,7 @@
         android:background="@drawable/custom_button"
         android:drawableEnd="@drawable/ic_baseline_location_on_24"
         android:paddingRight="10dp"
+        android:paddingLeft="10dp"
         android:drawableTint="@color/component_text"
         android:text="Use Current Location"
         android:textColor="@color/component_text"
