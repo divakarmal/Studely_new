@@ -11,10 +11,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.ResultReceiver;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,10 +24,16 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.studely.misc.DatabaseErrorHandler;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,32 +42,63 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class OrderEnterAddress extends BottomNavBar {
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    EditText address;
     ImageButton mNextBtn;
     FrameLayout loadingOverlay;
     private ResultReceiver resultReceiver;
     Geocoder geocoder;
+    AutocompleteSupportFragment autocompleteSupportFragment;
+    String add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_enter_address);
         navBar(this.getApplicationContext());
-
         resultReceiver = new AddressResultReceiver(new Handler());
-        address = findViewById(R.id.addressField);
         mNextBtn = findViewById(R.id.NextBtn);
         loadingOverlay = findViewById(R.id.loading_overlay);
         loadingOverlay.bringToFront();
         loadingOverlay.getParent().requestLayout();
         ((View) loadingOverlay.getParent()).invalidate();
         geocoder = new Geocoder(OrderEnterAddress.this);
+        String apiKey = "AIzaSyBw4aV8bpYU_iPbEG0jgU177oi57VJSB5c";
+        PlacesClient placesClient;
+
+        if (!Places.isInitialized()) {
+            Places.initialize(OrderEnterAddress.this, apiKey);
+        }
+        placesClient = Places.createClient(this);
+
+
+
+        autocompleteSupportFragment =
+                (AutocompleteSupportFragment)
+                        getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+        autocompleteSupportFragment.setCountry("SG");
+
+        autocompleteSupportFragment.setPlaceFields(Arrays.asList(Place.Field.ID,  Place.Field.NAME, Place.Field.ADDRESS));
+
+        autocompleteSupportFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(@NonNull Place place) {
+                add = place.getName();
+            }
+
+            @Override
+            public void onError(@NonNull Status status) {
+                Log.i("placeInfoError", "An error occurred " + status);
+            }
+        });
+
+
 
         findViewById(R.id.currentLocation).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +127,8 @@ public class OrderEnterAddress extends BottomNavBar {
                 findViewById(R.id.primaryAddress).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        address.setText(priAdd);
+                        add = priAdd;
+                        autocompleteSupportFragment.setText(priAdd);
                     }
                 });
                 loadingOverlay.setVisibility(View.GONE);
@@ -104,28 +144,8 @@ public class OrderEnterAddress extends BottomNavBar {
         mNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                final String orderAddress = address.getText().toString().trim();
-
-                if (TextUtils.isEmpty(orderAddress)) {
-                    address.setError("Address is required");
-                    return;
-                } else {
-                    List<Address> addresses;
-                    try {
-                        addresses = geocoder.getFromLocationName(orderAddress, 1);
-                        if (addresses.size() == 0) {
-                            address.setError("Invalid address entered");
-                            loadingOverlay.setVisibility(View.GONE);
-                            return;
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
                 Intent newIntent = new Intent(getApplicationContext(), OrderCanteenSelect.class);
-                String add = address.getText().toString();
+                System.out.println(add);
                 newIntent.putExtra("orderDestination", add);
                 startActivity(newIntent);
             }
@@ -194,7 +214,8 @@ public class OrderEnterAddress extends BottomNavBar {
         protected void onReceiveResult(int resultCode, Bundle resultData) {
             super.onReceiveResult(resultCode, resultData);
             if (resultCode == Constants.SUCCESS_RESULT) {
-                address.setText(resultData.getString(Constants.RESULT_DATA_KEY));
+                add = resultData.getString(Constants.RESULT_DATA_KEY);
+                autocompleteSupportFragment.setText(resultData.getString(Constants.RESULT_DATA_KEY));
             } else {
                 Toast.makeText(OrderEnterAddress.this, resultData.getString(Constants.RESULT_DATA_KEY), Toast.LENGTH_LONG).show();
             }
