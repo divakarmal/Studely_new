@@ -1,6 +1,7 @@
 package com.example.studely;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -55,7 +56,7 @@ public class OrderEnterAddress extends BottomNavBar {
     Geocoder geocoder;
     AutocompleteSupportFragment autocompleteSupportFragment;
     String add;
-    private final String API_KEY =  getString(R.string.google_maps_api_key);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,8 @@ public class OrderEnterAddress extends BottomNavBar {
         ((View) loadingOverlay.getParent()).invalidate();
         geocoder = new Geocoder(OrderEnterAddress.this);
         PlacesClient placesClient;
+        Context context = getApplicationContext();
+        final String API_KEY =  context.getString(R.string.my_api_key);
 
         if (!Places.isInitialized()) {
             Places.initialize(OrderEnterAddress.this, API_KEY);
