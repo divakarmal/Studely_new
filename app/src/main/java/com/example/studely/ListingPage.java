@@ -63,8 +63,8 @@ public class ListingPage extends BottomNavBar {
             postingRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    time.setText(dataSnapshot.child("DeliveryTime").getValue(String.class));
-                    canteen.setText(dataSnapshot.child("Canteen").getValue(String.class));
+                    time.setText("Delivery Time: " + dataSnapshot.child("DeliveryTime").getValue(String.class));
+                    canteen.setText("Canteen: "+dataSnapshot.child("Canteen").getValue(String.class));
 
 
                     for (DataSnapshot snapshot : dataSnapshot.child("ItemList").getChildren()) {
@@ -92,8 +92,8 @@ public class ListingPage extends BottomNavBar {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    time.setText(dataSnapshot.child("DeliveryTime").getValue(String.class));
-                    canteen.setText(dataSnapshot.child("Canteen").getValue(String.class));
+                    time.setText("Delivery Time: " + dataSnapshot.child("DeliveryTime").getValue(String.class));
+                    canteen.setText("Canteen: " + dataSnapshot.child("Canteen").getValue(String.class));
                     listingRecView.setVisibility(View.GONE);
                 }
 
