@@ -22,9 +22,9 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderV
     Context context;
     List<String> orderIDs;
     List<String> destinations;
-    List<String> isOrderer;
+    List<Boolean> isOrderer;
 
-    public MyOrderAdapter(Context context, List<String> orderIDs, List<String> destinations, List<String> isOrderer) {
+    public MyOrderAdapter(Context context, List<String> orderIDs, List<String> destinations, List<Boolean> isOrderer) {
         this.context = context;
         this.orderIDs = orderIDs;
         this.destinations = destinations;
@@ -47,7 +47,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderV
             @Override
             public void onClick(View v) {
                 Intent newIntent;
-                if (isOrderer.get(position).equals("1")) {
+                if (isOrderer.get(position)) {
                     newIntent = new Intent(context, OrderPageOrderer.class);
                 } else {
                     newIntent = new Intent(context, OrderPageDeliverer.class);

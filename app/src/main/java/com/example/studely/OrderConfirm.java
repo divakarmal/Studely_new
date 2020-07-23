@@ -183,9 +183,9 @@ public class OrderConfirm extends BottomNavBar {
         }
 
         userRef.child(currentUser).child("ConfirmedOrders").child(pushID).child("destination").setValue(order.getDestination());
-        userRef.child(currentUser).child("ConfirmedOrders").child(pushID).child("isOrderer").setValue("1");
+        userRef.child(currentUser).child("ConfirmedOrders").child(pushID).child("isOrderer").setValue(true);
         userRef.child(order.getDeliverer()).child("ConfirmedOrders").child(pushID).child("destination").setValue(order.getDestination());
-        userRef.child(order.getDeliverer()).child("ConfirmedOrders").child(pushID).child("isOrderer").setValue("0");
+        userRef.child(order.getDeliverer()).child("ConfirmedOrders").child(pushID).child("isOrderer").setValue(false);
 
         dbRef.child("DeliveryPostings").child(deliveryPostingID).removeValue();
         dbRef.child("users").child(order.getDeliverer()).child("DeliveryPostings").child(deliveryPostingID).removeValue();

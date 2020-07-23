@@ -46,7 +46,7 @@ public class MyOrders extends BottomNavBar {
 
         final List<String> orderIDs = new ArrayList<>();
         final List<String> destinations = new ArrayList<>();
-        final List<String> isOrderer = new ArrayList<>();
+        final List<Boolean> isOrderer = new ArrayList<>();
 
         loadingOverlay.setVisibility(View.VISIBLE);
         userOrdersRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -55,7 +55,7 @@ public class MyOrders extends BottomNavBar {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     orderIDs.add(snapshot.getKey());
                     destinations.add((String) snapshot.child("destination").getValue());
-                    isOrderer.add((String) snapshot.child("isOrderer").getValue());
+                    isOrderer.add(snapshot.child("isOrderer").getValue(Boolean.class));
                 }
 
                 MyOrderAdapter myOrderAdapter = new MyOrderAdapter(MyOrders.this, orderIDs, destinations, isOrderer);
