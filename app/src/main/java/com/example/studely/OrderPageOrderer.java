@@ -1,30 +1,20 @@
 package com.example.studely;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.adapters.SummaryRecAdapter;
 import com.example.studely.misc.DatabaseErrorHandler;
 import com.example.studely.misc.Food;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,7 +111,6 @@ public class OrderPageOrderer extends BottomNavBar {
                 String receiverID = (String) dataSnapshot.child("Receiver").getValue();
                 boolean reached = dataSnapshot.child("Reached").getValue(boolean.class);
                 boolean completed = dataSnapshot.child("Completed").getValue(boolean.class);
-
 
 
                 if (completed) {

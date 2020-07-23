@@ -11,9 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.studely.DeliverOrderSelect;
 import com.example.studely.ListingPage;
-import com.example.studely.OrderStallSelect;
 import com.example.studely.R;
 
 import java.util.List;

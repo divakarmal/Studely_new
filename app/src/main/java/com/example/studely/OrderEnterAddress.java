@@ -4,20 +4,16 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.ResultReceiver;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -42,9 +38,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 
 public class OrderEnterAddress extends BottomNavBar {
@@ -52,11 +46,10 @@ public class OrderEnterAddress extends BottomNavBar {
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     ImageButton mNextBtn;
     FrameLayout loadingOverlay;
-    private ResultReceiver resultReceiver;
     Geocoder geocoder;
     AutocompleteSupportFragment autocompleteSupportFragment;
     String add;
-
+    private ResultReceiver resultReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +65,12 @@ public class OrderEnterAddress extends BottomNavBar {
         geocoder = new Geocoder(OrderEnterAddress.this);
         PlacesClient placesClient;
         Context context = getApplicationContext();
-        final String API_KEY =  context.getString(R.string.my_api_key);
+        final String API_KEY = context.getString(R.string.my_api_key);
 
         if (!Places.isInitialized()) {
             Places.initialize(OrderEnterAddress.this, API_KEY);
         }
         placesClient = Places.createClient(this);
-
 
 
         autocompleteSupportFragment =
@@ -87,7 +79,7 @@ public class OrderEnterAddress extends BottomNavBar {
 
         autocompleteSupportFragment.setCountry("SG");
 
-        autocompleteSupportFragment.setPlaceFields(Arrays.asList(Place.Field.ID,  Place.Field.NAME, Place.Field.ADDRESS));
+        autocompleteSupportFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS));
 
         autocompleteSupportFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
@@ -100,7 +92,6 @@ public class OrderEnterAddress extends BottomNavBar {
                 Log.i("placeInfoError", "An error occurred " + status);
             }
         });
-
 
 
         findViewById(R.id.currentLocation).setOnClickListener(new View.OnClickListener() {

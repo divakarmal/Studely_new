@@ -82,8 +82,7 @@ public class DeliverTimeSelect extends BottomNavBar {
                             canteenRef.child(pushID).setValue("POSTING");
                             Intent newIntent = new Intent(getApplicationContext(), DeliverPostingConfirmed.class);
                             startActivity(newIntent);
-                        }
-                        else {
+                        } else {
                             Toast.makeText(DeliverTimeSelect.this, "Can't deliver that far ahead", Toast.LENGTH_SHORT).show();
                             Intent newIntent = new Intent(getApplicationContext(), OrderTimeSelect.class);
                             newIntent.putExtra("canteenID", canteenID);

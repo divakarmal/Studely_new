@@ -125,12 +125,11 @@ public class OrderDelivererSelect extends BottomNavBar {
                 List<String> ratingList = new ArrayList<>();
                 for (int i = 0; i < deliveryPostingData.size(); i++) {
                     String delivererID = deliveryPostingData.get(i)[2];
-                    if(dataSnapshot.child(delivererID).child("totalRatings").getValue(Long.class) != 0) {
+                    if (dataSnapshot.child(delivererID).child("totalRatings").getValue(Long.class) != 0) {
                         final Long rating = dataSnapshot.child(delivererID).child("rating").getValue(Long.class);
                         final String ratingText = rating / 10 + "." + rating % 10;
                         ratingList.add(ratingText);
-                    }
-                    else {
+                    } else {
                         ratingList.add("-");
                     }
                 }

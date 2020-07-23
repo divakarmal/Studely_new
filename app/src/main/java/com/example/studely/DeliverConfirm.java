@@ -35,7 +35,7 @@ public class DeliverConfirm extends BottomNavBar {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if(dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) {
                     String destination = dataSnapshot.child("Destination").getValue(String.class);
                     String receiver = dataSnapshot.child("Receiver").getValue(String.class);
                     Calendar rightNow = Calendar.getInstance();

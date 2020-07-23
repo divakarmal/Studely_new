@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.util.Consumer;
 
 import com.example.studely.misc.DatabaseErrorHandler;
 import com.example.studely.misc.Food;
@@ -88,7 +87,7 @@ public class OrderConfirm extends BottomNavBar {
 
         pushRef.child("Name").setValue(name);
         pushRef.child("Contact").setValue(contact);
-        pushRef.child("pushTime").setValue(String.valueOf(startTime)); // <--------------- TIME
+        pushRef.child("pushTime").setValue(String.valueOf(startTime));
         pushRef.child("Location").setValue(order.getDestination());
         pushRef.child("OrdererID").setValue(currentUser);
         pushRef.child("Accepted").setValue("2");
@@ -116,7 +115,7 @@ public class OrderConfirm extends BottomNavBar {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String accepted = snapshot.child("Accepted").getValue(String.class);
                 System.out.println(accepted);
-                if(accepted == null){
+                if (accepted == null) {
                     return;
                 } else if (accepted.equals("0")) {
                     pushRef.removeValue();
@@ -127,7 +126,6 @@ public class OrderConfirm extends BottomNavBar {
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else if (accepted.equals("1")) {
-                    confirmed = true;
                     loadingOverlay.setVisibility(GONE);
                     waitText.setVisibility(GONE);
                     confirmText.setVisibility(View.VISIBLE);
@@ -142,7 +140,6 @@ public class OrderConfirm extends BottomNavBar {
                     bundle.putSerializable("orderObj", order);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                    loadingOverlay.setVisibility(GONE);
                 }
             }
 
@@ -155,6 +152,8 @@ public class OrderConfirm extends BottomNavBar {
     }
 
     private void confirmOrder() {
+        confirmed = true;
+
         String currentUser = order.getReceiver();
         DatabaseReference confirmedOrdersRef = dbRef.child("ConfirmedOrders");
         DatabaseReference userRef = dbRef.child("users");
@@ -202,11 +201,12 @@ public class OrderConfirm extends BottomNavBar {
         dbRef.child("canteens").child(order.getCanteen()).child("DeliveryPostings").child(deliveryPostingID).removeValue();
 
         NotifServer.sendMessage(order.getDeliverer(), "You have received an order for delivery!");
+        loadingOverlay.setVisibility(GONE);
     }
 
     @Override
     public void onBackPressed() {
-        if(confirmed) {
+        if (confirmed) {
             Intent intent = new Intent(OrderConfirm.this, HomeLanding.class);
             startActivity(intent);
         } else {

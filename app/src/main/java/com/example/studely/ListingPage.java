@@ -1,10 +1,5 @@
 package com.example.studely;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Build;
@@ -16,6 +11,10 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studely.adapters.SummaryRecAdapter;
 import com.example.studely.misc.DatabaseErrorHandler;
@@ -55,7 +54,7 @@ public class ListingPage extends BottomNavBar {
         final String postingID = getIntent().getExtras().getString("postingID");
         final Boolean isOrder = getIntent().getExtras().getBoolean("isOrder");
 
-        if(isOrder) {
+        if (isOrder) {
             final List<Food> orderList = new ArrayList<>();
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference postingRef = database.getReference().child("OrderPostings")
@@ -118,7 +117,7 @@ public class ListingPage extends BottomNavBar {
             public void onClick(View view) {
                 LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
 
-                View customView = inflater.inflate(R.layout.confirmation_popup,null);
+                View customView = inflater.inflate(R.layout.confirmation_popup, null);
 
                 mPopupWindow = new PopupWindow(
                         customView,
@@ -126,7 +125,7 @@ public class ListingPage extends BottomNavBar {
                         ActionBar.LayoutParams.WRAP_CONTENT
                 );
 
-                if(Build.VERSION.SDK_INT>=21){
+                if (Build.VERSION.SDK_INT >= 21) {
                     mPopupWindow.setElevation(5.0f);
                 }
 
@@ -151,7 +150,7 @@ public class ListingPage extends BottomNavBar {
                 });
 
 
-                mPopupWindow.showAtLocation(constraintLayout, Gravity.CENTER,0,0);
+                mPopupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 0, 0);
                 constraintLayout.getForeground().setAlpha(220);
             }
         });
@@ -159,7 +158,7 @@ public class ListingPage extends BottomNavBar {
 
     }
 
-    public void deletePosting(String postingID, Boolean isOrder){
+    public void deletePosting(String postingID, Boolean isOrder) {
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         final String currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final DatabaseReference orderPostingsRef = dbRef.child("OrderPostings");
@@ -167,7 +166,7 @@ public class ListingPage extends BottomNavBar {
         final DatabaseReference userRef = dbRef.child("users").child(currentUser);
         final DatabaseReference canteenRef = dbRef.child("canteens").child(canteen.getText().toString());
 
-        if(isOrder){
+        if (isOrder) {
             orderPostingsRef.child(postingID).removeValue();
             userRef.child("OrderPostings").child(postingID).removeValue();
             canteenRef.child("OrderPostings").child(postingID).removeValue();
