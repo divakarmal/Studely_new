@@ -114,7 +114,7 @@ public class OrderConfirm extends BottomNavBar {
                 } else if (accepted.equals("0")) {
                     pushRef.removeValue();
                     Intent intent = new Intent(OrderConfirm.this, OrderDelivererSelect.class);
-                    intent.putExtra("Toast", "Order expired");
+                    intent.putExtra("Toast", "Deliverer declined, pick another or make a new posting");
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("orderObj", order);
                     intent.putExtras(bundle);
@@ -126,6 +126,12 @@ public class OrderConfirm extends BottomNavBar {
                     pushRef.removeValue();
                 } else if (accepted.equals("-1")) {
                     pushRef.removeValue();
+                    Intent intent = new Intent(OrderConfirm.this, OrderDelivererSelect.class);
+                    intent.putExtra("Toast", "Order expired");
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("orderObj", order);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                     loadingOverlay.setVisibility(View.GONE);
                 }
             }

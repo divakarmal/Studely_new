@@ -76,7 +76,7 @@ public class DelivererConfirmation extends BottomNavBar {
 
                 orderName.setText("To: " + snapshot.child("Name").getValue());
                 orderTime.setText("At: " + snapshot.child("DeliveryTime").getValue());
-                orderContact.setText("Contact" + snapshot.child("Contact").getValue());
+                orderContact.setText("Contact: " + snapshot.child("Contact").getValue());
                 orderDestination.setText("At: " + snapshot.child("Location").getValue());
 
                 for (DataSnapshot snap : snapshot.child("ItemList").getChildren()) {
@@ -102,6 +102,8 @@ public class DelivererConfirmation extends BottomNavBar {
             public void onClick(View v) {
                 detailsRef.child("Accepted").setValue("1");
                 Toast.makeText(DelivererConfirmation.this, "Order Accepted!", Toast.LENGTH_LONG).show();
+                Intent newIntent = new Intent(getApplicationContext(), HomeLanding.class);
+                startActivity(newIntent);
             }
         });
 
@@ -110,6 +112,8 @@ public class DelivererConfirmation extends BottomNavBar {
             public void onClick(View v) {
                 detailsRef.child("Accepted").setValue("0");
                 Toast.makeText(DelivererConfirmation.this, "Order Declined", Toast.LENGTH_LONG).show();
+                Intent newIntent = new Intent(getApplicationContext(), HomeLanding.class);
+                startActivity(newIntent);
             }
         });
     }
