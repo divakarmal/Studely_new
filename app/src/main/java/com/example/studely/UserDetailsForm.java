@@ -29,8 +29,9 @@ public class UserDetailsForm extends BottomNavBar {
     EditText phoneNum, priAdd, name;
     Button mSubmitBtn, mLogOutBtn;
     FrameLayout loadingOverlay;
+    Geocoder geocoder;
 
-    Geocoder geocoder = new Geocoder(UserDetailsForm.this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class UserDetailsForm extends BottomNavBar {
         loadingOverlay.bringToFront();
         loadingOverlay.getParent().requestLayout();
         ((View) loadingOverlay.getParent()).invalidate();
+        geocoder = new Geocoder(UserDetailsForm.this);
 
         final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference userRef = dbRef.child("users");
@@ -100,7 +102,7 @@ public class UserDetailsForm extends BottomNavBar {
                     List<Address> addresses;
                     try {
                         addresses = geocoder.getFromLocationName(mPriAdd, 1);
-                        if (addresses == null) {
+                        if (addresses.size() == 0) {
                             priAdd.setError("Invalid address entered");
                             loadingOverlay.setVisibility(View.GONE);
                             return;

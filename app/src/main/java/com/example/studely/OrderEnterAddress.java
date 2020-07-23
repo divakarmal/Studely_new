@@ -3,6 +3,8 @@ package com.example.studely;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +33,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+import java.util.List;
+
 
 public class OrderEnterAddress extends BottomNavBar {
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
@@ -39,6 +44,7 @@ public class OrderEnterAddress extends BottomNavBar {
     ImageButton mNextBtn;
     FrameLayout loadingOverlay;
     private ResultReceiver resultReceiver;
+    Geocoder geocoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,7 @@ public class OrderEnterAddress extends BottomNavBar {
         loadingOverlay.bringToFront();
         loadingOverlay.getParent().requestLayout();
         ((View) loadingOverlay.getParent()).invalidate();
+        geocoder = new Geocoder(OrderEnterAddress.this);
 
         findViewById(R.id.currentLocation).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,20 +89,6 @@ public class OrderEnterAddress extends BottomNavBar {
                     @Override
                     public void onClick(View v) {
                         address.setText(priAdd);
-                        /*
-                        Geocoder geocoder = new Geocoder(OrderEnterAddress.this);
-                        List<Address> addresses = null;
-                        try {
-                            addresses = geocoder.getFromLocationName(priAdd, 1);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        if (addresses.size() > 0) {
-                            double latitude = addresses.get(0).getLatitude();
-                            double longitude = addresses.get(0).getLongitude();
-                        }
-
-                         */
                     }
                 });
                 loadingOverlay.setVisibility(View.GONE);
@@ -117,6 +110,18 @@ public class OrderEnterAddress extends BottomNavBar {
                 if (TextUtils.isEmpty(orderAddress)) {
                     address.setError("Address is required");
                     return;
+                } else {
+                    List<Address> addresses;
+                    try {
+                        addresses = geocoder.getFromLocationName(orderAddress, 1);
+                        if (addresses.size() == 0) {
+                            address.setError("Invalid address entered");
+                            loadingOverlay.setVisibility(View.GONE);
+                            return;
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 Intent newIntent = new Intent(getApplicationContext(), OrderCanteenSelect.class);
