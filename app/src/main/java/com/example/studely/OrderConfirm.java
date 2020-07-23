@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 
+import static android.view.View.GONE;
+
 public class OrderConfirm extends BottomNavBar {
 
     Order order;
@@ -31,6 +34,7 @@ public class OrderConfirm extends BottomNavBar {
     DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
     boolean confirmed = false;
     long startTime = System.currentTimeMillis();
+    TextView confirmText, viewText, waitText;
 
     Handler timerHandler = new Handler();
 
@@ -43,6 +47,9 @@ public class OrderConfirm extends BottomNavBar {
         deliveryPostingID = getIntent().getExtras().getString("deliveryPostingID");
         Bundle bundle = this.getIntent().getExtras();
         order = (Order) bundle.getSerializable("orderObj");
+        confirmText = findViewById(R.id.confirmText);
+        viewText = findViewById(R.id.viewOrderText);
+        waitText = findViewById(R.id.waitingText);
 
         loadingOverlay = findViewById(R.id.loading_overlay);
         loadingOverlay.bringToFront();
@@ -121,7 +128,10 @@ public class OrderConfirm extends BottomNavBar {
                     startActivity(intent);
                 } else if (accepted.equals("1")) {
                     confirmed = true;
-                    loadingOverlay.setVisibility(View.GONE);
+                    loadingOverlay.setVisibility(GONE);
+                    waitText.setVisibility(GONE);
+                    confirmText.setVisibility(View.VISIBLE);
+                    viewText.setVisibility(View.VISIBLE);
                     confirmOrder();
                     pushRef.removeValue();
                 } else if (accepted.equals("-1")) {
@@ -132,7 +142,7 @@ public class OrderConfirm extends BottomNavBar {
                     bundle.putSerializable("orderObj", order);
                     intent.putExtras(bundle);
                     startActivity(intent);
-                    loadingOverlay.setVisibility(View.GONE);
+                    loadingOverlay.setVisibility(GONE);
                 }
             }
 
@@ -196,7 +206,16 @@ public class OrderConfirm extends BottomNavBar {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(OrderConfirm.this, HomeLanding.class);
-        startActivity(intent);
+        if(confirmed) {
+            Intent intent = new Intent(OrderConfirm.this, HomeLanding.class);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(OrderConfirm.this, OrderDelivererSelect.class);
+            intent.putExtra("Toast", "Deliverer declined, pick another or make a new posting");
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("orderObj", order);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
     }
 }
