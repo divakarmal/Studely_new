@@ -31,7 +31,7 @@
         android:layout_width="294dp"
         android:layout_height="213dp"
         android:layout_marginTop="80dp"
-        android:numbersTextColor="@color/component_text"
+        android:theme="@style/MyTimePickerWidgetStyle"
         android:timePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

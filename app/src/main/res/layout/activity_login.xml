@@ -8,19 +8,19 @@
     android:theme="@style/AppTheme"
     tools:context=".Login">
 
-    <TextView
-        android:id="@+id/heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/advent_pro_semibold"
-        android:text="Login page"
-        android:textColor="@color/component_color"
-        android:textSize="36sp"
+    <ImageView
+        android:id="@+id/logoImg"
+        android:layout_width="337dp"
+        android:layout_height="196dp"
+        android:layout_marginStart="32dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/my_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.119"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19" />
+        app:layout_constraintVertical_bias="0.087" />
 
     <EditText
         android:id="@+id/emailField"
@@ -28,7 +28,6 @@
         android:layout_height="41dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="320dp"
         android:background="@drawable/custom_input"
         android:drawableStart="@drawable/ic_email"
         android:drawablePadding="12dp"
@@ -43,8 +42,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/heading"
-        app:layout_constraintVertical_bias="0.413" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.373" />
 
     <EditText
         android:id="@+id/passwordField"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="rec_row_bg">#0f70d1</color>
-    <color name="rec_row_text">#0f70d1</color>
+    <color name="rec_row_text">#ca5116</color>
     <color name="rec_view_bg">#f9b384</color>
     <color name="nav_bar_bg">#ca5116</color>
     <color name="nav_bar_inside">#FFFECB</color>
