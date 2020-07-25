@@ -8,4 +8,6 @@
     <color name="component_color">#ca5116</color>
     <color name="component_text">#f1e3cb</color>
     <color name="golden">#ffd700</color>
+    <color name="bg_start">#f1e3cb</color>
+    <color name="bg_end">#f1e3cb</color>
 </resources>
