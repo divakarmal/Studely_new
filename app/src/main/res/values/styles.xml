@@ -1,5 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
+    <style name="AppTheme">
+        <item name="android:textViewStyle">@style/TextViewStyle</item>
+    </style>
 
+    <style name="TextViewStyle">
+        <item name="android:textColor">@color/component_color</item>
+        <item name="android:fontFamily">@font/advent_pro_semibold</item>
+    </style>
 </resources>

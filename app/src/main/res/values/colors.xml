@@ -2,9 +2,9 @@
 <resources>
     <color name="rec_row_bg">#0f70d1</color>
     <color name="rec_row_text">#0f70d1</color>
-    <color name="nav_bar_bg">#f57b11</color>
-    <color name="nav_bar_inside">#FFFFFF</color>
-    <color name="component_color">#F1F1F1</color>
-    <color name="component_text">#ff8e2b</color>
+    <color name="nav_bar_bg">#393e46</color>
+    <color name="nav_bar_inside">#eeeeee</color>
+    <color name="component_color">#dedede</color>
+    <color name="component_text">#029ba3</color>
     <color name="golden">#ffd700</color>
 </resources>
