@@ -138,6 +138,11 @@ public class OrderEnterAddress extends BottomNavBar {
         mNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (add == null) {
+                    String error = "Address has not been entered";
+                    Toast.makeText(OrderEnterAddress.this, error, Toast.LENGTH_LONG).show();
+                    return;
+                }
                 Intent newIntent = new Intent(getApplicationContext(), OrderCanteenSelect.class);
                 System.out.println(add);
                 newIntent.putExtra("orderDestination", add);

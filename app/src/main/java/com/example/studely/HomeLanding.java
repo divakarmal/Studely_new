@@ -41,7 +41,7 @@ public class HomeLanding extends AppCompatActivity {
                         startActivity(myOrders);
                         break;
                     case R.id.ic_myListings:
-                        Intent listings = new Intent(HomeLanding.this, MyListings.class);
+                        Intent listings = new Intent(HomeLanding.this, MyPostings.class);
                         startActivity(listings);
                         break;
                 }

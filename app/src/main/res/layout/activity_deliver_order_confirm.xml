@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
-        android:text="Check out status in\nmy listings tab"
+        android:text="Check out status in\nMy Orders tab"
         android:textAlignment="center"
         android:textColor="@color/component_color"
         android:textSize="24sp"

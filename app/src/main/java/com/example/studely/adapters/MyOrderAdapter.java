@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,12 +24,14 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderV
     List<String> orderIDs;
     List<String> destinations;
     List<Boolean> isOrderer;
+    List<Boolean> isComplete;
 
-    public MyOrderAdapter(Context context, List<String> orderIDs, List<String> destinations, List<Boolean> isOrderer) {
+    public MyOrderAdapter(Context context, List<String> orderIDs, List<String> destinations, List<Boolean> isOrderer, List<Boolean> isComplete) {
         this.context = context;
         this.orderIDs = orderIDs;
         this.destinations = destinations;
         this.isOrderer = isOrderer;
+        this.isComplete = isComplete;
     }
 
     @NonNull
@@ -42,6 +45,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderV
     @Override
     public void onBindViewHolder(@NonNull MyOrderViewHolder holder, final int position) {
         holder.orderIDText.setText(destinations.get(position));
+        holder.completeCheck.setActivated(isComplete.get(position));
 
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,10 +71,12 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.MyOrderV
 
         TextView orderIDText;
         ConstraintLayout mainLayout;
+        CheckBox completeCheck;
 
         public MyOrderViewHolder(@NonNull View itemView) {
             super(itemView);
             orderIDText = itemView.findViewById(R.id.orderIDText);
+            completeCheck = itemView.findViewById(R.id.completeCheck);
             mainLayout = itemView.findViewById(R.id.mainLayout);
         }
     }

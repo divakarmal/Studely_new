@@ -17,6 +17,6 @@
         android:id="@+id/ic_myListings"
         android:checked="true"
         android:icon="@drawable/ic_list_black"
-        android:title="My Listings" />
+        android:title="My Postings" />
 
 </menu>

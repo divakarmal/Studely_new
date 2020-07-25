@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.studely.ListingPage;
+import com.example.studely.PostingPage;
 import com.example.studely.R;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class MyListingsAdapter extends RecyclerView.Adapter<MyListingsAdapter.My
     @Override
     public MyListingsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.listing_row, parent, false);
+        View view = inflater.inflate(R.layout.posting_row, parent, false);
         return new MyListingsViewHolder(view);
     }
 
@@ -49,7 +49,7 @@ public class MyListingsAdapter extends RecyclerView.Adapter<MyListingsAdapter.My
         holder.mainLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newIntent = new Intent(context, ListingPage.class);
+                Intent newIntent = new Intent(context, PostingPage.class);
                 newIntent.putExtra("postingID", postingIDList.get(position));
                 newIntent.putExtra("isOrder", isOrder);
                 context.startActivity(newIntent);

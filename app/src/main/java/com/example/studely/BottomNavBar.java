@@ -34,7 +34,7 @@ public class BottomNavBar extends AppCompatActivity {
                         startActivity(orderList);
                         break;
                     case R.id.ic_myListings:
-                        Intent listings = new Intent(context, MyListings.class);
+                        Intent listings = new Intent(context, MyPostings.class);
                         startActivity(listings);
                         break;
                 }

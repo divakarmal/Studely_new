@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyListings extends BottomNavBar {
+public class MyPostings extends BottomNavBar {
 
     final List<String> orderLocList = new ArrayList<>();
     final List<String> orderTimeList = new ArrayList<>();
@@ -37,7 +37,7 @@ public class MyListings extends BottomNavBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_listings);
+        setContentView(R.layout.activity_my_postings);
         navBar(this.getApplicationContext());
 
         orderListingsRecView = findViewById(R.id.myOrderListings);
@@ -91,7 +91,7 @@ public class MyListings extends BottomNavBar {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 String error = DatabaseErrorHandler.handleError(databaseError);
-                Toast.makeText(MyListings.this, error, Toast.LENGTH_LONG).show();
+                Toast.makeText(MyPostings.this, error, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -113,9 +113,9 @@ public class MyListings extends BottomNavBar {
                     orderTimeList.add((String) snapshot.child(pushID).child("DeliveryTime").getValue());
                 }
 
-                MyListingsAdapter orderListingsAdapter = new MyListingsAdapter(MyListings.this, orderTimeList, orderLocList, orderPostList, true);
+                MyListingsAdapter orderListingsAdapter = new MyListingsAdapter(MyPostings.this, orderTimeList, orderLocList, orderPostList, true);
                 orderListingsRecView.setAdapter(orderListingsAdapter);
-                orderListingsRecView.setLayoutManager(new LinearLayoutManager(MyListings.this));
+                orderListingsRecView.setLayoutManager(new LinearLayoutManager(MyPostings.this));
                 readDeliveryPostings(deliveryPostingsList);
 
             }
@@ -138,9 +138,9 @@ public class MyListings extends BottomNavBar {
                     deliveryTimeList.add((String) snapshot.child(pushID).child("DeliveryTime").getValue());
                 }
 
-                MyListingsAdapter deliveryListingsAdapter = new MyListingsAdapter(MyListings.this, deliveryTimeList, deliveryLocList, deliveryPostList, false);
+                MyListingsAdapter deliveryListingsAdapter = new MyListingsAdapter(MyPostings.this, deliveryTimeList, deliveryLocList, deliveryPostList, false);
                 deliveryListingsRecView.setAdapter(deliveryListingsAdapter);
-                deliveryListingsRecView.setLayoutManager(new LinearLayoutManager(MyListings.this));
+                deliveryListingsRecView.setLayoutManager(new LinearLayoutManager(MyPostings.this));
 
                 loadingOverlay.setVisibility(View.GONE);
             }

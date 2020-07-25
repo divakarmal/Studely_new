@@ -27,9 +27,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ListingPage" />
+        <activity android:name=".PostingPage" />
         <activity android:name=".ReviewPage" />
-        <activity android:name=".MyListings" />
+        <activity android:name=".MyPostings" />
         <activity android:name=".DeliverConfirm" />
         <activity android:name=".OrderPostingConfirmed" />
         <activity android:name=".OrderTimeSelect" />

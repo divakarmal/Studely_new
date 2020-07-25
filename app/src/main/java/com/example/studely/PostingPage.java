@@ -29,10 +29,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListingPage extends BottomNavBar {
+public class PostingPage extends BottomNavBar {
 
     TextView time, canteen;
-    Button back, delete;
+    Button deleteBtn;
     RecyclerView listingRecView;
     PopupWindow mPopupWindow;
     private ConstraintLayout constraintLayout;
@@ -40,12 +40,11 @@ public class ListingPage extends BottomNavBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listing_page);
+        setContentView(R.layout.activity_posting_page);
 
         time = findViewById(R.id.time);
         canteen = findViewById(R.id.canteen);
-        back = findViewById(R.id.BackButton);
-        delete = findViewById(R.id.DeleteButton);
+        deleteBtn = findViewById(R.id.DeleteButton);
         listingRecView = findViewById(R.id.summary);
         constraintLayout = (ConstraintLayout) findViewById(R.id.cl);
         constraintLayout.getForeground().setAlpha(0);
@@ -72,15 +71,15 @@ public class ListingPage extends BottomNavBar {
                         int quantity = Integer.parseInt((String) snapshot.child("Quantity").getValue());
                         orderList.add(new Food(foodName, price, quantity));
                     }
-                    SummaryRecAdapter summaryRecAdapter = new SummaryRecAdapter(ListingPage.this, orderList);
+                    SummaryRecAdapter summaryRecAdapter = new SummaryRecAdapter(PostingPage.this, orderList);
                     listingRecView.setAdapter(summaryRecAdapter);
-                    listingRecView.setLayoutManager(new LinearLayoutManager(ListingPage.this));
+                    listingRecView.setLayoutManager(new LinearLayoutManager(PostingPage.this));
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     String error = DatabaseErrorHandler.handleError(databaseError);
-                    Toast.makeText(ListingPage.this, error, Toast.LENGTH_LONG).show();
+                    Toast.makeText(PostingPage.this, error, Toast.LENGTH_LONG).show();
                 }
             });
         } else {
@@ -99,20 +98,12 @@ public class ListingPage extends BottomNavBar {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     String error = DatabaseErrorHandler.handleError(databaseError);
-                    Toast.makeText(ListingPage.this, error, Toast.LENGTH_LONG).show();
+                    Toast.makeText(PostingPage.this, error, Toast.LENGTH_LONG).show();
                 }
             });
         }
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent newIntent = new Intent(getApplicationContext(), MyListings.class);
-                startActivity(newIntent);
-            }
-        });
-
-        delete.setOnClickListener(new View.OnClickListener() {
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -144,7 +135,7 @@ public class ListingPage extends BottomNavBar {
                     @Override
                     public void onClick(View view) {
                         deletePosting(postingID, isOrder);
-                        Intent newIntent = new Intent(getApplicationContext(), MyListings.class);
+                        Intent newIntent = new Intent(getApplicationContext(), MyPostings.class);
                         startActivity(newIntent);
                     }
                 });
