@@ -49,13 +49,17 @@ public class MyPostings extends BottomNavBar {
         loadingOverlay.getParent().requestLayout();
         ((View) loadingOverlay.getParent()).invalidate();
         loadingOverlay.setVisibility(View.VISIBLE);
+        final Typeface type = Typeface.createFromAsset(getAssets(),"fonts/adventpro-semibold.ttf");
+        final Typeface typeBold = Typeface.createFromAsset(getAssets(),"fonts/adventpro-bold.ttf");
+        orderListingsText.setTypeface(typeBold);
         fetchFromDB();
 
         deliveryListingsText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deliveryListingsText.setTypeface(null, Typeface.BOLD);
-                orderListingsText.setTypeface(null, Typeface.NORMAL);
+
+                deliveryListingsText.setTypeface(typeBold, Typeface.BOLD);
+                orderListingsText.setTypeface(type, Typeface.NORMAL);
                 orderListingsRecView.setVisibility(View.GONE);
                 deliveryListingsRecView.setVisibility(View.VISIBLE);
             }
@@ -64,8 +68,8 @@ public class MyPostings extends BottomNavBar {
         orderListingsText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deliveryListingsText.setTypeface(null, Typeface.NORMAL);
-                orderListingsText.setTypeface(null, Typeface.BOLD);
+                deliveryListingsText.setTypeface(type);
+                orderListingsText.setTypeface(typeBold);
                 orderListingsRecView.setVisibility(View.VISIBLE);
                 deliveryListingsRecView.setVisibility(View.GONE);
             }
