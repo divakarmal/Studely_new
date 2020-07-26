@@ -136,6 +136,7 @@ public class PostingPage extends BottomNavBar {
                     public void onClick(View view) {
                         deletePosting(postingID, isOrder);
                         Intent newIntent = new Intent(getApplicationContext(), MyPostings.class);
+                        Toast.makeText(PostingPage.this, "Deleted Successfully!", Toast.LENGTH_LONG).show();
                         startActivity(newIntent);
                     }
                 });

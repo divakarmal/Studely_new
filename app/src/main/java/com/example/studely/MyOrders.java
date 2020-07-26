@@ -57,7 +57,7 @@ public class MyOrders extends BottomNavBar {
                     orderIDs.add(snapshot.getKey());
                     destinations.add(snapshot.child("destination").getValue(String.class));
                     isOrderer.add(snapshot.child("isOrderer").getValue(Boolean.class));
-                    isComplete.add(snapshot.child("Completed").getValue(Boolean.class));
+                    isComplete.add(snapshot.child("isComplete").getValue(Boolean.class));
                 }
 
                 MyOrderAdapter myOrderAdapter = new MyOrderAdapter(MyOrders.this, orderIDs, destinations, isOrderer, isComplete);

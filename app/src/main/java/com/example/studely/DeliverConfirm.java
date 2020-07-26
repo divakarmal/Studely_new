@@ -74,8 +74,10 @@ public class DeliverConfirm extends BottomNavBar {
 
                     userRef.child(currentUser).child("ConfirmedOrders").child(pushID).child("destination").setValue(destination);
                     userRef.child(currentUser).child("ConfirmedOrders").child(pushID).child("isOrderer").setValue(false);
+                    userRef.child(currentUser).child("ConfirmedOrders").child(pushID).child("isComplete").setValue(false);
                     userRef.child(receiver).child("ConfirmedOrders").child(pushID).child("destination").setValue(destination);
                     userRef.child(receiver).child("ConfirmedOrders").child(pushID).child("isOrderer").setValue(true);
+                    userRef.child(receiver).child("ConfirmedOrders").child(pushID).child("isComplete").setValue(false);
 
                     dbRef.child("OrderPostings").child(orderPostingID).removeValue();
                     dbRef.child("canteens").child(canteenID).child("OrderPostings").child(orderPostingID).removeValue();

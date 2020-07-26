@@ -32,6 +32,8 @@ public class OrderPageOrderer extends BottomNavBar {
     Button mReceivedBtn;
     Location currentLoc, delLocation;
     String orderID;
+    String delivererID;
+    String ordererID;
 
     FrameLayout loadingOverlay;
 
@@ -53,6 +55,7 @@ public class OrderPageOrderer extends BottomNavBar {
         loadingOverlay.bringToFront();
         loadingOverlay.getParent().requestLayout();
         ((View) loadingOverlay.getParent()).invalidate();
+
 
         mOrderID.setText(orderID);
 
@@ -89,7 +92,12 @@ public class OrderPageOrderer extends BottomNavBar {
             @Override
             public void onClick(View v) {
                 final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child("ConfirmedOrders").child(orderID);
+                final DatabaseReference ordererRef = FirebaseDatabase.getInstance().getReference().child("users").child(ordererID).child("ConfirmedOrders").child(orderID).child("isComplete");
+                final DatabaseReference delivererRef = FirebaseDatabase.getInstance().getReference().child("users").child(delivererID).child("ConfirmedOrders").child(orderID).child("isComplete");
+
                 dbRef.child("Completed").setValue(true);
+                ordererRef.setValue(true);
+                delivererRef.setValue(true);
                 Intent newIntent = new Intent(getApplicationContext(), ReviewPage.class);
                 newIntent.putExtra("orderID", orderID);
                 startActivity(newIntent);
@@ -107,8 +115,8 @@ public class OrderPageOrderer extends BottomNavBar {
                 mTimeStamp.setText((String) dataSnapshot.child("Time").getValue());
                 mDeliveryTime.setText((String) dataSnapshot.child("DeliveryTime").getValue());
                 mOrderTotal.setText("$" + dataSnapshot.child("OrderCost").getValue());
-                String delivererID = (String) dataSnapshot.child("Deliverer").getValue();
-                String receiverID = (String) dataSnapshot.child("Receiver").getValue();
+                delivererID = (String) dataSnapshot.child("Deliverer").getValue();
+                ordererID = (String) dataSnapshot.child("Receiver").getValue();
                 boolean reached = dataSnapshot.child("Reached").getValue(boolean.class);
                 boolean completed = dataSnapshot.child("Completed").getValue(boolean.class);
 
