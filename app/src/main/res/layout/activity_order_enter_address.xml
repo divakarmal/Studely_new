@@ -60,7 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/advent_pro_semibold"
         android:text="Enter Address"
         android:textColor="@color/component_color"
         android:textSize="@dimen/heading_size"
@@ -81,15 +80,16 @@
 
     <Button
         android:id="@+id/currentLocation"
+        style="@style/MyButtonStyle"
         android:layout_width="138dp"
         android:layout_height="50dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="100dp"
         android:background="@drawable/custom_button"
         android:drawableEnd="@drawable/ic_baseline_location_on_24"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
         android:drawableTint="@color/component_text"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:text="Use Current Location"
         android:textColor="@color/component_text"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,6 +97,7 @@
 
     <Button
         android:id="@+id/primaryAddress"
+        style="@style/MyButtonStyle"
         android:layout_width="136dp"
         android:layout_height="52dp"
         android:layout_marginTop="100dp"

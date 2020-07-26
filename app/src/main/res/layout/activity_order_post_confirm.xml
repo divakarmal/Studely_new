@@ -17,7 +17,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:fontFamily="@font/advent_pro_semibold"
         android:text="Order placed!"
         android:textAlignment="center"
         android:textColor="@color/component_color"

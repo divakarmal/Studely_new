@@ -39,11 +39,11 @@
 
     <Button
         android:id="@+id/loginRegBtn"
+        style="@style/MyButtonStyle"
         android:layout_width="260dp"
         android:layout_height="60dp"
         android:background="@drawable/splash_button"
         android:backgroundTint="#000000"
-        android:fontFamily="@font/advent_pro_semibold"
         android:text="Login/register"
         android:textSize="24sp"
         android:visibility="gone"

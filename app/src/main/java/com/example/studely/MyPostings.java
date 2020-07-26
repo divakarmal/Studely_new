@@ -49,8 +49,8 @@ public class MyPostings extends BottomNavBar {
         loadingOverlay.getParent().requestLayout();
         ((View) loadingOverlay.getParent()).invalidate();
         loadingOverlay.setVisibility(View.VISIBLE);
-        final Typeface type = Typeface.createFromAsset(getAssets(),"fonts/adventpro-semibold.ttf");
-        final Typeface typeBold = Typeface.createFromAsset(getAssets(),"fonts/adventpro-bold.ttf");
+        final Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Montserrat-SemiBold.ttf");
+        final Typeface typeBold = Typeface.createFromAsset(getAssets(),"fonts/Montserrat-Bold.ttf");
         orderListingsText.setTypeface(typeBold);
         fetchFromDB();
 

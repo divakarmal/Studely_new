@@ -24,6 +24,7 @@
 
     <EditText
         android:id="@+id/emailField"
+        style="@style/EditTextStyle"
         android:layout_width="349dp"
         android:layout_height="41dp"
         android:layout_marginStart="16dp"
@@ -47,6 +48,7 @@
 
     <EditText
         android:id="@+id/passwordField"
+        style="@style/EditTextStyle"
         android:layout_width="349dp"
         android:layout_height="41dp"
         android:layout_marginStart="16dp"
@@ -70,6 +72,7 @@
 
     <Button
         android:id="@+id/loginBtn"
+        style="@style/MyButtonStyle"
         android:layout_width="349dp"
         android:layout_height="41dp"
         android:layout_marginStart="16dp"
@@ -91,7 +94,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="New User? Register here"
-        android:textColor="#FFEB3B"
+        android:textColor="@color/component_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginBtn" />

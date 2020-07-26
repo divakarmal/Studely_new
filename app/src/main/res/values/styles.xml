@@ -10,11 +10,21 @@
         <item name="android:fontFamily">@font/montserrat_semibold</item>
     </style>
 
+    <style name="EditTextStyle">
+        <item name="android:textColor">@color/component_color</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+    </style>
+
     <style name="MyTimePickerWidgetStyle" parent="@style/ThemeOverlay.AppCompat.Dialog.Alert">
         <item name="showTitle">false</item>
         <item name="colorControlActivated">@color/component_color</item>
         <item name="colorAccent">@color/component_color</item>
         <item name="android:textColorPrimary">@color/component_color</item>
         <item name="android:textColorSecondary">@color/component_color</item>
+    </style>
+
+    <style name="MyButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:textSize"> @dimen/button_text_size</item>
     </style>
 </resources>

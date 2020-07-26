@@ -29,7 +29,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/advent_pro_semibold"
         android:text="Summary"
         android:textColor="@color/component_color"
         android:textSize="@dimen/heading_size"
@@ -42,7 +41,7 @@
 
     <Button
         android:id="@+id/acceptBtn"
-        style="@style/Widget.AppCompat.Button"
+        style="@style/MyButtonStyle"
         android:layout_width="86dp"
         android:layout_height="36dp"
         android:layout_marginTop="16dp"
@@ -84,7 +83,7 @@
         android:layout_marginEnd="48dp"
         android:text="Quantity"
         android:textColor="@color/component_color"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@id/textView11"
         app:layout_constraintTop_toTopOf="@id/textView4" />
 
@@ -95,7 +94,7 @@
         android:layout_marginEnd="16dp"
         android:text="Price"
         android:textColor="@color/component_color"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/summaryRecView"
         app:layout_constraintTop_toTopOf="@id/textView4" />
 

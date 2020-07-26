@@ -101,6 +101,7 @@
 
     <Button
         android:id="@+id/reachedBtn"
+        style="@style/MyButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_button"
@@ -176,7 +177,6 @@
         android:text="Order Summary"
         android:textColor="@color/component_color"
         android:textSize="@dimen/heading_size"
-        android:fontFamily="@font/advent_pro_semibold"
         app:layout_constraintStart_toStartOf="@+id/OrderID"
         app:layout_constraintTop_toBottomOf="@+id/OrderID" />
 

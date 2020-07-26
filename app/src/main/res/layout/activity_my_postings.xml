@@ -63,9 +63,8 @@
         android:text="Order Postings"
         android:textAlignment="center"
         android:textColor="@color/component_color"
-        android:textSize="24dp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:fontFamily="@font/advent_pro_semibold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,12 +72,11 @@
         android:id="@+id/deliveryListings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="20dp"
         android:text="Delivery Postings"
         android:textAlignment="center"
         android:textColor="@color/component_color"
-        android:fontFamily="@font/advent_pro_semibold"
-        android:textSize="24dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/orderListings" />
 

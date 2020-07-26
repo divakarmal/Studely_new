@@ -19,7 +19,7 @@
         android:layout_marginBottom="8dp"
         android:text="Pick Up Time"
         android:textColor="@color/component_color"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/delivererRecView"
         app:layout_constraintEnd_toEndOf="@id/delivererRecView" />
 
@@ -29,7 +29,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/advent_pro_semibold"
         android:text="Select Deliverer"
         android:textColor="@color/component_color"
         android:textSize="@dimen/heading_size"
@@ -58,7 +57,7 @@
         android:layout_marginBottom="8dp"
         android:text="Deliverer"
         android:textColor="@color/component_color"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/delivererRecView"
         app:layout_constraintStart_toStartOf="@id/delivererRecView" />
 

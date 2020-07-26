@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/custom_popup_bg"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme">
 
     <TextView
         android:id="@+id/textView8"
@@ -24,6 +25,7 @@
 
     <Button
         android:id="@+id/cancelBtn"
+        style="@style/MyButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_popup_btn"
@@ -42,6 +44,7 @@
 
     <Button
         android:id="@+id/deleteBtn"
+        style="@style/MyButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/custom_popup_btn"

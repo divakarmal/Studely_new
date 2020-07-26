@@ -19,7 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/advent_pro_semibold"
         android:text="Select Food"
         android:textColor="@color/component_color"
         android:textSize="@dimen/heading_size"
@@ -60,7 +59,7 @@
         android:layout_marginBottom="8dp"
         android:text="Item"
         android:textColor="@color/component_color"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/foodRecView"
         app:layout_constraintStart_toStartOf="@id/foodRecView" />
 
@@ -71,7 +70,7 @@
         android:layout_marginEnd="20dp"
         android:text="Price"
         android:textColor="@color/component_color"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@id/textView22"
         app:layout_constraintTop_toTopOf="@id/textView20" />
 
@@ -83,7 +82,7 @@
         android:layout_marginBottom="8dp"
         android:text="Quantity"
         android:textColor="@color/component_color"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/foodRecView"
         app:layout_constraintTop_toTopOf="@id/textView20" />
 
