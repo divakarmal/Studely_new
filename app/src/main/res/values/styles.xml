@@ -7,7 +7,7 @@
 
     <style name="TextViewStyle">
         <item name="android:textColor">@color/component_color</item>
-        <item name="android:fontFamily">@font/advent_pro_semibold</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
     </style>
 
     <style name="MyTimePickerWidgetStyle" parent="@style/ThemeOverlay.AppCompat.Dialog.Alert">
