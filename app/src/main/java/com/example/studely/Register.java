@@ -85,7 +85,7 @@ public class Register extends AppCompatActivity {
                 final String fullName = mUserName.getText().toString();
 
                 if (TextUtils.isEmpty(fullName)) {
-                    mUserName.setError("Address is required");
+                    mUserName.setError("Name is required");
                     return;
                 }
 
