@@ -64,8 +64,6 @@ public class OrderPageDeliverer extends BottomNavBar {
         loadingOverlay.getParent().requestLayout();
         ((View) loadingOverlay.getParent()).invalidate();
 
-        mOrderID.setText(orderID);
-
         loadingOverlay.setVisibility(View.VISIBLE);
         getCurrentLocation();
 
@@ -113,6 +111,7 @@ public class OrderPageDeliverer extends BottomNavBar {
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                mOrderID.setText((String) dataSnapshot.child("Destination").getValue());
                 mTimeStamp.setText((String) dataSnapshot.child("Time").getValue());
                 mDeliveryTime.setText((String) dataSnapshot.child("DeliveryTime").getValue());
                 mOrderTotal.setText("$" + dataSnapshot.child("OrderCost").getValue());
