@@ -112,7 +112,7 @@ public class OrderFoodSelect extends BottomNavBar {
                     return;
                 }
                 if (totalItems > 10) {
-                    Toast.makeText(OrderFoodSelect.this, "Bruh fat", Toast.LENGTH_SHORT).show(); // idk display what?
+                    Toast.makeText(OrderFoodSelect.this, "Too many items selected", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

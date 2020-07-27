@@ -38,7 +38,7 @@ import java.util.List;
 public class OrderPageDeliverer extends BottomNavBar {
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
     RecyclerView summaryList;
-    TextView mOrderID, mTimeStamp, mDeliveryTime, mOrderTotal, mStatus;
+    TextView mOrderID, mTimeStamp, mDeliveryTime, mOrderTotal, mStatus, mCanteen;
     Button mReachedBtn;
     Location currentLoc, delLocation;
     String orderID;
@@ -59,6 +59,7 @@ public class OrderPageDeliverer extends BottomNavBar {
         mOrderTotal = findViewById(R.id.orderCost);
         mReachedBtn = findViewById(R.id.reachedBtn);
         mStatus = findViewById(R.id.status);
+        mCanteen = findViewById(R.id.canteenLabel);
         loadingOverlay = findViewById(R.id.loading_overlay);
         loadingOverlay.bringToFront();
         loadingOverlay.getParent().requestLayout();
@@ -114,6 +115,7 @@ public class OrderPageDeliverer extends BottomNavBar {
                 mOrderID.setText((String) dataSnapshot.child("Destination").getValue());
                 mTimeStamp.setText((String) dataSnapshot.child("Time").getValue());
                 mDeliveryTime.setText((String) dataSnapshot.child("DeliveryTime").getValue());
+                mCanteen.setText((String) dataSnapshot.child("Canteen").getValue());
                 mOrderTotal.setText("$" + dataSnapshot.child("OrderCost").getValue());
                 boolean reached = dataSnapshot.child("Reached").getValue(boolean.class);
                 boolean completed = dataSnapshot.child("Completed").getValue(boolean.class);

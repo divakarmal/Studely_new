@@ -28,7 +28,7 @@ import java.util.List;
 public class OrderPageOrderer extends BottomNavBar {
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
     RecyclerView summaryList;
-    TextView mOrderID, mTimeStamp, mDeliveryTime, mOrderTotal, mStatus;
+    TextView mOrderID, mTimeStamp, mDeliveryTime, mOrderTotal, mStatus, mCanteen;
     Button mReceivedBtn;
     Location currentLoc, delLocation;
     String orderID;
@@ -51,6 +51,7 @@ public class OrderPageOrderer extends BottomNavBar {
         mOrderTotal = findViewById(R.id.orderCost);
         mReceivedBtn = findViewById(R.id.receivedBtn);
         mStatus = findViewById(R.id.status);
+        mCanteen = findViewById(R.id.canteenLabel);
         loadingOverlay = findViewById(R.id.loading_overlay);
         loadingOverlay.bringToFront();
         loadingOverlay.getParent().requestLayout();
@@ -112,6 +113,7 @@ public class OrderPageOrderer extends BottomNavBar {
                 mOrderID.setText((String) dataSnapshot.child("Destination").getValue());
                 mTimeStamp.setText((String) dataSnapshot.child("Time").getValue());
                 mDeliveryTime.setText((String) dataSnapshot.child("DeliveryTime").getValue());
+                mCanteen.setText((String) dataSnapshot.child("Canteen").getValue());
                 mOrderTotal.setText("$" + dataSnapshot.child("OrderCost").getValue());
                 delivererID = (String) dataSnapshot.child("Deliverer").getValue();
                 ordererID = (String) dataSnapshot.child("Receiver").getValue();
